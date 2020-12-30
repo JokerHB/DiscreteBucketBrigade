@@ -11,6 +11,7 @@
 #include "./Include/Model/Event.h"
 #include "./Include/Model/Station.h"
 #include "./Include/Model/Worker.h"
+#include "./Include/Simulation/Simulation.h"
 
 using namespace std;
 
@@ -18,7 +19,8 @@ int main(int argc, const char *argv[])
 {
     Worker worker = Worker(1, Idle, 1.0, 1, vector<int>({1, 2, 3}));
     Station station = Station(1, Idle, 1.0);
-
+    Simulation simulation = Simulation();
+     
     cout << "Hello World" << endl;
     cout << worker.GetID() << endl;
     cout << station.GetID() << endl;

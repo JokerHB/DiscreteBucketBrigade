@@ -8,6 +8,8 @@
 #ifndef Worker_h
 #define Worker_h
 
+#include <algorithm>
+#include <iostream>
 #include <vector>
 #include "../Tool/State.h"
 
@@ -31,6 +33,8 @@ public:
 
     int GetID();
 
+    double GetSpeed();
+
     State GetState();
 
     void SetState(const State &state);
@@ -50,6 +54,10 @@ public:
     void AddHandoffPoint();
 
     void AddHandoffPoint(int point);
+
+    void MoveToNewStation(int stationID);
+
+    bool IsAvailable(int station);
 };
 
 #endif /* Worker_h */

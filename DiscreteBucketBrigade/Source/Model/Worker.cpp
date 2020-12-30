@@ -42,6 +42,11 @@ int Worker::GetID()
     return this->id;
 }
 
+double Worker::GetSpeed()
+{
+    return this->speed;
+}
+
 State Worker::GetState()
 {
     return this->state;
@@ -90,6 +95,20 @@ void Worker::AddHandoffPoint()
 void Worker::AddHandoffPoint(int point)
 {
     this->handoffPoint.push_back(point);
+}
+
+void Worker::MoveToNewStation(int stationID)
+{
+    this->SetCurrentStation(stationID);
+    this->SetCurrentPosition(0.0);
+}
+
+bool Worker::IsAvailable(int station)
+{
+    std::vector<int> operateZone = this->GetOperateZone();
+    int _min = *std::min_element(operateZone.begin(), operateZone.end());
+    int _max = *std::max_element(operateZone.begin(), operateZone.end());
+    return station >= _min && station <= _max;
 }
 
 #endif /* Worker_cpp */
