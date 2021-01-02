@@ -109,6 +109,11 @@ void Worker::AddHandoffPoint(int point)
     this->handoffPoint.push_back(point);
 }
 
+void Worker::ResetPosition()
+{
+    this->SetCurrentPosition(0.0);
+}
+
 void Worker::MoveToNewStation(int stationID)
 {
     this->SetCurrentStation(stationID);

@@ -164,6 +164,7 @@ void Simulation::Run(std::vector<Station> &stations, std::vector<Worker> &worker
             stations[i].ArrangeWorker();
         }
     }
+    std::cout << "Throughput " << productNumber / this->time << std::endl;
 }
 
 #endif /* Simulation_cpp */

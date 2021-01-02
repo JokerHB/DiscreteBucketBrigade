@@ -74,6 +74,7 @@ void Station::FreeWorker()
 {
     this->SetState(Idle);
     this->worker->SetState(Idle);
+    this->worker->ResetPosition();
     this->worker = NULL;
 }
 
@@ -301,6 +302,7 @@ void Station::ArrangeWorker()
             Worker *_worker = this->waitingQueue.top().worker;
             this->SetWorker(_worker);
             this->waitingQueue.pop();
+            std::cout << "------------------" << std::endl;
             std::cout << "Worker " << _worker->GetID() << " at Station " << this->GetID() << std::endl;
         }
     }

@@ -63,6 +63,8 @@ public:
 
     void MoveToNewStation(int stationID);
 
+    void ResetPosition();
+
     bool IsAvailable(int station);
 };
 
