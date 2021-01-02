@@ -12,12 +12,14 @@
 #include <iostream>
 #include <vector>
 #include "../Tool/State.h"
+#include "../Tool/Direction.h"
 
 class Worker
 {
 private:
     int id;
     State state;
+    Direction direction;
     double speed;
     double currentPosition;
     int currentStation;
@@ -38,6 +40,10 @@ public:
     State GetState();
 
     void SetState(const State &state);
+
+    Direction GetDirection();
+
+    void SetDirection(Direction direction);
 
     double GetCurrentPosition();
 

@@ -43,9 +43,9 @@ Station::Station(const Station &newStation)
     this->workContent = newStation.workContent;
     this->state = newStation.state;
     this->worker = newStation.worker;
-    this->waitingQueue = std::queue<Worker *>(newStation.waitingQueue);
-    this->handoffStack = std::stack<Worker *>(newStation.handoffStack);
-    this->finishStack = std::stack<Worker *>(newStation.finishStack);
+    this->waitingQueue = std::priority_queue<Node>(newStation.waitingQueue);
+    this->handoffStack = std::priority_queue<Node>(newStation.handoffStack);
+    this->finishStack = std::priority_queue<Node>(newStation.finishStack);
 }
 
 Station::~Station()
@@ -68,6 +68,13 @@ void Station::SetWorker(Worker *woker)
     this->worker = woker;
     this->worker->SetState(Busy);
     this->SetState(Busy);
+}
+
+void Station::FreeWorker()
+{
+    this->SetState(Idle);
+    this->worker->SetState(Idle);
+    this->worker = NULL;
 }
 
 State Station::GetState()
@@ -103,18 +110,23 @@ void Station::AddWaitWorker(Worker *worker)
         std::cout << "Error, worker is NULL, can not be added in waiting queue" << std::endl;
         exit(-4);
     }
-    this->waitingQueue.push(worker);
+    this->waitingQueue.push(Node(worker));
 }
 
 Worker *Station::GetWatiWorker()
 {
     if (!this->waitingQueue.empty())
     {
-        Worker *ret = this->waitingQueue.front();
+        Worker *ret = this->waitingQueue.top().worker;
         this->waitingQueue.pop();
         return ret;
     }
     return NULL;
+}
+
+bool Station::IsWaitQueueEmpty()
+{
+    return this->waitingQueue.empty();
 }
 
 void Station::AddHandoffWorker(Worker *worker)
@@ -124,18 +136,23 @@ void Station::AddHandoffWorker(Worker *worker)
         std::cout << "Error, worker is NULL, can not be added in handoff stack" << std::endl;
         exit(-5);
     }
-    this->handoffStack.push(worker);
+    this->handoffStack.push(Node(worker));
 }
 
 Worker *Station::GetHandoffWorker()
 {
     if (!this->handoffStack.empty())
     {
-        Worker *ret = this->handoffStack.top();
+        Worker *ret = this->handoffStack.top().worker;
         this->handoffStack.pop();
         return ret;
     }
     return NULL;
+}
+
+bool Station::IshandoffStackEmpty()
+{
+    return this->handoffStack.empty();
 }
 
 void Station::AddFinishWorker(Worker *worker)
@@ -145,21 +162,26 @@ void Station::AddFinishWorker(Worker *worker)
         std::cout << "Error, worker is NULL, can not be added in finish stack" << std::endl;
         exit(-5);
     }
-    this->finishStack.push(worker);
+    this->finishStack.push(Node(worker));
 }
 
 Worker *Station::GetFinishWorker()
 {
     if (!this->finishStack.empty())
     {
-        Worker *ret = this->finishStack.top();
+        Worker *ret = this->finishStack.top().worker;
         this->finishStack.pop();
         return ret;
     }
     return NULL;
 }
 
-Worker *Station::Station::Process(double workTime)
+bool Station::IsFinishStackEmpty()
+{
+    return this->finishStack.empty();
+}
+
+void Station::Station::Process(double workTime)
 {
     if (this->worker == NULL)
     {
@@ -176,32 +198,112 @@ Worker *Station::Station::Process(double workTime)
         exit(-3);
     }
 
-    if (currentPosition < this->GetWorkContent())
+    if (currentPosition <= this->GetWorkContent())
     {
         this->worker->SetCurrentPosition(currentPosition);
     }
-
-    double delta = currentPosition - this->GetWorkContent();
-    delta = delta > 0 ? delta : -delta;
-
-    if (delta <= this->EPS)
-    {
-        this->SetState(Idle);
-        this->worker->SetState(Idle);
-        return this->worker;
-    }
-    return NULL;
 }
 
-Worker *Station::ArrangeWorker()
+std::vector<Worker *> Station::Handoff(int stationNum)
 {
-    Worker *_worker = NULL;
-    if (this->handoffStack.empty())
+    std::vector<Worker *> workers;
+
+    if (this->worker != NULL)
     {
-        _worker = this->GetWatiWorker();
+        double delta = this->worker->GetCurrentPosition() - this->GetWorkContent();
+        delta = delta > 0 ? delta : -delta;
+
+        if (delta <= this->EPS)
+        {
+            this->finishStack.push(Node(this->worker));
+            this->FreeWorker();
+        }
     }
-    
-    return _worker;
+
+    if (this->GetID() == stationNum - 1)
+    {
+        if (this->finishStack.empty())
+        {
+            return workers;
+        }
+
+        if (this->waitingQueue.empty())
+        {
+            Worker *forward = this->finishStack.top().worker;
+            forward->SetDirection(Forward);
+            workers.push_back(forward);
+            this->finishStack.pop();
+            return workers;
+        }
+        else
+        {
+            std::vector<Worker *> tmp;
+            while (!this->waitingQueue.empty())
+            {
+                tmp.push_back(this->waitingQueue.top().worker);
+                this->waitingQueue.pop();
+            }
+
+            Worker *forward = tmp[tmp.size() - 1];
+            forward->AddHandoffPoint(this->GetID());
+            forward->SetDirection(Forward);
+            workers.push_back(forward);
+
+            for (int i = 0; i < tmp.size() - 1; i++)
+            {
+                this->waitingQueue.push(tmp[i]);
+            }
+
+            Worker *backward = this->finishStack.top().worker;
+            backward->AddHandoffPoint(this->GetID());
+            backward->SetDirection(Backward);
+            workers.push_back(backward);
+            this->finishStack.pop();
+        }
+
+        return workers;
+    }
+
+    if (this->finishStack.empty())
+    {
+        return workers;
+    }
+
+    if (this->handoffStack.empty() && this->GetID() != stationNum - 1)
+    {
+        Worker *backward = this->finishStack.top().worker;
+        backward->SetDirection(Backward);
+        workers.push_back(backward);
+        this->finishStack.pop();
+        return workers;
+    }
+
+    Worker *forward = this->finishStack.top().worker;
+    Worker *backward = this->handoffStack.top().worker;
+    forward->AddHandoffPoint(this->GetID());
+    forward->SetDirection(Forward);
+    backward->AddHandoffPoint(this->GetID());
+    backward->SetDirection(Backward);
+    workers.push_back(forward);
+    workers.push_back(backward);
+    this->finishStack.pop();
+    this->handoffStack.pop();
+
+    return workers;
+}
+
+void Station::ArrangeWorker()
+{
+    if (this->worker == NULL)
+    {
+        if (!waitingQueue.empty())
+        {
+            Worker *_worker = this->waitingQueue.top().worker;
+            this->SetWorker(_worker);
+            this->waitingQueue.pop();
+            std::cout << "Worker " << _worker->GetID() << " at Station " << this->GetID() << std::endl;
+        }
+    }
 }
 
 #endif /* Station_cpp */

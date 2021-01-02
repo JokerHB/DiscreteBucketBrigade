@@ -16,8 +16,9 @@ Worker::Worker(int id, State state, double speed, int currentStation, std::vecto
     this->state = state;
     this->speed = speed;
     this->currentStation = currentStation;
-    this->currentPosition = currentStation - 1.0;
+    this->currentPosition = 0.0;
     this->operateZone = operateZone;
+    this->direction = Backward;
 }
 
 Worker::Worker(const Worker &newWorker)
@@ -25,6 +26,7 @@ Worker::Worker(const Worker &newWorker)
     this->id = newWorker.id;
     this->state = newWorker.state;
     this->speed = newWorker.speed;
+    this->direction = newWorker.direction;
     this->currentStation = newWorker.currentStation;
     this->currentPosition = newWorker.currentPosition;
     this->operateZone = std::vector<int>(newWorker.operateZone);
@@ -55,6 +57,16 @@ State Worker::GetState()
 void Worker::SetState(const State &state)
 {
     this->state = state;
+}
+
+Direction Worker::GetDirection()
+{
+    return this->direction;
+}
+
+void Worker::SetDirection(Direction direction)
+{
+    this->direction = direction;
 }
 
 double Worker::GetCurrentPosition()

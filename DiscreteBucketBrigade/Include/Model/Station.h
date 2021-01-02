@@ -14,6 +14,17 @@
 #include <iostream>
 #include "./Worker.h"
 #include "../Tool/State.h"
+#include "../Tool/Direction.h"
+
+struct Node
+{
+    Worker *worker;
+    Node(Worker *worker) : worker(worker) {}
+    bool operator<(const Node &b) const
+    {
+        return worker->GetID() - b.worker->GetID();
+    }
+};
 
 class Station
 {
@@ -23,9 +34,9 @@ private:
     State state;
     double workContent;
     Worker *worker;
-    std::queue<Worker *> waitingQueue;
-    std::stack<Worker *> handoffStack;
-    std::stack<Worker *> finishStack;
+    std::priority_queue<Node> waitingQueue;
+    std::priority_queue<Node> handoffStack;
+    std::priority_queue<Node> finishStack;
 
 public:
     Station(int id, double workContent, State state = Idle);
@@ -39,6 +50,8 @@ public:
     ~Station();
 
     int GetID();
+
+    void FreeWorker();
 
     void SetWorker(Worker *woker);
 
@@ -54,17 +67,25 @@ public:
 
     Worker *GetWatiWorker();
 
+    bool IsWaitQueueEmpty();
+
     void AddHandoffWorker(Worker *worker);
 
     Worker *GetHandoffWorker();
+
+    bool IshandoffStackEmpty();
 
     void AddFinishWorker(Worker *worker);
 
     Worker *GetFinishWorker();
 
-    Worker *Process(double workTime);
+    bool IsFinishStackEmpty();
 
-    Worker *ArrangeWorker();
+    void Process(double workTime);
+
+    std::vector<Worker *> Handoff(int stationNum);
+
+    void ArrangeWorker();
 };
 
 #endif /* Station_h */

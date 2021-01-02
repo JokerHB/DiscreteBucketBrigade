@@ -27,7 +27,11 @@ public:
 
     double GetMinWorkTime(std::vector<Station> &stations, std::vector<Worker> &workers);
 
-    std::vector<Worker *> GetIdleWorker(std::vector<Station> &stations, std::vector<Worker> &workers, double minWorkTime);
+    void ProcessWork(std::vector<Station> &stations, std::vector<Worker> &workers, double minWorkTime);
+
+    void ArrangeBackward(std::vector<Station> &stations, Worker *worker);
+
+    void ArrangeForward(std::vector<Station> &stations, Worker *worker);
 
     void Run(std::vector<Station> &stations, std::vector<Worker> &workers, int productNumber = 1000);
 };

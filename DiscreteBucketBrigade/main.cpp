@@ -17,12 +17,23 @@ using namespace std;
 
 int main(int argc, const char *argv[])
 {
-    Worker worker = Worker(1, Idle, 1.0, 1, vector<int>({1, 2, 3}));
-    Station station = Station(1, Idle, 1.0);
+    vector<Station> stations;
+    vector<Worker> workers;
     Simulation simulation = Simulation();
-     
-    cout << "Hello World" << endl;
-    cout << worker.GetID() << endl;
-    cout << station.GetID() << endl;
+
+    Worker worker0 = Worker(0, Idle, 1.0, 1, vector<int>({0, 1, 2}));
+    Worker worker1 = Worker(1, Idle, 1.0, 2, vector<int>({0, 1, 2}));
+    Station station0 = Station(0, Idle, 1.0);
+    Station station1 = Station(1, Idle, 1.0);
+    Station station2 = Station(2, Idle, 1.0);
+
+    stations.push_back(station0);
+    stations.push_back(station1);
+    stations.push_back(station2);
+    workers.push_back(worker0);
+    workers.push_back(worker1);
+
+    simulation.Run(stations, workers);
+
     return 0;
 }
