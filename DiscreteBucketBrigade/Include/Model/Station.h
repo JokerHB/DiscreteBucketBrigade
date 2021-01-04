@@ -34,9 +34,9 @@ private:
     State state;
     double workContent;
     Worker *worker;
-    std::priority_queue<Node> waitingQueue;
-    std::priority_queue<Node> handoffStack;
-    std::priority_queue<Node> finishStack;
+    std::vector<Worker *> waiting;
+    std::vector<Worker *> handoff;
+    std::vector<Worker *> finish;
 
 public:
     Station(int id, double workContent, State state = Idle);
@@ -63,27 +63,33 @@ public:
 
     double GetProcessTime();
 
+    void RemoveItem(std::vector<Worker *>& vec, Worker *item);
+
     void AddWaitWorker(Worker *worker);
 
     Worker *GetWatiWorker();
 
-    bool IsWaitQueueEmpty();
+    bool IsWaitEmpty();
 
     void AddHandoffWorker(Worker *worker);
 
     Worker *GetHandoffWorker();
 
-    bool IshandoffStackEmpty();
+    bool IsHandoffEmpty();
 
     void AddFinishWorker(Worker *worker);
 
     Worker *GetFinishWorker();
 
-    bool IsFinishStackEmpty();
+    bool IsFinishEmpty();
 
     void Process(double workTime);
 
+    bool CanWalkBack(Worker *worker);
+
     std::vector<Worker *> Handoff(int stationNum);
+
+    std::vector<Worker *> GetIdleWorkers(int stationNum);
 
     void ArrangeWorker();
 };

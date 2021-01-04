@@ -52,7 +52,7 @@ void Simulation::ArrangeBackward(std::vector<Station> &stations, Worker *worker)
     int currentStation = worker->GetCurrentStation();
     Station *station = &stations[currentStation];
 
-    if (currentStation == stations.size() - 1 || !station->IsFinishStackEmpty() || !station->IshandoffStackEmpty())
+    if (currentStation == stations.size() - 1 || !station->IsFinishEmpty() || !station->IsHandoffEmpty())
     {
         station->AddWaitWorker(worker);
     }
@@ -76,7 +76,7 @@ void Simulation::ArrangeForward(std::vector<Station> &stations, Worker *worker)
     int currentStation = worker->GetCurrentStation();
     Station *station = &stations[currentStation];
 
-    if (currentStation == 0 || !station->IsWaitQueueEmpty() || !station->IsFinishStackEmpty())
+    if (currentStation == 0 || !station->IsWaitEmpty() || !station->IsFinishEmpty())
     {
         station->AddWaitWorker(worker);
     }
@@ -86,7 +86,7 @@ void Simulation::ArrangeForward(std::vector<Station> &stations, Worker *worker)
         Station *nextStation = &stations[currentStation - 1];
         if (worker->IsAvailable(nextStation->GetID()))
         {
-            nextStation->AddWaitWorker(worker);
+            nextStation->AddHandoffWorker(worker);
         }
         else
         {
@@ -127,7 +127,7 @@ void Simulation::Run(std::vector<Station> &stations, std::vector<Worker> &worker
                 idleWorkers.push_back(_tmp[j]);
                 if (_tmp[j]->GetCurrentStation() == stations.size() - 1)
                 {
-                    productNum++;
+                    productNum ++;
                 }
             }
         }

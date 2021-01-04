@@ -18,7 +18,7 @@ Worker::Worker(int id, State state, double speed, int currentStation, std::vecto
     this->currentStation = currentStation;
     this->currentPosition = 0.0;
     this->operateZone = operateZone;
-    this->direction = Backward;
+    this->direction = Forward;
 }
 
 Worker::Worker(const Worker &newWorker)
@@ -101,7 +101,7 @@ std::vector<int> Worker::GetHandoffPoint()
 
 void Worker::AddHandoffPoint()
 {
-    // TODO Update hand off list
+    this->handoffPoint.push_back(this->currentStation);
 }
 
 void Worker::AddHandoffPoint(int point)
@@ -117,7 +117,8 @@ void Worker::ResetPosition()
 void Worker::MoveToNewStation(int stationID)
 {
     this->SetCurrentStation(stationID);
-    this->SetCurrentPosition(0.0);
+    this->ResetPosition();
+    this->SetState(Busy);
 }
 
 bool Worker::IsAvailable(int station)

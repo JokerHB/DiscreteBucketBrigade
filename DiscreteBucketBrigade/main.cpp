@@ -11,6 +11,7 @@
 #include "./Include/Model/Event.h"
 #include "./Include/Model/Station.h"
 #include "./Include/Model/Worker.h"
+#include "./Include/Model/ProductionLine.h"
 #include "./Include/Simulation/Simulation.h"
 
 using namespace std;
@@ -22,7 +23,7 @@ int main(int argc, const char *argv[])
     Simulation simulation = Simulation();
 
     Worker worker0 = Worker(0, Idle, 1.0, 1, vector<int>({0, 1, 2}));
-    Worker worker1 = Worker(1, Idle, 1.0, 2, vector<int>({0, 1, 2}));
+    Worker worker1 = Worker(1, Idle, 2.0, 2, vector<int>({0, 1, 2}));
     Station station0 = Station(0, Idle, 1.0);
     Station station1 = Station(1, Idle, 1.0);
     Station station2 = Station(2, Idle, 1.0);
@@ -33,7 +34,9 @@ int main(int argc, const char *argv[])
     workers.push_back(worker0);
     workers.push_back(worker1);
 
-    simulation.Run(stations, workers);
+    ProductionLine productionLine = ProductionLine(stations, workers);
+    productionLine.Run();
+    // simulation.Run(stations, workers);
 
     return 0;
 }
