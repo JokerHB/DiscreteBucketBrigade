@@ -75,32 +75,11 @@ bool Simulation::GetFullorPartial()
 void Simulation::GenerateStations()
 {
     // TODO Generate Stations
-    Station station0 = Station(0, Idle, 1.0);
-    Station station1 = Station(1, Idle, 1.0);
-    Station station2 = Station(2, Idle, 1.0);
-    Station station3 = Station(3, Idle, 1.0);
-    Station station4 = Station(4, Idle, 1.0);
-
-    this->stations.push_back(station0);
-    this->stations.push_back(station1);
-    this->stations.push_back(station2);
-    this->stations.push_back(station3);
-    this->stations.push_back(station4);
 }
 
 void Simulation::GenerateWorkers()
 {
     // TODO Generate Workers
-    double v0 = 0.5;
-    double v1 = 1.0;
-    double v2 = 1.5;
-    Worker worker0 = Worker(0, Idle, v0, 2, std::vector<int>({0, 1, 2}));
-    Worker worker1 = Worker(1, Idle, v1, 3, std::vector<int>({2, 3}));
-    Worker worker2 = Worker(2, Idle, v2, 4, std::vector<int>({3, 4}));
-
-    this->workers.push_back(worker0);
-    this->workers.push_back(worker1);
-    this->workers.push_back(worker2);
 }
 
 std::vector<Station> Simulation::GetStations()
