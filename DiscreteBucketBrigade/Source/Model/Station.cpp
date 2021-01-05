@@ -109,7 +109,7 @@ double Station::GetProcessTime()
     return (this->workContent - currentPosition) / this->worker->GetSpeed();
 }
 
-void Station::RemoveItem(std::vector<Worker *>& vec, Worker *item)
+void Station::RemoveItem(std::vector<Worker *> &vec, Worker *item)
 {
     for (std::vector<Worker *>::iterator it = vec.begin(); it != vec.end(); it++)
     {
@@ -281,6 +281,15 @@ std::vector<Worker *> Station::Handoff(int stationNum)
 
     if (this->GetID() == stationNum - 1)
     {
+        while (!this->IsWaitEmpty() && !this->IsFinishEmpty())
+        {
+            Worker *wait = this->GetWatiWorker();
+            Worker *finish = this->GetFinishWorker();
+            wait->SetDirection(Backward);
+            finish->SetDirection(Forward);
+            handOffWorkers.push_back(wait);
+            handOffWorkers.push_back(finish);
+        }
         while (!this->IsFinishEmpty())
         {
             Worker *finish = this->GetFinishWorker();
@@ -300,13 +309,25 @@ std::vector<Worker *> Station::Handoff(int stationNum)
         handOffWorkers.push_back(handoff);
     }
 
-    return handOffWorkers;
-}
+    while (this->IsFinishEmpty() && !this->IsHandoffEmpty() && !this->IsWaitEmpty())
+    {
+        Worker *handoff = this->GetHandoffWorker();
+        if (handoff->IsAvailable(this->GetID()))
+        {
+            Worker *wait = this->GetWatiWorker();
+            handoff->SetDirection(Forward);
+            wait->SetDirection(Backward);
+            handOffWorkers.push_back(wait);
+            handOffWorkers.push_back(handoff);
+        }
+        else
+        {
+            this->AddHandoffWorker(handoff);
+            break;
+        }
+    }
 
-std::vector<Worker *> Station::GetIdleWorkers(int stationNum)
-{
-    std::vector<Worker *> idleWorker;
-    return idleWorker;
+    return handOffWorkers;
 }
 
 void Station::ArrangeWorker()
@@ -317,8 +338,8 @@ void Station::ArrangeWorker()
         {
             Worker *_worker = this->GetWatiWorker();
             this->SetWorker(_worker);
-            std::cout << "------------------" << std::endl;
-            std::cout << "Worker " << _worker->GetID() << " at Station " << this->GetID() << std::endl;
+            //            std::cout << "------------------" << std::endl;
+            //            std::cout << "Worker " << _worker->GetID() << " at Station " << this->GetID() << std::endl;
         }
     }
 }

@@ -97,8 +97,8 @@ void Simulation::ArrangeForward(std::vector<Station> &stations, Worker *worker)
 
 void Simulation::Run(std::vector<Station> &stations, std::vector<Worker> &workers, int productNumber)
 {
-    int stationNum = stations.size();
-    int workerNum = workers.size();
+    int stationNum = (int)stations.size();
+    int workerNum = (int)workers.size();
     int productNum = 0;
 
     for (int i = 0; i < workerNum; i++)
@@ -127,7 +127,7 @@ void Simulation::Run(std::vector<Station> &stations, std::vector<Worker> &worker
                 idleWorkers.push_back(_tmp[j]);
                 if (_tmp[j]->GetCurrentStation() == stations.size() - 1)
                 {
-                    productNum ++;
+                    productNum++;
                 }
             }
         }

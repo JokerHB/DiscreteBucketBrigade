@@ -119,6 +119,7 @@ void Worker::MoveToNewStation(int stationID)
     this->SetCurrentStation(stationID);
     this->ResetPosition();
     this->SetState(Busy);
+    this->SetDirection(Forward);
 }
 
 bool Worker::IsAvailable(int station)

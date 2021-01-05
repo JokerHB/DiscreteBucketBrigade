@@ -26,7 +26,7 @@ private:
     int productNum;
 
 public:
-    ProductionLine(std::vector<Station> &stations, std::vector<Worker> &workers, int productNum=1000);
+    ProductionLine(std::vector<Station> &stations, std::vector<Worker> &workers, int productNum = 1000);
 
     ~ProductionLine();
 
@@ -40,9 +40,15 @@ public:
 
     void MoveBackward(Worker *worker);
 
+    void ArrangeHandoff(int &productCnt);
+
+    void ArrangeFinish();
+    
+    void ArrangeWait();
+
     void ArrangeWorker(std::vector<Worker *> idleWorkers);
 
-    void Run();
+    double Run();
 };
 
 #endif /* ProductionLine_h */

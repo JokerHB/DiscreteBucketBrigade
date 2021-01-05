@@ -89,8 +89,6 @@ public:
 
     std::vector<Worker *> Handoff(int stationNum);
 
-    std::vector<Worker *> GetIdleWorkers(int stationNum);
-
     void ArrangeWorker();
 };
 
