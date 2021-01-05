@@ -22,11 +22,11 @@ int main(int argc, const char *argv[])
     vector<Worker> workers;
     Simulation simulation = Simulation();
 
-    double v0 = 5;
+    double v0 = 1.6666;
     double v1 = 1.0;
 
-    Worker worker0 = Worker(0, Idle, v0, 3, vector<int>({0, 1, 2, 3, 4}));
-    Worker worker1 = Worker(1, Idle, v1, 4, vector<int>({0, 1, 2, 3, 4}));
+    Worker worker0 = Worker(0, Idle, v0, 2, vector<int>({0, 1, 2}));
+    Worker worker1 = Worker(1, Idle, v1, 4, vector<int>({2, 3, 4}));
     Station station0 = Station(0, Idle, 1.0);
     Station station1 = Station(1, Idle, 1.0);
     Station station2 = Station(2, Idle, 1.0);
@@ -41,7 +41,7 @@ int main(int argc, const char *argv[])
     workers.push_back(worker0);
     workers.push_back(worker1);
 
-    ProductionLine productionLine = ProductionLine(stations, workers);
+    ProductionLine productionLine = ProductionLine(stations, workers, 10000);
     double throughput = productionLine.Run();
     // simulation.Run(stations, workers);
     cout << "Maxmim Throughput is " << (v0 + v1) / 5.0 << endl;
