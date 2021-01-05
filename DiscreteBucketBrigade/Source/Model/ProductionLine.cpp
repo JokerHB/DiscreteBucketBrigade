@@ -28,6 +28,8 @@ ProductionLine::ProductionLine(std::vector<Station> &stations, std::vector<Worke
 
 ProductionLine::~ProductionLine()
 {
+    this->stations.clear();
+    this->workers.clear();
 }
 
 int ProductionLine::FindStation(int workerID)

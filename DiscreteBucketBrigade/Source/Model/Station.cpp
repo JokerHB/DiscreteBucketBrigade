@@ -51,6 +51,9 @@ Station::Station(const Station &newStation)
 Station::~Station()
 {
     this->worker = NULL;
+    this->waiting.clear();
+    this->handoff.clear();
+    this->finish.clear();
 }
 
 int Station::GetID()
