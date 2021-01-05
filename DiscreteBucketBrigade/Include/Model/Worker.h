@@ -10,6 +10,8 @@
 
 #include <algorithm>
 #include <iostream>
+#include <string>
+#include <sstream>
 #include <vector>
 #include "../Tool/State.h"
 #include "../Tool/Direction.h"
@@ -66,6 +68,8 @@ public:
     void ResetPosition();
 
     bool IsAvailable(int station);
+
+    std::string ToString();
 };
 
 #endif /* Worker_h */

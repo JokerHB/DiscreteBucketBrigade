@@ -12,159 +12,76 @@
 
 Simulation::Simulation()
 {
-    this->time = 0.0;
 }
 
 Simulation::~Simulation()
 {
 }
 
-double Simulation::GetMinWorkTime(std::vector<Station> &stations, std::vector<Worker> &workers)
+void Simulation::SetStationNum(int stationNum)
 {
-    double minWorkTime = DBL_MAX;
-
-    for (int i = 0; i < stations.size(); i++)
-    {
-        if (stations[i].GetState() == Idle)
-            continue;
-
-        double _tmp = stations[i].GetProcessTime();
-        if (_tmp != -1.0)
-        {
-            minWorkTime = std::min(minWorkTime, _tmp);
-        }
-    }
-    return minWorkTime == DBL_MAX ? 0.0 : minWorkTime;
+    this->stationNum = stationNum;
 }
 
-void Simulation::ProcessWork(std::vector<Station> &stations, std::vector<Worker> &workers, double minWorkTime)
+int Simulation::GetStationNum()
 {
-    for (int i = 0; i < stations.size(); i++)
-    {
-        if (stations[i].GetState() == Idle)
-            continue;
-        stations[i].Process(minWorkTime);
-    }
+    return this->stationNum;
 }
 
-void Simulation::ArrangeBackward(std::vector<Station> &stations, Worker *worker)
+void Simulation::SetWorkerNum(int workerNum)
 {
-    int currentStation = worker->GetCurrentStation();
-    Station *station = &stations[currentStation];
-
-    if (currentStation == stations.size() - 1 || !station->IsFinishEmpty() || !station->IsHandoffEmpty())
-    {
-        station->AddWaitWorker(worker);
-    }
-    else
-    {
-        Station *station = &stations[currentStation];
-        Station *nextStation = &stations[currentStation + 1];
-        if (worker->IsAvailable(nextStation->GetID()))
-        {
-            nextStation->AddWaitWorker(worker);
-        }
-        else
-        {
-            station->AddFinishWorker(worker);
-        }
-    }
+    this->workerNum = workerNum;
 }
 
-void Simulation::ArrangeForward(std::vector<Station> &stations, Worker *worker)
+int Simulation::GetWorkerNum()
 {
-    int currentStation = worker->GetCurrentStation();
-    Station *station = &stations[currentStation];
+    return this->workerNum;
+}
 
-    if (currentStation == 0 || !station->IsWaitEmpty() || !station->IsFinishEmpty())
+void Simulation::SetFullorPartial(bool isFullCross)
+{
+    this->isFullCross = isFullCross;
+}
+
+bool Simulation::GetFullorPartial()
+{
+    return this->isFullCross;
+}
+
+void Simulation::GenerateStations()
+{
+    // TODO Generate Stations
+}
+
+void Simulation::GenerateWorkers()
+{
+    // TODO Generate Workers
+}
+
+std::vector<Station> Simulation::GetStations()
+{
+    return this->stations;
+}
+
+std::vector<Worker> Simulation::GetWorkers()
+{
+    return this->workers;
+}
+
+void Simulation::StationWriteToFile(std::string filePath)
+{
+    if (filePath == "")
     {
-        station->AddWaitWorker(worker);
-    }
-    else
-    {
-        Station *station = &stations[currentStation];
-        Station *nextStation = &stations[currentStation - 1];
-        if (worker->IsAvailable(nextStation->GetID()))
-        {
-            nextStation->AddHandoffWorker(worker);
-        }
-        else
-        {
-            station->AddFinishWorker(worker);
-        }
+        filePath = this->stationPath;
     }
 }
 
-void Simulation::Run(std::vector<Station> &stations, std::vector<Worker> &workers, int productNumber)
+void Simulation::WorkerWriteToFile(std::string filePath)
 {
-    int stationNum = (int)stations.size();
-    int workerNum = (int)workers.size();
-    int productNum = 0;
-
-    for (int i = 0; i < workerNum; i++)
+    if (filePath == "")
     {
-        Station *station = &stations[workers[i].GetCurrentStation()];
-        station->AddWaitWorker(&workers[i]);
+        filePath = this->workerPath;
     }
-
-    for (int i = 0; i < stationNum; i++)
-    {
-        stations[i].ArrangeWorker();
-    }
-
-    while (productNum < productNumber)
-    {
-        double minWorkTime = this->GetMinWorkTime(stations, workers);
-        this->time += minWorkTime;
-        this->ProcessWork(stations, workers, minWorkTime);
-        std::vector<Worker *> idleWorkers;
-
-        for (int i = 0; i < stationNum; i++)
-        {
-            std::vector<Worker *> _tmp = stations[i].Handoff(stationNum);
-            for (int j = 0; j < _tmp.size(); j++)
-            {
-                idleWorkers.push_back(_tmp[j]);
-                if (_tmp[j]->GetCurrentStation() == stations.size() - 1)
-                {
-                    productNum++;
-                }
-            }
-        }
-
-        while (!idleWorkers.empty())
-        {
-            Worker *worker = idleWorkers.back();
-            idleWorkers.pop_back();
-            if (worker->GetDirection() == Forward)
-            {
-                this->ArrangeForward(stations, worker);
-            }
-            else
-            {
-                this->ArrangeBackward(stations, worker);
-            }
-
-            for (int i = 0; i < stationNum; i++)
-            {
-                std::vector<Worker *> _tmp = stations[i].Handoff(stationNum);
-                for (int j = 0; j < _tmp.size(); j++)
-                {
-                    idleWorkers.push_back(_tmp[j]);
-                    if (_tmp[j]->GetCurrentStation() == stations.size() - 1)
-                    {
-                        productNum++;
-                    }
-                }
-            }
-        }
-
-        for (int i = 0; i < stationNum; i++)
-        {
-            stations[i].ArrangeWorker();
-        }
-    }
-    std::cout << "Throughput " << productNumber / this->time << std::endl;
 }
 
 #endif /* Simulation_cpp */

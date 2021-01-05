@@ -347,10 +347,18 @@ void Station::ArrangeWorker()
         {
             Worker *_worker = this->GetWatiWorker();
             this->SetWorker(_worker);
-            //            std::cout << "------------------" << std::endl;
-            //            std::cout << "Worker " << _worker->GetID() << " at Station " << this->GetID() << std::endl;
+            // std::cout << "------------------" << std::endl;
+            // std::cout << "Worker " << _worker->GetID() << " at Station " << this->GetID() << std::endl;
         }
     }
+}
+
+std::string Station::ToString()
+{
+    // id state workContent
+    std::ostringstream fmt;
+    fmt << this->id << "\t" << this->state << "\t" << this->workContent << std::endl;
+    return fmt.str();
 }
 
 #endif /* Station_cpp */

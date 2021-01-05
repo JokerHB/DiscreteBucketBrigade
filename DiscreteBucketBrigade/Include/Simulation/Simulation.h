@@ -9,8 +9,9 @@
 #define Simulation_h
 
 #include <algorithm>
-#include <vector>
 #include <cfloat>
+#include <vector>
+#include <string>
 #include "../Tool/State.h"
 #include "../Model/Station.h"
 #include "../Model/Worker.h"
@@ -18,22 +19,42 @@
 class Simulation
 {
 private:
-    double time;
+    int stationNum;
+    int workerNum;
+    bool isFullCross;
+    std::string stationPath;
+    std::string workerPath;
+    std::vector<Station> stations;
+    std::vector<Worker> workers;
 
 public:
     Simulation();
 
     ~Simulation();
 
-    double GetMinWorkTime(std::vector<Station> &stations, std::vector<Worker> &workers);
+    void SetStationNum(int stationNum);
 
-    void ProcessWork(std::vector<Station> &stations, std::vector<Worker> &workers, double minWorkTime);
+    int GetStationNum();
 
-    void ArrangeBackward(std::vector<Station> &stations, Worker *worker);
+    void SetWorkerNum(int workerNum);
 
-    void ArrangeForward(std::vector<Station> &stations, Worker *worker);
+    int GetWorkerNum();
 
-    void Run(std::vector<Station> &stations, std::vector<Worker> &workers, int productNumber = 1000);
+    void SetFullorPartial(bool isFullCross);
+
+    bool GetFullorPartial();
+
+    void GenerateStations();
+
+    void GenerateWorkers();
+
+    std::vector<Station> GetStations();
+
+    std::vector<Worker> GetWorkers();
+
+    void StationWriteToFile(std::string filePath = "");
+
+    void WorkerWriteToFile(std::string filePath = "");
 };
 
 #endif /* Simulation_h */

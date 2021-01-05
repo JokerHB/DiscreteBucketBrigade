@@ -11,6 +11,7 @@
 #include <stack>
 #include <queue>
 #include <cmath>
+#include <sstream>
 #include <iostream>
 #include "./Worker.h"
 #include "../Tool/State.h"
@@ -90,6 +91,8 @@ public:
     std::vector<Worker *> Handoff(int stationNum);
 
     void ArrangeWorker();
+
+    std::string ToString();
 };
 
 #endif /* Station_h */

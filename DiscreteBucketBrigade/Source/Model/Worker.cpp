@@ -130,4 +130,17 @@ bool Worker::IsAvailable(int station)
     return station >= _min && station <= _max;
 }
 
+std::string Worker::ToString()
+{
+    // id state speed, currentStation, operatingzone
+    std::ostringstream fmt;
+    fmt << this->id << "\t" << this->state << "\t" << this->speed << "\t" << this->currentStation;
+    for (int i = 0; i < this->operateZone.size(); i++)
+    {
+        fmt << "\t" << this->operateZone[i];
+    }
+    fmt << std::endl;
+    return fmt.str();
+}
+
 #endif /* Worker_cpp */
