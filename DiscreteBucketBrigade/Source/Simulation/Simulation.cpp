@@ -154,7 +154,8 @@ void Simulation::StationReadFromFile(std::string filePath)
         std::cout << "Error, can not read " << filePath << std::endl;
         exit(-10);
     }
-
+    std::string tmp;
+    std::getline(reader, tmp);
     while (reader.good() && !reader.eof())
     {
         std::string info;
@@ -187,6 +188,8 @@ void Simulation::WorkerReadFromFile(std::string filePath)
         exit(-10);
     }
 
+    std::string tmp;
+    std::getline(reader, tmp);
     while (reader.good() && !reader.eof())
     {
         std::string info;
