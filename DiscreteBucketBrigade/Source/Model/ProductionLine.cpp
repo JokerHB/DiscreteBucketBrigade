@@ -10,6 +10,11 @@
 
 #include "../../Include/Model/ProductionLine.h"
 
+bool cmp(Worker *a, Worker *b)
+{
+    return a->GetID() - b->GetID();
+}
+
 ProductionLine::ProductionLine(std::vector<Station> &stations, std::vector<Worker> &workers, int productNum)
 {
     this->time = 0.0;
@@ -89,11 +94,6 @@ void ProductionLine::MoveBackward(Worker *worker)
         Station *nextStation = this->stations[nextStationID];
         nextStation->AddHandoffWorker(worker);
     }
-}
-
-bool cmp(Worker *a, Worker *b)
-{
-    return a->GetID() - b->GetID();
 }
 
 void ProductionLine::ArrangeWorker(std::vector<Worker *> idleWorkers)
