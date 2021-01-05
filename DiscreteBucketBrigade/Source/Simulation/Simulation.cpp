@@ -32,14 +32,19 @@ std::vector<std::string> split(const std::string &str, const std::string &delim)
     return res;
 }
 
-Simulation::Simulation()
+Simulation::Simulation(int stationNum, int workerNum, bool isFullCross, std::string stationPath, std::string workerPath)
 {
-    this->stationPath = "./station.txt";
-    this->workerPath = "./worker.txt";
+    this->stationNum = stationNum;
+    this->workerNum = workerNum;
+    this->isFullCross = isFullCross;
+    this->stationPath = stationPath;
+    this->workerPath = workerPath;
 }
 
 Simulation::~Simulation()
 {
+    this->stations.clear();
+    this->workers.clear();
 }
 
 void Simulation::SetStationNum(int stationNum)
@@ -150,6 +155,11 @@ void Simulation::StationReadFromFile(std::string filePath)
 {
     std::ifstream reader;
 
+    if (filePath == "")
+    {
+        filePath = this->workerPath;
+    }
+
     reader.open(filePath);
     if (!reader.is_open())
     {
@@ -184,6 +194,11 @@ void Simulation::StationReadFromFile(std::string filePath)
 void Simulation::WorkerReadFromFile(std::string filePath)
 {
     std::ifstream reader;
+
+    if (filePath == "")
+    {
+        filePath = this->workerPath;
+    }
 
     reader.open(filePath);
     if (!reader.is_open())

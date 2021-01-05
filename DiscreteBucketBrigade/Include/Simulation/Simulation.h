@@ -29,7 +29,7 @@ private:
     std::vector<Worker> workers;
 
 public:
-    Simulation();
+    Simulation(int stationNum, int workerNum, bool isFullCross, std::string stationPath = "./station.txt", std::string workerPath = "./worker.txt");
 
     ~Simulation();
 
@@ -57,9 +57,9 @@ public:
 
     void WorkerWriteToFile(std::string filePath = "");
 
-    void StationReadFromFile(std::string filePath);
+    void StationReadFromFile(std::string filePath = "");
 
-    void WorkerReadFromFile(std::string filePath);
+    void WorkerReadFromFile(std::string filePath = "");
 };
 
 #endif /* Simulation_h */
