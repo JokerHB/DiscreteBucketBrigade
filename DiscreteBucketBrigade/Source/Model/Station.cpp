@@ -290,6 +290,8 @@ std::vector<Worker *> Station::Handoff(int stationNum)
             Worker *finish = this->GetFinishWorker();
             wait->SetDirection(Backward);
             finish->SetDirection(Forward);
+            wait->AddHandoffPoint();
+            finish->AddHandoffPoint();
             handOffWorkers.push_back(wait);
             handOffWorkers.push_back(finish);
         }
@@ -308,6 +310,8 @@ std::vector<Worker *> Station::Handoff(int stationNum)
         Worker *finish = this->GetFinishWorker();
         handoff->SetDirection(Forward);
         finish->SetDirection(Backward);
+        handoff->AddHandoffPoint();
+        finish->AddHandoffPoint();
         handOffWorkers.push_back(finish);
         handOffWorkers.push_back(handoff);
     }
@@ -320,6 +324,8 @@ std::vector<Worker *> Station::Handoff(int stationNum)
             Worker *wait = this->GetWatiWorker();
             handoff->SetDirection(Forward);
             wait->SetDirection(Backward);
+            handoff->AddHandoffPoint();
+            wait->AddHandoffPoint();
             handOffWorkers.push_back(wait);
             handOffWorkers.push_back(handoff);
         }
