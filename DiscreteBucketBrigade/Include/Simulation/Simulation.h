@@ -12,6 +12,7 @@
 #include <cfloat>
 #include <vector>
 #include <string>
+#include <fstream>
 #include "../Tool/State.h"
 #include "../Model/Station.h"
 #include "../Model/Worker.h"
@@ -55,6 +56,10 @@ public:
     void StationWriteToFile(std::string filePath = "");
 
     void WorkerWriteToFile(std::string filePath = "");
+
+    void StationReadFromFile(std::string filePath);
+
+    void WorkerReadFromFile(std::string filePath);
 };
 
 #endif /* Simulation_h */
