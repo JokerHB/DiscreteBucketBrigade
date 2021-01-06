@@ -16,7 +16,7 @@
 
 using namespace std;
 
-int main(int argc, const char *argv[])
+int mainTest(int argc, const char *argv[])
 {
     Simulation simulation = Simulation(5, 3, true, 2);
 
