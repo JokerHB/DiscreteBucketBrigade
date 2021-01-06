@@ -159,6 +159,16 @@ void Simulation::NormalizationSpeed()
     }
 }
 
+void Simulation::ClearWorker()
+{
+    this->workers.clear();
+}
+
+void Simulation::ClearStation()
+{
+    this->stations.clear();
+}
+
 std::vector<Station> Simulation::GetStations()
 {
     return this->stations;

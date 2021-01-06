@@ -44,7 +44,6 @@ void SetNewSpeed(vector<Worker> &workers, vector<double> &speedList)
 
 int main(int argc, const char *argv[])
 {
-
     for (int i = 5; i < 7; i += 2)
     {
         for (int j = 3; j < i; j += 2)
@@ -54,18 +53,18 @@ int main(int argc, const char *argv[])
             simulation.NormalizationSpeed();
             vector<Worker> workers = simulation.GetWorkers();
             vector<double> speedList = GetSpeedList(workers);
+            sort(speedList.begin(), speedList.end());
             while (next_permutation(speedList.begin(), speedList.end()))
             {
                 for (int k = 0; k < 1; k++)
                 {
                     SetNewSpeed(workers, speedList);
                     vector<Worker> _workers = vector<Worker>(workers);
+                    simulation.ClearStation();
                     simulation.GenerateStations();
                     simulation.NormalizationWorkContent();
-                    simulation.StationWriteToFile();
-                    simulation.WorkerWriteToFile();
                     vector<Station> stations = simulation.GetStations();
-                    ProductionLine productionLine = ProductionLine(stations, _workers, 10000);
+                    ProductionLine productionLine = ProductionLine(stations, _workers, 10);
                     double throughput = productionLine.Run();
                     vector<double> speedOrder = productionLine.GetSpeedOrder();
                     for (int i = 0; i < speedOrder.size(); i++)
@@ -75,6 +74,26 @@ int main(int argc, const char *argv[])
                     cout << endl;
                     cout << throughput << endl;
                 }
+            }
+
+            sort(speedList.begin(), speedList.end());
+            for (int k = 0; k < 1; k++)
+            {
+                SetNewSpeed(workers, speedList);
+                vector<Worker> _workers = vector<Worker>(workers);
+                simulation.ClearStation();
+                simulation.GenerateStations();
+                simulation.NormalizationWorkContent();
+                vector<Station> stations = simulation.GetStations();
+                ProductionLine productionLine = ProductionLine(stations, _workers, 10);
+                double throughput = productionLine.Run();
+                vector<double> speedOrder = productionLine.GetSpeedOrder();
+                for (int i = 0; i < speedOrder.size(); i++)
+                {
+                    cout << speedOrder[i] << " ";
+                }
+                cout << endl;
+                cout << throughput << endl;
             }
         }
     }

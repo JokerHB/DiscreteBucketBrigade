@@ -57,6 +57,10 @@ public:
 
     void NormalizationSpeed();
 
+    void ClearWorker();
+
+    void ClearStation();
+
     std::vector<Station> GetStations();
 
     std::vector<Worker> GetWorkers();
