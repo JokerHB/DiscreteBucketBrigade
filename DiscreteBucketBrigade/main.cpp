@@ -124,7 +124,7 @@ int main(int argc, const char *argv[])
             vector<Worker> workers = simulation.GetWorkers();
             vector<double> speedList = GetSpeedList(workers);
             sort(speedList.begin(), speedList.end());
-            int iterNum = 1000;
+            int iterNum = 50;
             while (next_permutation(speedList.begin(), speedList.end()))
             {
                 vector<double> throughputs;

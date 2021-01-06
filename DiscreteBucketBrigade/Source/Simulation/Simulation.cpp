@@ -80,7 +80,7 @@ bool Simulation::GetFullorPartial()
 
 void Simulation::GenerateStations()
 {
-    RandomGenerator workContent = RandomGenerator(1.0, 3.0, 0.6, 6);
+    RandomGenerator workContent = RandomGenerator(1.0, 0.5, 0.6, 6);
     for (int i = 0; i < this->stationNum; i++)
     {
         this->stations.push_back(Station(i, Idle, workContent()));
@@ -89,7 +89,7 @@ void Simulation::GenerateStations()
 
 void Simulation::GenerateWorkers()
 {
-    RandomGenerator speed = RandomGenerator(1.0, 3.0, 0.5, 2);
+    RandomGenerator speed = RandomGenerator(1.0, 0.5, 0.5, 2);
 
     for (int i = 0; i < this->workerNum; i++)
     {
