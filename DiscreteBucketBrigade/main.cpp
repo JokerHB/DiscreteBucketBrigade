@@ -42,7 +42,7 @@ void SetNewSpeed(vector<Worker> &workers, vector<double> &speedList)
     }
 }
 
-int main(int argc, const char *argv[])
+int mainTest(int argc, const char *argv[])
 {
     for (int i = 5; i < 7; i += 2)
     {
