@@ -111,7 +111,9 @@ void WriteToFile(string filePath, double mean, double stdev, double min, double 
 
 int main(int argc, const char *argv[])
 {
-    for (int i = 5; i < 7; i += 2)
+    int cnt = 0;
+
+    for (int i = 5; i < 21; i += 2)
     {
         for (int j = 3; j < i; j += 2)
         {
@@ -121,7 +123,7 @@ int main(int argc, const char *argv[])
             vector<Worker> workers = simulation.GetWorkers();
             vector<double> speedList = GetSpeedList(workers);
             sort(speedList.begin(), speedList.end());
-            int iterNum = 10;
+            int iterNum = 1000;
             while (next_permutation(speedList.begin(), speedList.end()))
             {
                 vector<double> throughputs;
@@ -163,6 +165,8 @@ int main(int argc, const char *argv[])
             double min = GetMin(throughputs);
             double max = GetMax(throughputs);
             WriteToFile("./result.csv", mean, stdev, min, max, speedList);
+
+            cout << cnt++ << endl;
         }
     }
 
