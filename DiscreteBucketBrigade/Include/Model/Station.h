@@ -66,11 +66,13 @@ public:
 
     double GetProcessTime();
 
-    void RemoveItem(std::vector<Worker *>& vec, Worker *item);
+    void RemoveItem(std::vector<Worker *> &vec, Worker *item);
 
     void AddWaitWorker(Worker *worker);
 
     Worker *GetWatiWorker();
+
+    Worker *GetLastWatiWorker();
 
     bool IsWaitEmpty();
 
