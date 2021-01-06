@@ -37,6 +37,8 @@ public:
 
     int GetID();
 
+    void SetID(int id);
+
     double GetSpeed();
 
     void SetSpeed(double speed);
@@ -66,6 +68,8 @@ public:
     void AddHandoffPoint(int point);
 
     void MoveToNewStation(int stationID);
+
+    void ResetWorker();
 
     void ResetPosition();
 

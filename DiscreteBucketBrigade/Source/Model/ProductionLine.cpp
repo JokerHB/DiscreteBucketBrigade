@@ -222,9 +222,19 @@ double ProductionLine::Run()
         this->ArrangeWait();
     }
 
-    std::cout << "Throughput " << this->productNum / this->time << std::endl;
+    // std::cout << "Throughput " << this->productNum / this->time << std::endl;
 
     return this->productNum / this->time;
+}
+
+std::vector<double> ProductionLine::GetSpeedOrder()
+{
+    std::vector<double> ret;
+    for (int i = 0; i < this->workers.size(); i++)
+    {
+        ret.push_back(this->workers[i]->GetSpeed());
+    }
+    return ret;
 }
 
 #endif /* ProductionLine_cpp */

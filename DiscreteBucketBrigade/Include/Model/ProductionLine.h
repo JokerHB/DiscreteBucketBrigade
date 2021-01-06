@@ -49,6 +49,8 @@ public:
     void ArrangeWorker(std::vector<Worker *> idleWorkers);
 
     double Run();
+
+    std::vector<double> GetSpeedOrder();
 };
 
 #endif /* ProductionLine_h */

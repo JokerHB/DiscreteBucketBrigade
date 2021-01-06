@@ -44,6 +44,11 @@ int Worker::GetID()
     return this->id;
 }
 
+void Worker::SetID(int id)
+{
+    this->id = id;
+}
+
 double Worker::GetSpeed()
 {
     return this->speed;
@@ -117,6 +122,12 @@ void Worker::AddHandoffPoint(int point)
 void Worker::ResetPosition()
 {
     this->SetCurrentPosition(0.0);
+}
+
+void Worker::ResetWorker()
+{
+    this->SetCurrentPosition(0.0);
+    this->SetState(Idle);
 }
 
 void Worker::MoveToNewStation(int stationID)
