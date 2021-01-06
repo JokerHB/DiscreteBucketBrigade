@@ -40,7 +40,8 @@ int mainTest(int argc, const char *argv[])
         double v0 = (double)i / 10.0;
         double v1 = 1.0;
         // double v2 = 1.5;
-
+        stations.clear();
+        workers.clear();
         Worker worker0 = Worker(0, Idle, v0, 0, vector<int>({0, 1, 2, 3, 4}));
         Worker worker1 = Worker(1, Idle, v1, 1, vector<int>({0, 1, 2, 3, 4}));
         // Worker worker2 = Worker(2, Idle, v2, 4, vector<int>({0, 1, 2, 3, 4}));

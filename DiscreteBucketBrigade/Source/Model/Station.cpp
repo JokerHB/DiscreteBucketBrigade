@@ -315,12 +315,31 @@ std::vector<Worker *> Station::Handoff(int stationNum)
             handOffWorkers.push_back(wait);
             handOffWorkers.push_back(finish);
         }
+
+        while (!this->IsWaitEmpty() && !this->IsHandoffEmpty())
+        {
+            Worker *wait = this->GetLastWatiWorker();
+            Worker *handoff = this->GetHandoffWorker();
+            wait->SetDirection(Backward);
+            handoff->SetDirection(Backward);
+            handOffWorkers.push_back(wait);
+            handOffWorkers.push_back(handoff);
+        }
+
         while (!this->IsFinishEmpty())
         {
             Worker *finish = this->GetFinishWorker();
             finish->SetDirection(Backward);
             handOffWorkers.push_back(finish);
         }
+
+        while (!this->IsHandoffEmpty())
+        {
+            Worker *handoff = this->GetHandoffWorker();
+            handoff->SetDirection(Backward);
+            handOffWorkers.push_back(handoff);
+        }
+
         return handOffWorkers;
     }
 
