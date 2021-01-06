@@ -112,6 +112,7 @@ void WriteToFile(string filePath, double mean, double stdev, double min, double 
 int main(int argc, const char *argv[])
 {
     int cnt = 0;
+    string filePath = "result.csv";
 
     for (int i = 5; i < 21; i += 2)
     {
@@ -143,7 +144,7 @@ int main(int argc, const char *argv[])
                 double mean = CalMean(throughputs);
                 double min = GetMin(throughputs);
                 double max = GetMax(throughputs);
-                WriteToFile("./result.csv", mean, stdev, min, max, speedList);
+                WriteToFile(filePath, mean, stdev, min, max, speedList);
             }
 
             sort(speedList.begin(), speedList.end());
@@ -164,7 +165,7 @@ int main(int argc, const char *argv[])
             double mean = CalMean(throughputs);
             double min = GetMin(throughputs);
             double max = GetMax(throughputs);
-            WriteToFile("./result.csv", mean, stdev, min, max, speedList);
+            WriteToFile(filePath, mean, stdev, min, max, speedList);
 
             cout << cnt++ << endl;
         }
