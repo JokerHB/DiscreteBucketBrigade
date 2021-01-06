@@ -49,6 +49,11 @@ double Worker::GetSpeed()
     return this->speed;
 }
 
+void Worker::SetSpeed(double speed)
+{
+    this->speed = speed;
+}
+
 State Worker::GetState()
 {
     return this->state;

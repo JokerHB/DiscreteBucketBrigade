@@ -32,13 +32,14 @@ std::vector<std::string> split(const std::string &str, const std::string &delim)
     return res;
 }
 
-Simulation::Simulation(int stationNum, int workerNum, bool isFullCross, std::string stationPath, std::string workerPath)
+Simulation::Simulation(int stationNum, int workerNum, bool isFullCross, int overlapNum, std::string stationPath, std::string workerPath)
 {
     this->stationNum = stationNum;
     this->workerNum = workerNum;
     this->isFullCross = isFullCross;
     this->stationPath = stationPath;
     this->workerPath = workerPath;
+    this->overlapNum = overlapNum;
 }
 
 Simulation::~Simulation()
@@ -79,12 +80,83 @@ bool Simulation::GetFullorPartial()
 
 void Simulation::GenerateStations()
 {
-    // TODO Generate Stations
+    RandomGenerator workContent = RandomGenerator(1.0, 3.0, 0.6, 6);
+    for (int i = 0; i < this->stationNum; i++)
+    {
+        this->stations.push_back(Station(i, Idle, workContent()));
+    }
 }
 
 void Simulation::GenerateWorkers()
 {
-    // TODO Generate Workers
+    RandomGenerator speed = RandomGenerator(1.0, 3.0, 0.5, 2);
+
+    for (int i = 0; i < this->workerNum; i++)
+    {
+        // ID\tState\tSpeed\tCurrentStation\tOperatingZone\n
+        double workerSpeed = speed();
+        int currentStation = 0;
+        if (i == 0)
+        {
+            currentStation = RandomGenerator::GenerateRandomInt(0, this->stationNum - this->workerNum);
+        }
+        else
+        {
+            currentStation = RandomGenerator::GenerateRandomInt(this->workers[i - 1].GetCurrentStation() + 1, this->stationNum - this->workerNum + i);
+        }
+
+        if (this->isFullCross)
+        {
+            std::vector<int> operatingZone;
+            for (int j = 0; j < this->stationNum; j++)
+            {
+                operatingZone.push_back(j);
+            }
+            this->workers.push_back(Worker(i, Idle, workerSpeed, currentStation, operatingZone));
+        }
+        else
+        {
+            // TODO Add operating zone generate method
+            // std::vector<int> operatingZone;
+            // int len = this->stationNum / this->workerNum + this->overlapNum;
+            // len = this->stationNum % this->workerNum == 0 ? len : len + 1;
+
+            // for (int j = 0; j < len; j++)
+            // {
+            //     operatingZone.push_back(len -  + j + j);
+            // }
+        }
+    }
+}
+
+void Simulation::NormalizationWorkContent()
+{
+    double totalWorkContent = 0.0;
+
+    for (int i = 0; i < this->stationNum; i++)
+    {
+        totalWorkContent += this->stations[i].GetWorkContent();
+    }
+
+    for (int i = 0; i < this->stationNum; i++)
+    {
+        this->stations[i].SetWorkContent(this->stations[i].GetWorkContent() / totalWorkContent);
+    }
+}
+
+void Simulation::NormalizationSpeed()
+{
+    double totalSpeed = 0.0;
+
+    for (int i = 0; i < this->workerNum; i++)
+    {
+        totalSpeed += this->workers[i].GetSpeed();
+    }
+
+    for (int i = 0; i < this->workerNum; i++)
+    {
+        this->workers[i].SetSpeed(this->workers[i].GetSpeed() / totalSpeed);
+    }
 }
 
 std::vector<Station> Simulation::GetStations()

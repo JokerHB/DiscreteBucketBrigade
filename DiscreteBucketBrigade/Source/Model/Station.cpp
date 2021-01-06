@@ -101,6 +101,11 @@ double Station::GetWorkContent()
     return this->workContent;
 }
 
+void Station::SetWorkContent(double workContent)
+{
+    this->workContent = workContent;
+}
+
 double Station::GetProcessTime()
 {
     if (this->worker == NULL)

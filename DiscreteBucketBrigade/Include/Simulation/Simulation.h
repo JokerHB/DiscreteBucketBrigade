@@ -10,10 +10,13 @@
 
 #include <algorithm>
 #include <cfloat>
+#include <chrono>
 #include <vector>
 #include <string>
 #include <fstream>
+#include <random>
 #include "../Tool/State.h"
+#include "../Tool/RandomGenerator.h"
 #include "../Model/Station.h"
 #include "../Model/Worker.h"
 
@@ -23,13 +26,14 @@ private:
     int stationNum;
     int workerNum;
     bool isFullCross;
+    int overlapNum;
     std::string stationPath;
     std::string workerPath;
     std::vector<Station> stations;
     std::vector<Worker> workers;
 
 public:
-    Simulation(int stationNum, int workerNum, bool isFullCross, std::string stationPath = "./station.txt", std::string workerPath = "./worker.txt");
+    Simulation(int stationNum, int workerNum, bool isFullCross, int overlapNum, std::string stationPath = "./station.txt", std::string workerPath = "./worker.txt");
 
     ~Simulation();
 
@@ -48,6 +52,10 @@ public:
     void GenerateStations();
 
     void GenerateWorkers();
+
+    void NormalizationWorkContent();
+
+    void NormalizationSpeed();
 
     std::vector<Station> GetStations();
 

@@ -39,6 +39,8 @@ public:
 
     double GetSpeed();
 
+    void SetSpeed(double speed);
+
     State GetState();
 
     void SetState(const State &state);

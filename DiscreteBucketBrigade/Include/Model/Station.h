@@ -62,6 +62,8 @@ public:
 
     double GetWorkContent();
 
+    void SetWorkContent(double workContent);
+
     double GetProcessTime();
 
     void RemoveItem(std::vector<Worker *>& vec, Worker *item);
