@@ -252,11 +252,6 @@ void Station::Station::Process(double workTime)
         exit(-3);
     }
 
-    if (currentPosition < this->GetWorkContent())
-    {
-        this->worker->SetCurrentPosition(currentPosition);
-    }
-
     double delta = currentPosition - this->GetWorkContent();
     this->worker->SetCurrentPosition(currentPosition);
     delta = delta > 0 ? delta : -delta;
