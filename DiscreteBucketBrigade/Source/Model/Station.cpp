@@ -246,7 +246,7 @@ void Station::Station::Process(double workTime)
     double currentPosition = this->worker->GetCurrentPosition();
     currentPosition += this->worker->GetSpeed() * workTime;
 
-    if (currentPosition > this->GetWorkContent())
+    if (currentPosition - this->GetWorkContent() > this->EPS)
     {
         std::cout << "Error, worker " << this->worker->GetID() << " exceed station " << this->GetID() << std::endl;
         exit(-3);
