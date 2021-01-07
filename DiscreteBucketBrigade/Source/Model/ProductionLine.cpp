@@ -12,7 +12,7 @@
 
 bool cmp(Worker *a, Worker *b)
 {
-    return a->GetID() - b->GetID();
+    return a->GetID() > b->GetID();
 }
 
 ProductionLine::ProductionLine(std::vector<Station> &stations, std::vector<Worker> &workers, int productNum)
@@ -73,8 +73,17 @@ void ProductionLine::ProcessWork(double minWorkTime)
 void ProductionLine::MoveForward(Worker *worker)
 {
     int currentStationID = worker->GetCurrentStation();
+    int nextWorkerID = worker->GetID() + 1 == (int)this->workers.size() ? (int)this->workers.size() - 1 : worker->GetID() + 1;
+    Worker *nextWorker = this->workers[nextWorkerID];
     int nextStationID = currentStationID + 1;
-    nextStationID = std::min(nextStationID, (int)this->stations.size() - 1);
+    if(nextWorkerID == worker->GetID())
+    {
+        nextStationID = std::min(nextStationID, (int)this->stations.size() - 1);
+    }
+    else
+    {
+        nextStationID = currentStationID + 1 > nextWorker->GetCurrentStation() ? nextWorker->GetCurrentStation() : currentStationID + 1;
+    }
     Station *nextStation = this->stations[nextStationID];
     nextStation->AddWaitWorker(worker);
 }
@@ -104,11 +113,13 @@ void ProductionLine::ArrangeWorker(std::vector<Worker *> idleWorkers)
     {
         Worker *worker = idleWorkers[i];
         int currentStationID = worker->GetCurrentStation();
-        int nextStationID = -1;
 
         if (worker->GetDirection() == Forward)
         {
-            nextStationID = currentStationID + 1;
+            int nextWorkerID = worker->GetID() + 1 == (int)this->workers.size() ? (int)this->workers.size() - 1 : worker->GetID() + 1;
+            Worker *nextWorker = this->workers[nextWorkerID];
+            int nextStationID = currentStationID + 1 > nextWorker->GetCurrentStation() ? nextWorker->GetCurrentStation() : currentStationID + 1;
+
             if (worker->IsAvailable(nextStationID) || nextStationID == (int)this->stations.size())
             {
                 this->MoveForward(worker);

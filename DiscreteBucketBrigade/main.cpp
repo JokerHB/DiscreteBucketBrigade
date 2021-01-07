@@ -139,7 +139,7 @@ int main(int argc, const char *argv[])
                     ProductionLine productionLine = ProductionLine(stations, _workers, 10000);
                     double throughput = productionLine.Run();
                     throughputs.push_back(throughput);
-                    cout << k << endl;
+                    cout << i << " " << j << " " << k << endl;
                 }
                 double stdev = CalStdev(throughputs);
                 double mean = CalMean(throughputs);
@@ -161,7 +161,7 @@ int main(int argc, const char *argv[])
                 ProductionLine productionLine = ProductionLine(stations, _workers, 10000);
                 double throughput = productionLine.Run();
                 throughputs.push_back(throughput);
-                cout << k <<endl;
+                cout << i << " " << j << " " << k << endl;
             }
             double stdev = CalStdev(throughputs);
             double mean = CalMean(throughputs);
