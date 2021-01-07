@@ -76,7 +76,7 @@ void ProductionLine::MoveForward(Worker *worker)
     int nextWorkerID = worker->GetID() + 1 == (int)this->workers.size() ? (int)this->workers.size() - 1 : worker->GetID() + 1;
     Worker *nextWorker = this->workers[nextWorkerID];
     int nextStationID = currentStationID + 1;
-    if(nextWorkerID == worker->GetID())
+    if (nextWorkerID == worker->GetID())
     {
         nextStationID = std::min(nextStationID, (int)this->stations.size() - 1);
     }
@@ -90,13 +90,15 @@ void ProductionLine::MoveForward(Worker *worker)
 
 void ProductionLine::MoveBackward(Worker *worker)
 {
-    int preWorkerID = worker->GetID() - 1;
-    int nextStationID = -1;
-    preWorkerID = std::max(0, preWorkerID);
-    nextStationID = this->FindStation(preWorkerID);
-    if (worker->GetID() == 0)
+    int nextWorkerID = worker->GetID() - 1 == -1 ? 0 : worker->GetID() - 1;
+    Worker *nextWorker = this->workers[nextWorkerID];
+    int nextStationID = nextWorker->GetCurrentStation();
+
+    if (nextWorkerID == worker->GetID() && worker->GetID() == 0)
     {
-        this->stations[0]->AddWaitWorker(worker);
+        worker->SetDirection(Forward);
+        Station *nextStation = this->stations[0];
+        nextStation->AddWaitWorker(worker);
     }
     else
     {
@@ -120,14 +122,9 @@ void ProductionLine::ArrangeWorker(std::vector<Worker *> idleWorkers)
             Worker *nextWorker = this->workers[nextWorkerID];
             int nextStationID = currentStationID + 1 > nextWorker->GetCurrentStation() ? nextWorker->GetCurrentStation() : currentStationID + 1;
 
-            if (worker->IsAvailable(nextStationID) || nextStationID == (int)this->stations.size())
+            if (worker->IsAvailable(nextStationID))
             {
                 this->MoveForward(worker);
-            }
-            else
-            {
-                worker->SetDirection(Backward);
-                this->MoveBackward(worker);
             }
         }
         else
@@ -137,10 +134,8 @@ void ProductionLine::ArrangeWorker(std::vector<Worker *> idleWorkers)
     }
 }
 
-void ProductionLine::ArrangeHandoff(int &productCnt)
+void ProductionLine::GetIdleWorker(std::vector<Worker *> &idleWorkers, int &productCnt)
 {
-    std::vector<Worker *> idleWorkers;
-
     for (int i = (int)this->stations.size() - 1; i >= 0; i--)
     {
         Station *station = this->stations[i];
@@ -154,24 +149,19 @@ void ProductionLine::ArrangeHandoff(int &productCnt)
             }
         }
     }
+}
+
+void ProductionLine::ArrangeHandoff(int &productCnt)
+{
+    std::vector<Worker *> idleWorkers;
+
+    this->GetIdleWorker(idleWorkers, productCnt);
 
     while (!idleWorkers.empty())
     {
         this->ArrangeWorker(idleWorkers);
         idleWorkers.clear();
-        for (int i = (int)this->stations.size() - 1; i >= 0; i--)
-        {
-            Station *station = this->stations[i];
-            std::vector<Worker *> _tmp = station->Handoff((int)this->stations.size());
-            for (int j = 0; j < _tmp.size(); j++)
-            {
-                idleWorkers.push_back(_tmp[j]);
-                if (_tmp[j]->GetCurrentStation() == this->stations.size() - 1 && _tmp[j]->GetID() == this->workers.size() - 1)
-                {
-                    productCnt++;
-                }
-            }
-        }
+        this->GetIdleWorker(idleWorkers, productCnt);
     }
 }
 
@@ -217,7 +207,6 @@ double ProductionLine::Run()
     }
 
     this->ArrangeWait();
-
     while (productCnt < this->productNum)
     {
         double minWorkTime = this->GetMinWorkTime();

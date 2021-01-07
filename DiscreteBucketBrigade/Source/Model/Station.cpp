@@ -140,7 +140,7 @@ void Station::AddWaitWorker(Worker *worker)
     this->waiting.push_back(worker);
 }
 
-Worker *Station::GetWatiWorker()
+Worker *Station::GetWatiWorker() // forward use
 {
     if (!this->waiting.empty())
     {
@@ -160,7 +160,7 @@ Worker *Station::GetWatiWorker()
     return NULL;
 }
 
-Worker *Station::GetLastWatiWorker()
+Worker *Station::GetLastWatiWorker() // backward use
 {
     if (!this->waiting.empty())
     {
@@ -302,76 +302,68 @@ std::vector<Worker *> Station::Handoff(int stationNum)
 {
     std::vector<Worker *> handOffWorkers;
 
-    if (this->GetID() == stationNum - 1)
+    while (!this->IsHandoffEmpty())
     {
-        while (!this->IsWaitEmpty() && !this->IsFinishEmpty())
-        {
-            Worker *wait = this->GetLastWatiWorker();
-            Worker *finish = this->GetFinishWorker();
-            wait->SetDirection(Backward);
-            finish->SetDirection(Forward);
-            // wait->AddHandoffPoint();
-            // finish->AddHandoffPoint();
-            handOffWorkers.push_back(wait);
-            handOffWorkers.push_back(finish);
-        }
-
-        while (!this->IsWaitEmpty() && !this->IsHandoffEmpty())
-        {
-            Worker *wait = this->GetLastWatiWorker();
-            Worker *handoff = this->GetHandoffWorker();
-            wait->SetDirection(Backward);
-            handoff->SetDirection(Backward);
-            handOffWorkers.push_back(wait);
-            handOffWorkers.push_back(handoff);
-        }
-
         while (!this->IsFinishEmpty())
         {
-            Worker *finish = this->GetFinishWorker();
+            Worker *handoff = this->GetHandoffWorker();
+            Worker *finish = this->GetFinishWorker(); // min id worker
+            handoff->SetDirection(Forward);
             finish->SetDirection(Backward);
+            handOffWorkers.push_back(handoff);
             handOffWorkers.push_back(finish);
+
+            if (this->IsHandoffEmpty())
+                break;
         }
 
-        while (!this->IsHandoffEmpty())
+        if (this->IsHandoffEmpty() || this->GetID() == 0)
+        {
+            break;
+        }
+
+        while (!this->IsWaitEmpty())
         {
             Worker *handoff = this->GetHandoffWorker();
-            handoff->SetDirection(Backward);
-            handOffWorkers.push_back(handoff);
+
+            if (handoff->IsAvailable(this->GetID()))
+            {
+                Worker *wait = this->GetLastWatiWorker(); // min id worker
+                handoff->SetDirection(Forward);
+                wait->SetDirection(Backward);
+                handOffWorkers.push_back(handoff);
+                handOffWorkers.push_back(wait);
+            }
+            else
+            {
+                this->AddHandoffWorker(handoff);
+                break;
+            }
+            if (this->IsHandoffEmpty())
+                break;
         }
 
-        return handOffWorkers;
+        break;
     }
 
-    while (!this->IsHandoffEmpty() && !this->IsFinishEmpty())
+    if (this->GetID() == stationNum - 1)
     {
-        Worker *handoff = this->GetHandoffWorker();
-        Worker *finish = this->GetFinishWorker();
-        handoff->SetDirection(Forward);
-        finish->SetDirection(Backward);
-        // handoff->AddHandoffPoint();
-        // finish->AddHandoffPoint();
-        handOffWorkers.push_back(finish);
-        handOffWorkers.push_back(handoff);
-    }
-
-    while (this->IsFinishEmpty() && !this->IsHandoffEmpty() && !this->IsWaitEmpty())
-    {
-        Worker *handoff = this->GetHandoffWorker();
-        if (handoff->IsAvailable(this->GetID()))
+        if (!this->IsFinishEmpty())
         {
-            Worker *wait = this->GetLastWatiWorker();
-            handoff->SetDirection(Forward);
-            wait->SetDirection(Backward);
-            // handoff->AddHandoffPoint();
-            // wait->AddHandoffPoint();
-            handOffWorkers.push_back(wait);
-            handOffWorkers.push_back(handoff);
-        }
-        else
-        {
-            this->AddHandoffWorker(handoff);
-            break;
+            Worker *finish = this->GetFinishWorker();
+            if (!this->IsWaitEmpty())
+            {
+                Worker *wait = this->GetLastWatiWorker(); // min id worker
+                finish->SetDirection(Forward);
+                wait->SetDirection(Backward);
+                handOffWorkers.push_back(finish);
+                handOffWorkers.push_back(wait);
+            }
+            else
+            {
+                finish->SetDirection(Backward);
+                handOffWorkers.push_back(finish);
+            }
         }
     }
 

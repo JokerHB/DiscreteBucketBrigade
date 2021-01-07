@@ -43,8 +43,10 @@ public:
     void ArrangeHandoff(int &productCnt);
 
     void ArrangeFinish();
-    
+
     void ArrangeWait();
+
+    void GetIdleWorker(std::vector<Worker *> &idleWorkers, int &productCnt);
 
     void ArrangeWorker(std::vector<Worker *> idleWorkers);
 
