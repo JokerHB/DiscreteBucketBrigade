@@ -302,9 +302,9 @@ std::vector<Worker *> Station::Handoff(int stationNum)
 {
     std::vector<Worker *> handOffWorkers;
 
-    while (!this->IsHandoffEmpty())
+    if (!this->IsHandoffEmpty())
     {
-        while (!this->IsFinishEmpty())
+        if (!this->IsFinishEmpty())
         {
             Worker *handoff = this->GetHandoffWorker();
             Worker *finish = this->GetFinishWorker(); // min id worker
@@ -312,17 +312,10 @@ std::vector<Worker *> Station::Handoff(int stationNum)
             finish->SetDirection(Backward);
             handOffWorkers.push_back(handoff);
             handOffWorkers.push_back(finish);
-
-            if (this->IsHandoffEmpty())
-                break;
+            return handOffWorkers;
         }
 
-        if (this->IsHandoffEmpty() || this->GetID() == 0)
-        {
-            break;
-        }
-
-        while (!this->IsWaitEmpty())
+        if (!this->IsWaitEmpty())
         {
             Worker *handoff = this->GetHandoffWorker();
 
@@ -337,13 +330,9 @@ std::vector<Worker *> Station::Handoff(int stationNum)
             else
             {
                 this->AddHandoffWorker(handoff);
-                break;
             }
-            if (this->IsHandoffEmpty())
-                break;
+            return handOffWorkers;
         }
-
-        break;
     }
 
     if (this->GetID() == stationNum - 1)
@@ -366,7 +355,6 @@ std::vector<Worker *> Station::Handoff(int stationNum)
             }
         }
     }
-
     return handOffWorkers;
 }
 
