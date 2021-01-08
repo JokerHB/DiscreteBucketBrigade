@@ -315,7 +315,7 @@ std::vector<Worker *> Station::Handoff(int stationNum)
             return handOffWorkers;
         }
 
-        if (!this->IsWaitEmpty())
+        if (!this->IsWaitEmpty() && this->GetState() == Idle)
         {
             Worker *handoff = this->GetHandoffWorker();
 
@@ -340,7 +340,7 @@ std::vector<Worker *> Station::Handoff(int stationNum)
         if (!this->IsFinishEmpty())
         {
             Worker *finish = this->GetFinishWorker();
-            if (!this->IsWaitEmpty())
+            if (!this->IsWaitEmpty() && this->GetState() == Idle)
             {
                 Worker *wait = this->GetLastWatiWorker(); // min id worker
                 finish->SetDirection(Forward);
