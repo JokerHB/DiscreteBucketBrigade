@@ -350,8 +350,7 @@ std::vector<Worker *> Station::Handoff(int stationNum)
             }
             else
             {
-                finish->SetDirection(Backward);
-                handOffWorkers.push_back(finish);
+                this->AddFinishWorker(finish);
             }
         }
     }

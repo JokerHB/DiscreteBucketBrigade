@@ -185,6 +185,13 @@ void ProductionLine::ArrangeFinish()
             }
         }
     }
+    Station *lastStation = this->stations[this->stations.size() - 1];
+    while(!lastStation->IsFinishEmpty())
+    {
+        Worker * worker = lastStation->GetFinishWorker();
+        worker->SetDirection(Backward);
+        this->MoveBackward(worker);
+    }
 }
 
 void ProductionLine::ArrangeWait()
