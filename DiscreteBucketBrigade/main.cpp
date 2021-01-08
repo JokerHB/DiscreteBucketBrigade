@@ -116,7 +116,7 @@ int main(int argc, const char *argv[])
 
     for (int i = 5; i < 21; i += 2)
     {
-        for (int j = 3; j < i; j += 2)
+        for (int j = 2; j < i; j += 2)
         {
             Simulation simulation = Simulation(i, j, true, 2);
             simulation.GenerateWorkers();
@@ -170,6 +170,9 @@ int main(int argc, const char *argv[])
             WriteToFile(filePath, mean, stdev, min, max, speedList);
 
             cout << cnt++ << endl;
+
+            if (j == 2)
+                j = 1;
         }
     }
 
