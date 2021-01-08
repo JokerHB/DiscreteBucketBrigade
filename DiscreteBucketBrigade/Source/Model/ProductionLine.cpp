@@ -60,13 +60,22 @@ double ProductionLine::GetMinWorkTime()
     return minWorkTime == DBL_MAX ? 0.0 : minWorkTime;
 }
 
-void ProductionLine::ProcessWork(double minWorkTime)
+void ProductionLine::ProcessWork(double minWorkTime, int &productCnt)
 {
     for (int i = 0; i < stations.size(); i++)
     {
         if (stations[i]->GetState() == Idle)
             continue;
         stations[i]->Process(minWorkTime);
+    }
+
+    Station *lastStation = this->stations[this->stations.size() - 1];
+    while (!lastStation->IsFinishEmpty())
+    {
+        Worker *worker = lastStation->GetFinishWorker();
+        worker->SetDirection(Backward);
+        this->MoveBackward(worker);
+        productCnt++;
     }
 }
 
@@ -134,7 +143,7 @@ void ProductionLine::ArrangeWorker(std::vector<Worker *> idleWorkers)
     }
 }
 
-void ProductionLine::GetIdleWorker(std::vector<Worker *> &idleWorkers, int &productCnt)
+void ProductionLine::GetIdleWorker(std::vector<Worker *> &idleWorkers)
 {
     for (int i = (int)this->stations.size() - 1; i >= 0; i--)
     {
@@ -143,25 +152,21 @@ void ProductionLine::GetIdleWorker(std::vector<Worker *> &idleWorkers, int &prod
         for (int j = 0; j < _tmp.size(); j++)
         {
             idleWorkers.push_back(_tmp[j]);
-            if (_tmp[j]->GetCurrentStation() == this->stations.size() - 1 && _tmp[j]->GetID() == this->workers.size() - 1)
-            {
-                productCnt++;
-            }
         }
     }
 }
 
-void ProductionLine::ArrangeHandoff(int &productCnt)
+void ProductionLine::ArrangeHandoff()
 {
     std::vector<Worker *> idleWorkers;
 
-    this->GetIdleWorker(idleWorkers, productCnt);
+    this->GetIdleWorker(idleWorkers);
 
     while (!idleWorkers.empty())
     {
         this->ArrangeWorker(idleWorkers);
         idleWorkers.clear();
-        this->GetIdleWorker(idleWorkers, productCnt);
+        this->GetIdleWorker(idleWorkers);
     }
 }
 
@@ -184,13 +189,6 @@ void ProductionLine::ArrangeFinish()
                 break;
             }
         }
-    }
-    Station *lastStation = this->stations[this->stations.size() - 1];
-    while(!lastStation->IsFinishEmpty())
-    {
-        Worker * worker = lastStation->GetFinishWorker();
-        worker->SetDirection(Backward);
-        this->MoveBackward(worker);
     }
 }
 
@@ -220,9 +218,9 @@ double ProductionLine::Run()
 
         this->time += minWorkTime;
 
-        this->ProcessWork(minWorkTime);
+        this->ProcessWork(minWorkTime, productCnt);
 
-        this->ArrangeHandoff(productCnt);
+        this->ArrangeHandoff();
 
         this->ArrangeFinish();
 

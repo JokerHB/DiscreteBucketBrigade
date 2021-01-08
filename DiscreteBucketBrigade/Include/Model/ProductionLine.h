@@ -34,19 +34,19 @@ public:
 
     double GetMinWorkTime();
 
-    void ProcessWork(double minWorkTime);
+    void ProcessWork(double minWorkTime, int &productCnt);
 
     void MoveForward(Worker *worker);
 
     void MoveBackward(Worker *worker);
 
-    void ArrangeHandoff(int &productCnt);
+    void ArrangeHandoff();
 
     void ArrangeFinish();
 
     void ArrangeWait();
 
-    void GetIdleWorker(std::vector<Worker *> &idleWorkers, int &productCnt);
+    void GetIdleWorker(std::vector<Worker *> &idleWorkers);
 
     void ArrangeWorker(std::vector<Worker *> idleWorkers);
 
