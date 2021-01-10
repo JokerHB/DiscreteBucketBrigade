@@ -36,3 +36,7 @@
 
 # xcode
 /DiscreteBucketBrigade.xcodeproj/
+
+# image files
+*.png
+
