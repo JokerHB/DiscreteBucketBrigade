@@ -40,6 +40,8 @@ public:
 
     void MoveBackward(Worker *worker);
 
+    void MoveStay(Worker *worker);
+
     void ArrangeHandoff();
 
     void ArrangeFinish();

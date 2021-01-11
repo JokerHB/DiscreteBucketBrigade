@@ -72,7 +72,7 @@ public:
 
     Worker *GetWatiWorker();
 
-    Worker *GetLastWatiWorker();
+    Worker *GetLastWaitWorker();
 
     bool IsWaitEmpty();
 
@@ -80,11 +80,15 @@ public:
 
     Worker *GetHandoffWorker();
 
+    Worker *GetLastHandoffWorker();
+
     bool IsHandoffEmpty();
 
     void AddFinishWorker(Worker *worker);
 
     Worker *GetFinishWorker();
+
+    Worker *GetLastFinishWorker();
 
     bool IsFinishEmpty();
 

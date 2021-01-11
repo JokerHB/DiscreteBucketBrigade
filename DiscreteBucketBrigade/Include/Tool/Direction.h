@@ -11,7 +11,8 @@
 enum Direction
 {
     Forward,
-    Backward
+    Backward,
+    Stay
 };
 
 #endif /* Direction_h */
