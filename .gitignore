@@ -40,3 +40,9 @@
 # image files
 *.png
 
+# text files
+*.txt
+
+# csv files
+*.csv
+
