@@ -114,17 +114,38 @@ int main(int argc, const char *argv[])
     int cnt = 0;
     string filePath = "result.csv";
 
-    for (int i = 5; i < 10; i += 2)
+    for (int i = 3; i < 11; i += 2)
     {
         for (int j = 2; j < i; j ++)
         {
             Simulation simulation = Simulation(i, j, true, 2);
-            simulation.GenerateWorkers();
+            simulation.GenerateWorkers(0.5);
             simulation.NormalizationSpeed();
             vector<Worker> workers = simulation.GetWorkers();
             vector<double> speedList = GetSpeedList(workers);
             sort(speedList.begin(), speedList.end());
-            int iterNum = 50;
+            int iterNum = 30;
+
+            vector<double> throughputs;
+            for (int k = 0; k < iterNum; k++)
+            {
+                SetNewSpeed(workers, speedList);
+                vector<Worker> _workers = vector<Worker>(workers);
+                simulation.ClearStation();
+                simulation.GenerateStations();
+                simulation.NormalizationWorkContent();
+                vector<Station> stations = simulation.GetStations();
+                ProductionLine productionLine = ProductionLine(stations, _workers, 1000);
+                double throughput = productionLine.Run();
+                throughputs.push_back(throughput);
+                cout << i << " " << j << " " << k << endl;
+            }
+            double stdev = CalStdev(throughputs);
+            double mean = CalMean(throughputs);
+            double min = GetMin(throughputs);
+            double max = GetMax(throughputs);
+            WriteToFile(filePath, mean, stdev, min, max, speedList);
+
             while (next_permutation(speedList.begin(), speedList.end()))
             {
                 vector<double> throughputs;
@@ -136,7 +157,7 @@ int main(int argc, const char *argv[])
                     simulation.GenerateStations();
                     simulation.NormalizationWorkContent();
                     vector<Station> stations = simulation.GetStations();
-                    ProductionLine productionLine = ProductionLine(stations, _workers, 10000);
+                    ProductionLine productionLine = ProductionLine(stations, _workers, 1000);
                     double throughput = productionLine.Run();
                     throughputs.push_back(throughput);
                     cout << i << " " << j << " " << k << endl;
@@ -147,27 +168,6 @@ int main(int argc, const char *argv[])
                 double max = GetMax(throughputs);
                 WriteToFile(filePath, mean, stdev, min, max, speedList);
             }
-
-            sort(speedList.begin(), speedList.end());
-            vector<double> throughputs;
-            for (int k = 0; k < iterNum; k++)
-            {
-                SetNewSpeed(workers, speedList);
-                vector<Worker> _workers = vector<Worker>(workers);
-                simulation.ClearStation();
-                simulation.GenerateStations();
-                simulation.NormalizationWorkContent();
-                vector<Station> stations = simulation.GetStations();
-                ProductionLine productionLine = ProductionLine(stations, _workers, 10000);
-                double throughput = productionLine.Run();
-                throughputs.push_back(throughput);
-                cout << i << " " << j << " " << k << endl;
-            }
-            double stdev = CalStdev(throughputs);
-            double mean = CalMean(throughputs);
-            double min = GetMin(throughputs);
-            double max = GetMax(throughputs);
-            WriteToFile(filePath, mean, stdev, min, max, speedList);
 
             cout << cnt++ << endl;
         }
