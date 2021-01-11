@@ -80,21 +80,20 @@ bool Simulation::GetFullorPartial()
 
 void Simulation::GenerateStations()
 {
-    RandomGenerator workContent = RandomGenerator(1.0, 0.5, 0.6, 6);
+    RandomGenerator workContent = RandomGenerator(1.0, 0.9, 0.6, 6);
     for (int i = 0; i < this->stationNum; i++)
     {
         this->stations.push_back(Station(i, Idle, workContent()));
     }
 }
 
-void Simulation::GenerateWorkers()
+void Simulation::GenerateWorkers(double speedRatio)
 {
-    RandomGenerator speed = RandomGenerator(1.0, 0.5, 0.5, 2);
+    std::vector<double> workerSpeed = this->GenerateSpeed(speedRatio);
 
     for (int i = 0; i < this->workerNum; i++)
     {
         // ID\tState\tSpeed\tCurrentStation\tOperatingZone\n
-        double workerSpeed = speed();
         int currentStation = 0;
         if (i == 0)
         {
@@ -112,7 +111,7 @@ void Simulation::GenerateWorkers()
             {
                 operatingZone.push_back(j);
             }
-            this->workers.push_back(Worker(i, Idle, workerSpeed, currentStation, operatingZone));
+            this->workers.push_back(Worker(i, Idle, workerSpeed[i], currentStation, operatingZone));
         }
         else
         {
@@ -127,6 +126,21 @@ void Simulation::GenerateWorkers()
             // }
         }
     }
+}
+
+std::vector<double> Simulation::GenerateSpeed(double ratio)
+{
+    std::vector<double> speedList;
+    double an = 2.0 / (this->workerNum * (1.0 + ratio));
+    double a1 = ratio * an;
+    double delta = (an - a1) / (this->workerNum);
+
+    for (int i = 0; i < this->workerNum; i++)
+    {
+        speedList.push_back(a1 + delta * i);
+    }
+
+    return speedList;
 }
 
 void Simulation::NormalizationWorkContent()
