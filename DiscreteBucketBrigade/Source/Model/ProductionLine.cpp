@@ -116,6 +116,13 @@ void ProductionLine::MoveBackward(Worker *worker)
     }
 }
 
+void ProductionLine::MoveStay(Worker *worker)
+{
+    Station *station = this->stations[worker->GetCurrentStation()];
+    worker->SetDirection(Forward);
+    station->AddWaitWorker(worker);
+}
+
 void ProductionLine::ArrangeWorker(std::vector<Worker *> idleWorkers)
 {
     std::sort(idleWorkers.begin(), idleWorkers.end(), cmp);
@@ -136,9 +143,13 @@ void ProductionLine::ArrangeWorker(std::vector<Worker *> idleWorkers)
                 this->MoveForward(worker);
             }
         }
-        else
+        else if (worker->GetDirection() == Backward)
         {
             this->MoveBackward(worker);
+        }
+        else
+        {
+            this->MoveStay(worker);
         }
     }
 }
