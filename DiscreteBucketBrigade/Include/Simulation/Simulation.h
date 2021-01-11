@@ -52,7 +52,9 @@ public:
 
     void GenerateStations();
 
-    void GenerateWorkers();
+    void GenerateWorkers(double speedRatio);
+
+    std::vector<double> GenerateSpeed(double ratio);
 
     void NormalizationWorkContent();
 
