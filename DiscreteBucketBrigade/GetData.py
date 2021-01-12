@@ -44,6 +44,8 @@ if __name__ == "__main__":
                     print(
                         '****** r-%.1f cf-%.1f, %d stations, %d workers ******'
                         % (r, cf, stationNum, workerNum))
-                    for i in range(10 if len(best) > 10 else len(best)):
-                        print(best[i].order, best[i].mean)
+                    print(sum([x.mean for x in best]) / len(best))
+                    print(best[0].order, best[0].mean)
+                    print(best[-1].order, best[-1].mean)
+
                     pos += insNum
