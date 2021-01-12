@@ -112,6 +112,7 @@ void WriteToFile(string filePath, double mean, double stdev, double min, double 
 int main(int argc, const char *argv[])
 {
     int cnt = 0;
+    double speedRatio = 0.5;
     string filePath = "result.csv";
 
     for (int i = 3; i < 11; i += 2)
@@ -119,7 +120,7 @@ int main(int argc, const char *argv[])
         for (int j = 2; j < i; j ++)
         {
             Simulation simulation = Simulation(i, j, true, 2);
-            simulation.GenerateWorkers(0.5);
+            simulation.GenerateWorkers(speedRatio);
             simulation.NormalizationSpeed();
             vector<Worker> workers = simulation.GetWorkers();
             vector<double> speedList = GetSpeedList(workers);

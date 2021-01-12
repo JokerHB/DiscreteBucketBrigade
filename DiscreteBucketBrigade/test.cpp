@@ -109,7 +109,7 @@ int mainTest(int argc, const char *argv[])
         double throughput = productionLine.Run();
         cout << "Maximal Throughput is " << (5.0) / 7.0 << endl;
         cout << throughput <<endl;
-        exit(-1);
+//        exit(-1);
         
         cout << v0 / v1 << endl;
         cout << "Maxmal Throughput is " << (v0 + v1) / 5.0 << endl;
