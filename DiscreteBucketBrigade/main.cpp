@@ -109,6 +109,15 @@ void WriteToFile(string filePath, double mean, double stdev, double min, double 
     writer.close();
 }
 
+void ShowInitPosition(vector<Worker> &workerList)
+{
+    for (int i = 0; i < workerList.size(); i++)
+    {
+        cout << workerList[i].GetCurrentStation() << " ";
+    }
+    cout << endl;
+}
+
 int main(int argc, const char *argv[])
 {
     int cnt = 0;
@@ -149,6 +158,7 @@ int main(int argc, const char *argv[])
                 workers = simulation.GetWorkers();
                 SetNewSpeed(workers, speedList);
                 vector<Worker> _workers = vector<Worker>(workers);
+                // ShowInitPosition(_workers);
                 simulation.ClearStation();
                 simulation.GenerateStations(cf);
                 simulation.NormalizationWorkContent();
@@ -174,6 +184,7 @@ int main(int argc, const char *argv[])
                     workers = simulation.GetWorkers();
                     SetNewSpeed(workers, speedList);
                     vector<Worker> _workers = vector<Worker>(workers);
+                    // ShowInitPosition(_workers);
                     simulation.ClearStation();
                     simulation.GenerateStations(cf);
                     simulation.NormalizationWorkContent();
