@@ -20,10 +20,10 @@ def ProcessRow(data):
 def PlotFastvsOther(xData, yData, yyData, stationNum, r, cf):
     fig = plt.gcf()
     fig.set_size_inches(10, 10 * 0.7518796992481203)
-    plt.title("Average throughput of different worker orders, %d stations" %
+    plt.title("Average efficiency of different worker orders, %d stations" %
               int(stationNum))
     plt.xlabel("Worker number \n (r=%.1f, cf=%.1f)" % (r, cf))
-    plt.ylabel("Throughput")
+    plt.ylabel("Efficiency")
     plt.xticks(xData, [str(i) for i in xData])
 
     plt.plot(xData, yData, marker='o', linestyle='--', label='Fast')
@@ -41,10 +41,10 @@ def PlotFastvsOther(xData, yData, yyData, stationNum, r, cf):
 def PlotFastvsSlow(xData, yData, yyData, stationNum, r, cf):
     fig = plt.gcf()
     fig.set_size_inches(10, 10 * 0.7518796992481203)
-    plt.title("Average throughput of different worker orders, %d stations" %
+    plt.title("Average efficiency of different worker orders, %d stations" %
               int(stationNum))
     plt.xlabel("Worker number \n (r=%.1f, cf=%.1f)" % (r, cf))
-    plt.ylabel("Throughput")
+    plt.ylabel("Efficiency")
     plt.xticks(xData, [str(i) for i in xData])
 
     plt.plot(xData, yData, marker='o', linestyle='--', label='Fast')
@@ -62,10 +62,10 @@ def PlotFastvsSlow(xData, yData, yyData, stationNum, r, cf):
 def PlotSlowvsOther(xData, yData, yyData, stationNum, r, cf):
     fig = plt.gcf()
     fig.set_size_inches(10, 10 * 0.7518796992481203)
-    plt.title("Average throughput of different worker orders, %d stations" %
+    plt.title("Average efficiency of different worker orders, %d stations" %
               int(stationNum))
     plt.xlabel("Worker number \n (r=%.1f, cf=%.1f)" % (r, cf))
-    plt.ylabel("Throughput")
+    plt.ylabel("Efficiency")
     plt.xticks(xData, [str(i) for i in xData])
 
     plt.plot(xData, yData, marker='o', linestyle='--', label='Slow')

@@ -19,15 +19,15 @@ def ProcessRow(data):
 
 def PlotFigure(xData, yData, stationNum, workerNum, r, cf):
     plt.title(
-        "Throughput of different worker orders, %d stations, %d workers" %
+        "Efficiency of different worker orders, %d stations, %d workers" %
         (int(stationNum), int(workerNum)))
     plt.xlabel("Worker number \n (r=%.1f, cf=%.1f)" % (r, cf))
-    plt.ylabel("Throughput")
+    plt.ylabel("Efficiency")
     plt.xticks(xData, [str(i) for i in xData])
     fig = plt.gcf()
     fig.set_size_inches(20, 20 * 0.7518796992481203)
     plt.plot(xData, yData)
-    plt.savefig('./r-%.1f-wc-cf-%.1f-station-%d-worker%d-max.png' %
+    plt.savefig('./r-%.1f-wc-cf-%.1f-station-%d-worker-%d-max.png' %
                 (r, cf, stationNum, workerNum),
                 dpi=120)
     plt.close()
