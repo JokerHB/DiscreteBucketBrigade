@@ -17,7 +17,7 @@ def ProcessRow(data):
     return (speedList, mean, stdev, _min, _max)
 
 
-def PlotFastvsOther(xData, yData, yyData, stationNum, r, cf):
+def PlotFastvsOther(xData, yData, yyData, average, stationNum, r, cf):
     fig = plt.gcf()
     fig.set_size_inches(10, 10 * 0.7518796992481203)
     plt.title("Average efficiency of different worker orders, %d stations" %
@@ -26,8 +26,9 @@ def PlotFastvsOther(xData, yData, yyData, stationNum, r, cf):
     plt.ylabel("Efficiency")
     plt.xticks(xData, [str(i) for i in xData])
 
-    plt.plot(xData, yData, marker='o', linestyle='--', label='Fast')
-    plt.plot(xData, yyData, marker='.', linestyle=':', label='Other')
+    plt.plot(xData, yData, marker='o', linestyle='-', label='Fast')
+    plt.plot(xData, yyData, marker='.', linestyle='-.', label='Other')
+    plt.plot(xData, average, linestyle='--', label='Average')
 
     plt.legend()
 
@@ -38,7 +39,7 @@ def PlotFastvsOther(xData, yData, yyData, stationNum, r, cf):
     # plt.show()
 
 
-def PlotFastvsSlow(xData, yData, yyData, stationNum, r, cf):
+def PlotFastvsSlow(xData, yData, yyData, average, stationNum, r, cf):
     fig = plt.gcf()
     fig.set_size_inches(10, 10 * 0.7518796992481203)
     plt.title("Average efficiency of different worker orders, %d stations" %
@@ -47,8 +48,9 @@ def PlotFastvsSlow(xData, yData, yyData, stationNum, r, cf):
     plt.ylabel("Efficiency")
     plt.xticks(xData, [str(i) for i in xData])
 
-    plt.plot(xData, yData, marker='o', linestyle='--', label='Fast')
-    plt.plot(xData, yyData, marker='.', linestyle=':', label='Slow')
+    plt.plot(xData, yData, marker='o', linestyle='-', label='Fast')
+    plt.plot(xData, yyData, marker='.', linestyle='-.', label='Slow')
+    plt.plot(xData, average, linestyle='--', label='Average')
 
     plt.legend()
 
@@ -59,7 +61,7 @@ def PlotFastvsSlow(xData, yData, yyData, stationNum, r, cf):
     # plt.show()
 
 
-def PlotSlowvsOther(xData, yData, yyData, stationNum, r, cf):
+def PlotSlowvsOther(xData, yData, yyData, average, stationNum, r, cf):
     fig = plt.gcf()
     fig.set_size_inches(10, 10 * 0.7518796992481203)
     plt.title("Average efficiency of different worker orders, %d stations" %
@@ -68,8 +70,9 @@ def PlotSlowvsOther(xData, yData, yyData, stationNum, r, cf):
     plt.ylabel("Efficiency")
     plt.xticks(xData, [str(i) for i in xData])
 
-    plt.plot(xData, yData, marker='o', linestyle='--', label='Slow')
-    plt.plot(xData, yyData, marker='.', linestyle=':', label='Other')
+    plt.plot(xData, yData, marker='o', linestyle='-', label='Slow')
+    plt.plot(xData, yyData, marker='.', linestyle='-.', label='Other')
+    plt.plot(xData, average, linestyle='--', label='Average')
 
     plt.legend()
 
@@ -90,18 +93,24 @@ if __name__ == "__main__":
             pos = 0
             for stationNum in range(3, 11, 2):
                 vsXdata = []
+                average = []
+
                 vsYdataFast = []
                 vsYYdataFast = []
+
                 vsYdataSlow = []
                 vsYYdataSlow = []
+
                 vsYdataFastSlow = []
                 vsYYdataFastSlow = []
+
                 for workerNum in range(2, stationNum):
                     vsXdata.append(workerNum)
                     insNum = factorial(workerNum)
                     fast = []
                     otherFast = []
                     otherSlow = []
+                    _average = []
                     slow = []
                     tmpMax = ProcessRow(data[pos])[0]
                     tmpMin = min(tmpMax)
@@ -109,6 +118,7 @@ if __name__ == "__main__":
                     for i in range(insNum):
                         (speedList, mean, stdev, _min,
                          _max) = ProcessRow(data[pos + i])
+                        _average.append(mean)
                         if tmpMax == speedList[0]:
                             fast.append(mean)
                             otherSlow.append(mean)
@@ -126,10 +136,14 @@ if __name__ == "__main__":
 
                     vsYdataFastSlow.append(sum(fast) / len(fast))
                     vsYYdataFastSlow.append(sum(slow) / len(slow))
+
+                    average.append(sum(_average) / len(_average))
+
                     pos += insNum
-                PlotFastvsOther(vsXdata, vsYdataFast, vsYYdataFast, stationNum,
-                                r, cf)
+
+                PlotFastvsOther(vsXdata, vsYdataFast, vsYYdataFast, average,
+                                stationNum, r, cf)
                 PlotFastvsSlow(vsXdata, vsYdataFastSlow, vsYYdataFastSlow,
-                               stationNum, r, cf)
-                PlotSlowvsOther(vsXdata, vsYdataSlow, vsYYdataSlow, stationNum,
-                                r, cf)
+                               average, stationNum, r, cf)
+                PlotSlowvsOther(vsXdata, vsYdataSlow, vsYYdataSlow, average,
+                                stationNum, r, cf)
