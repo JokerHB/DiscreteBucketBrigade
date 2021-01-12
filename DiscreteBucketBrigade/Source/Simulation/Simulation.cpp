@@ -80,10 +80,20 @@ bool Simulation::GetFullorPartial()
 
 void Simulation::GenerateStations(double cf)
 {
-    RandomGenerator workContent = RandomGenerator(1.0, cf, 0.6, 6);
-    for (int i = 0; i < this->stationNum; i++)
+    if (cf == -1.0)
     {
-        this->stations.push_back(Station(i, Idle, workContent()));
+        for (int i = 0; i < this->stationNum; i++)
+        {
+            this->stations.push_back(Station(i, Idle, 1.0));
+        }
+    }
+    else
+    {
+        RandomGenerator workContent = RandomGenerator(1.0, cf, 0.6, 6);
+        for (int i = 0; i < this->stationNum; i++)
+        {
+            this->stations.push_back(Station(i, Idle, workContent()));
+        }
     }
 }
 
