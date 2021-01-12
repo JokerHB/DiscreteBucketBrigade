@@ -132,6 +132,11 @@ int main(int argc, const char *argv[])
             sort(speedList.begin(), speedList.end());
             int iterNum = 30;
 
+            if (cf == -1.0)
+            {
+                iterNum = 1;
+            }
+
             vector<double> throughputs;
             for (int k = 0; k < iterNum; k++)
             {
