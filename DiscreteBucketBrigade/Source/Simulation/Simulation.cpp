@@ -78,9 +78,9 @@ bool Simulation::GetFullorPartial()
     return this->isFullCross;
 }
 
-void Simulation::GenerateStations()
+void Simulation::GenerateStations(double cf)
 {
-    RandomGenerator workContent = RandomGenerator(1.0, 0.9, 0.6, 6);
+    RandomGenerator workContent = RandomGenerator(1.0, cf, 0.6, 6);
     for (int i = 0; i < this->stationNum; i++)
     {
         this->stations.push_back(Station(i, Idle, workContent()));

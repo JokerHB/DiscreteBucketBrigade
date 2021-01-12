@@ -113,11 +113,16 @@ int main(int argc, const char *argv[])
 {
     int cnt = 0;
     double speedRatio = 0.5;
+    double cf = 0.5;
     string filePath = "result.csv";
+
+    speedRatio = stod(string(argv[1]));
+    cf = stod(string(argv[2]));
+    filePath = string(argv[3]);
 
     for (int i = 3; i < 11; i += 2)
     {
-        for (int j = 2; j < i; j ++)
+        for (int j = 2; j < i; j++)
         {
             Simulation simulation = Simulation(i, j, true, 2);
             simulation.GenerateWorkers(speedRatio);
@@ -133,7 +138,7 @@ int main(int argc, const char *argv[])
                 SetNewSpeed(workers, speedList);
                 vector<Worker> _workers = vector<Worker>(workers);
                 simulation.ClearStation();
-                simulation.GenerateStations();
+                simulation.GenerateStations(cf);
                 simulation.NormalizationWorkContent();
                 vector<Station> stations = simulation.GetStations();
                 ProductionLine productionLine = ProductionLine(stations, _workers, 1000);
@@ -155,7 +160,7 @@ int main(int argc, const char *argv[])
                     SetNewSpeed(workers, speedList);
                     vector<Worker> _workers = vector<Worker>(workers);
                     simulation.ClearStation();
-                    simulation.GenerateStations();
+                    simulation.GenerateStations(cf);
                     simulation.NormalizationWorkContent();
                     vector<Station> stations = simulation.GetStations();
                     ProductionLine productionLine = ProductionLine(stations, _workers, 1000);

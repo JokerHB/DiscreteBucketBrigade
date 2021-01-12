@@ -50,7 +50,7 @@ public:
 
     bool GetFullorPartial();
 
-    void GenerateStations();
+    void GenerateStations(double cf);
 
     void GenerateWorkers(double speedRatio);
 
