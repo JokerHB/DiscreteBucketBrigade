@@ -134,7 +134,7 @@ int main(int argc, const char *argv[])
 
             if (cf == -1.0)
             {
-                iterNum = 1;
+                iterNum = 10;
             }
 
             vector<double> throughputs;
