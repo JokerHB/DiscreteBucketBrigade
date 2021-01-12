@@ -41,6 +41,9 @@ if __name__ == "__main__":
                                  min=_min,
                                  max=_max))
                     best = sorted(best, key=lambda x: x.mean, reverse=True)
+                    print(
+                        '****** r-%.1f cf-%.1f, %d stations, %d workers ******'
+                        % (r, cf, stationNum, workerNum))
                     for i in range(10 if len(best) > 10 else len(best)):
                         print(best[i].order, best[i].mean)
                     pos += insNum
