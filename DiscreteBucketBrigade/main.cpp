@@ -136,6 +136,10 @@ int main(int argc, const char *argv[])
             {
                 iterNum = 10;
             }
+            else
+            {
+                iterNum = 30;
+            }
 
             vector<double> throughputs;
             for (int k = 0; k < iterNum; k++)
