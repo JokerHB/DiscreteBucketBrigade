@@ -143,7 +143,7 @@ int main(int argc, const char *argv[])
 
             if (cf == 0.0)
             {
-                iterNum = 10;
+                iterNum = 1;
             }
             else
             {
