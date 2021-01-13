@@ -80,7 +80,7 @@ bool Simulation::GetFullorPartial()
 
 void Simulation::GenerateStations(double cf)
 {
-    if (cf == -1.0)
+    if (cf == 0.0)
     {
         for (int i = 0; i < this->stationNum; i++)
         {
@@ -105,14 +105,15 @@ void Simulation::GenerateWorkers(double speedRatio)
     {
         // ID\tState\tSpeed\tCurrentStation\tOperatingZone\n
         int currentStation = 0;
-        if (i == 0)
-        {
-            currentStation = RandomGenerator::GenerateRandomInt(0, this->stationNum - this->workerNum);
-        }
-        else
-        {
-            currentStation = RandomGenerator::GenerateRandomInt(this->workers[i - 1].GetCurrentStation() + 1, this->stationNum - this->workerNum + i);
-        }
+        // if (i == 0)
+        // {
+        //     currentStation = RandomGenerator::GenerateRandomInt(0, this->stationNum - this->workerNum);
+        // }
+        // else
+        // {
+        //     currentStation = RandomGenerator::GenerateRandomInt(this->workers[i - 1].GetCurrentStation() + 1, this->stationNum - this->workerNum + i);
+        // }
+        currentStation = i;
 
         if (this->isFullCross)
         {

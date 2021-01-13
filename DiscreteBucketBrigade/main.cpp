@@ -141,7 +141,7 @@ int main(int argc, const char *argv[])
             sort(speedList.begin(), speedList.end());
             int iterNum = 30;
 
-            if (cf == -1.0)
+            if (cf == 0.0)
             {
                 iterNum = 10;
             }
