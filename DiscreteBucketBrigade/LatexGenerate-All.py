@@ -36,26 +36,38 @@ def Highlight(order):
     return ret
 
 
-def GetLatexTableAvg(stationNum, f, data):
-    title = 'Efficiency of different worker orders, %d stations, $\\frac{\min_{1 \\leq i \\leq n}{v_i}}{\\max_{1 \\leq j \\leq n}{v_j}}$ = %.1f' % (
-        stationNum, r)
+def GetLatexTableAvg(stationNum, dataList, cf):
+    title = 'Efficiency of different worker orders, %d stations, cf=%.1f' % (
+        stationNum, cf)
     info = '\\begin{table}[!htbp]\n'
+    # info += '\t\\centering\n'
+    info += '\t\\small\n'
     info += '\t\\caption{%s}\n' % title
+    info += '\t\\setlength{\\tabcolsep}{1mm}\n'
+    info += '\t\\renewcommand\\baselinestretch{0.5}\\selectfont\n'
     info += '\t\\begin{center}\n'
-    info += '\t\t\\begin{tabular}{ccc}\n'
+    if stationNum == 9:
+        info += '\t\t\\resizebox{\\textwidth}{60mm}{\n'
+    info += '\t\t\\begin{tabular}{ccllcccc}\n'
     info += '\t\t\t\\toprule\n'
-    info += '\t\t\tWorker number & Worker order & Efficiency \\\\\n'
-    info += '\t\t\t\\midrule\n'
+    info += '\t\t\tN &$\\frac{\\max\{v_i\}}{\\min\{v_i\}}$ &Best(\\textit{Efficiency}/Sequence) &Worst(\\textit{Efficiency}/Sequence) &Ave(\\textit{Efficiency}) \\\\\n'
+    info += '\t\t\t\t\\midrule\n'
 
-    for lines in data:
-        info += '\t\t\t%d (Best case)\t&%s\t&%.2f\\\\\n' % (
-            lines[0].workerNum, lines[0].order, lines[0].efficiency)
-        info += '\t\t\t%d (Worst case)\t&%s\t&%.2f\\\\\n' % (
-            lines[0].workerNum, lines[1].order, lines[1].efficiency)
-        info += '\t\t\t\\textit{Average}\t&-\t&%.2f\\\\\n' % (lines[2])
-
+    for workerNum in dataList:
+        info += '\t\t\t%d' % workerNum
+        for r in dataList[workerNum]:
+            info += '\t\t\t&%.1f&%.2f/%s&%.2f/%s&%.2f\\\\\n' % (
+                1. / r, dataList[workerNum][r][0].efficiency,
+                dataList[workerNum][r][0].order,
+                dataList[workerNum][r][1].efficiency,
+                dataList[workerNum][r][1].order, dataList[workerNum][r][2])
+        info += '\t\t\t&&&&\\\\\n'
+    info = info[:len(info) - len('\t\t\t&&&&\\\\\n')]
     info += '\t\t\t\\bottomrule\n'
-    info += '\t\t\\end{tabular}\n'
+    if stationNum == 9:
+        info += '\t\t\\end{tabular}}\n'
+    else:
+        info += '\t\t\\end{tabular}\n'
     info += '\t\\end{center}\n'
     info += '\\end{table}\n'
 
@@ -64,14 +76,24 @@ def GetLatexTableAvg(stationNum, f, data):
 
 
 if __name__ == "__main__":
+    dataList = {}
     for r in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
-        for cf in [0.1, 0.5, 0.9]:
+        if r not in dataList:
+            dataList[r] = {}
+
+        for cf in [0.0, 0.1, 0.5, 0.9]:
+            if cf not in dataList[r]:
+                dataList[r][cf] = {}
+
             resultPath = './ExperResult/result-r-%.1f-wc-cf-%.1f.csv' % (r, cf)
             with open(resultPath, 'r') as f:
                 data = f.readlines()
             pos = 0
+
             for stationNum in range(3, 11, 2):
-                dataList = []
+                if stationNum not in dataList[r][cf]:
+                    dataList[r][cf][stationNum] = {}
+
                 for workerNum in range(2, stationNum):
                     insNum = factorial(workerNum)
                     best = []
@@ -93,7 +115,27 @@ if __name__ == "__main__":
                     dataWorst = Data(workerNum=workerNum,
                                      order=Highlight(best[-1].order),
                                      efficiency=best[-1].mean)
-                    dataList.append((dataBest, dataWorst, average))
+                    if workerNum not in dataList[r][cf][stationNum]:
+                        dataList[r][cf][stationNum][workerNum] = (dataBest,
+                                                                  dataWorst,
+                                                                  average)
+                    else:
+                        print('Error %d %d %.1f %.1f' %
+                              (stationNum, workerNum, r, cf))
+                        exit(-1)
                     pos += insNum
 
-                GetLatexTableAvg(stationNum, r, dataList)
+    for cf in [0.0, 0.1, 0.5, 0.9]:
+        infoList = {}
+        for stationNum in range(3, 11, 2):
+            if stationNum not in infoList:
+                infoList[stationNum] = {}
+            for workerNum in range(2, stationNum):
+                if workerNum not in infoList[stationNum]:
+                    infoList[stationNum][workerNum] = {}
+                for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9][::-1]:
+                    infoList[stationNum][workerNum][r] = dataList[r][cf][
+                        stationNum][workerNum]
+            GetLatexTableAvg(stationNum=stationNum,
+                             dataList=infoList[stationNum],
+                             cf=cf)

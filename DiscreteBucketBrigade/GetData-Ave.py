@@ -20,9 +20,9 @@ def ProcessRow(data):
 
 
 if __name__ == "__main__":
-    cf = 0
+    cf = 0.0
     for r in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
-        resultPath = './ExperResult/result-r-%.1f-wc-cf-1.csv' % (r)
+        resultPath = './ExperResult/result-r-%.1f-wc-cf-%.1f.csv' % (r, cf)
         lines = {}
         with open(resultPath, 'r') as f:
             data = f.readlines()
