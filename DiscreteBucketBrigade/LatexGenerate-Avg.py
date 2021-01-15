@@ -56,7 +56,7 @@ def GetLatexTableAvg(stationNum, dataList):
         info += '\t\t\t%d' % workerNum
         for r in dataList[workerNum]:
             info += '\t\t\t&%.1f&%.2f/%s&%.2f/%s&%.2f\\\\\n' % (
-                1./r, dataList[workerNum][r][0].efficiency,
+                1. / r, dataList[workerNum][r][0].efficiency,
                 dataList[workerNum][r][0].order,
                 dataList[workerNum][r][1].efficiency,
                 dataList[workerNum][r][1].order, dataList[workerNum][r][2])
@@ -76,7 +76,7 @@ def GetLatexTableAvg(stationNum, dataList):
 
 if __name__ == "__main__":
     dataList = {}
-    for r in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]:
+    for r in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
         if r not in dataList:
             dataList[r] = {}
 
@@ -125,7 +125,7 @@ if __name__ == "__main__":
         for workerNum in range(2, stationNum):
             if workerNum not in infoList[stationNum]:
                 infoList[stationNum][workerNum] = {}
-            for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9][::-1]:
+            for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0][::-1]:
                 infoList[stationNum][workerNum][r] = dataList[r][stationNum][
                     workerNum]
         GetLatexTableAvg(stationNum=stationNum, dataList=infoList[stationNum])
