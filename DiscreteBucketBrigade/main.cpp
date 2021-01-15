@@ -135,7 +135,7 @@ int main(int argc, const char *argv[])
         {
             Simulation simulation = Simulation(i, j, true, 2);
             simulation.GenerateWorkers(speedRatio);
-            simulation.NormalizationSpeed();
+            // simulation.NormalizationSpeed();
             vector<Worker> workers = simulation.GetWorkers();
             vector<double> speedList = GetSpeedList(workers);
             sort(speedList.begin(), speedList.end());
@@ -153,8 +153,8 @@ int main(int argc, const char *argv[])
             vector<double> throughputs;
             for (int k = 0; k < iterNum; k++)
             {
-                simulation.ClearWorker();
-                simulation.GenerateWorkers(speedRatio);
+                // simulation.ClearWorker();
+                // simulation.GenerateWorkers(speedRatio);
                 workers = simulation.GetWorkers();
                 SetNewSpeed(workers, speedList);
                 vector<Worker> _workers = vector<Worker>(workers);
