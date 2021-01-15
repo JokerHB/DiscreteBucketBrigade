@@ -144,7 +144,7 @@ std::vector<double> Simulation::GenerateSpeed(double ratio)
     std::vector<double> speedList;
     double an = 2.0 / (this->workerNum * (1.0 + ratio));
     double a1 = ratio * an;
-    double delta = (an - a1) / (this->workerNum);
+    double delta = (an - a1) / (this->workerNum - 1);
 
     for (int i = 0; i < this->workerNum; i++)
     {
