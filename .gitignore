@@ -35,7 +35,7 @@
 .vscode/
 
 # xcode
-/DiscreteBucketBrigade.xcodeproj/
+DiscreteBucketBrigade.xcodeproj/
 
 # image files
 *.png
@@ -45,4 +45,12 @@
 
 # csv files
 *.csv
+
+# latex files
+/DiscreteBucketBrigade/Tex/*.aux
+/DiscreteBucketBrigade/Tex/*.fdb_latexmk
+/DiscreteBucketBrigade/Tex/*.fls
+/DiscreteBucketBrigade/Tex/*.log
+/DiscreteBucketBrigade/Tex/*.pdf
+/DiscreteBucketBrigade/Tex/*.synctex.gz
 
