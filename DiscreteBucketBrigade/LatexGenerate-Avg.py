@@ -72,7 +72,7 @@ def GetLatexTableAvg(stationNum, dataList):
 
 if __name__ == "__main__":
     dataList = {}
-    for r in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
+    for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
         if r not in dataList:
             dataList[r] = {}
 
@@ -86,7 +86,10 @@ if __name__ == "__main__":
                 dataList[r][stationNum] = {}
 
             for workerNum in range(2, stationNum):
-                insNum = factorial(workerNum)
+                if r == 1.0:
+                    insNum = 1
+                else:
+                    insNum = factorial(workerNum)
                 best = []
                 for i in range(insNum):
                     (speedList, mean, stdev, _min,
@@ -114,6 +117,31 @@ if __name__ == "__main__":
                     exit(-1)
                 pos += insNum
 
+    texHead = '''\\documentclass[10pt,a4paper]{report}
+\\usepackage[utf8]{inputenc}
+\\usepackage[T1]{fontenc}
+\\usepackage{amsmath}
+\\usepackage{amsfonts}
+\\usepackage{amssymb}
+\\usepackage{graphicx}
+\\usepackage{amsmath}
+\\usepackage{amsfonts}
+\\usepackage{amssymb}
+\\usepackage{makeidx}
+\\usepackage{graphicx}
+\\usepackage{booktabs}
+\\usepackage{diagbox}
+\\usepackage{rotating}
+\\usepackage{enumerate}
+\\usepackage{color}
+\\usepackage{lscape}
+\\usepackage{longtable}
+\\usepackage[maxfloats=1024]{morefloats}
+\\maxdeadcycles=1000
+
+\\begin{document}\n
+    '''
+
     infoList = {}
     for stationNum in range(3, 11, 2):
         if stationNum not in infoList:
@@ -125,3 +153,7 @@ if __name__ == "__main__":
                 infoList[stationNum][workerNum][r] = dataList[r][stationNum][
                     workerNum]
         GetLatexTableAvg(stationNum=stationNum, dataList=infoList[stationNum])
+
+    texHead += '\\end{document}\n'
+
+    print(texHead)

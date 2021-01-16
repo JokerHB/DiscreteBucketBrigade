@@ -67,13 +67,13 @@ def GetLatexTableAvg(stationNum, dataList, cf):
     info += '\t\\end{center}\n'
     info += '\\end{table}\n'
 
-    print(info)
+    # print(info)
     return info
 
 
 if __name__ == "__main__":
     dataList = {}
-    for r in [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
+    for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
         if r not in dataList:
             dataList[r] = {}
 
@@ -91,7 +91,10 @@ if __name__ == "__main__":
                     dataList[r][cf][stationNum] = {}
 
                 for workerNum in range(2, stationNum):
-                    insNum = factorial(workerNum)
+                    if r == 1.0:
+                        insNum = 1
+                    else:
+                        insNum = factorial(workerNum)
                     best = []
                     for i in range(insNum):
                         (speedList, mean, stdev, _min,
@@ -121,6 +124,30 @@ if __name__ == "__main__":
                         exit(-1)
                     pos += insNum
 
+    texHead = '''\\documentclass[10pt,a4paper]{report}
+\\usepackage[utf8]{inputenc}
+\\usepackage[T1]{fontenc}
+\\usepackage{amsmath}
+\\usepackage{amsfonts}
+\\usepackage{amssymb}
+\\usepackage{graphicx}
+\\usepackage{amsmath}
+\\usepackage{amsfonts}
+\\usepackage{amssymb}
+\\usepackage{makeidx}
+\\usepackage{graphicx}
+\\usepackage{booktabs}
+\\usepackage{diagbox}
+\\usepackage{rotating}
+\\usepackage{enumerate}
+\\usepackage{color}
+\\usepackage{lscape}
+\\usepackage{longtable}
+\\usepackage[maxfloats=1024]{morefloats}
+\\maxdeadcycles=1000
+
+\\begin{document}\n
+    '''
     for cf in [0.0, 0.1, 0.5, 0.9]:
         infoList = {}
         for stationNum in range(3, 11, 2):
@@ -132,6 +159,9 @@ if __name__ == "__main__":
                 for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0][::-1]:
                     infoList[stationNum][workerNum][r] = dataList[r][cf][
                         stationNum][workerNum]
-            GetLatexTableAvg(stationNum=stationNum,
-                             dataList=infoList[stationNum],
-                             cf=cf)
+            texHead += GetLatexTableAvg(stationNum=stationNum,
+                                        dataList=infoList[stationNum],
+                                        cf=cf)
+
+    texHead += '\\end{document}\n'
+    print(texHead)
