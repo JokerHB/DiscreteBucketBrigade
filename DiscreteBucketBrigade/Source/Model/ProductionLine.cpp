@@ -238,8 +238,6 @@ double ProductionLine::Run()
         this->ArrangeHandoff();
 
         this->ArrangeWait();
-        
-        this->ArrangeHandoff();
     }
 
     // std::cout << "Throughput " << this->productNum / this->time << std::endl;
