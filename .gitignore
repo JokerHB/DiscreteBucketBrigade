@@ -54,3 +54,5 @@ DiscreteBucketBrigade.xcodeproj/
 /DiscreteBucketBrigade/Tex/*.pdf
 /DiscreteBucketBrigade/Tex/*.synctex.gz
 
+# pycharm files
+.idea/
