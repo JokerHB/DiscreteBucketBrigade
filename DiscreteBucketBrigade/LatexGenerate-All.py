@@ -47,19 +47,22 @@ def GetLatexTableAvg(stationNum, dataList, cf):
     info += '\t\\renewcommand\\baselinestretch{0.5}\\selectfont\n'
     info += '\t\\begin{center}\n'
     info += '\t\t\\resizebox{\\textwidth}{!}{\n'
-    info += '\t\t\\begin{tabular}{ccllcccc}\n'
+    info += '\t\t\\begin{tabular}{ccllccccc}\n'
     info += '\t\t\t\\toprule\n'
-    info += '\t\t\tN &$\\frac{\\max\{v_i\}}{\\min\{v_i\}}$ &Best(\\textit{Efficiency}/Sequence) &Worst(\\textit{Efficiency}/Sequence) &Ave(\\textit{Efficiency}) \\\\\n'
+    info += '\t\t\tN &$\\frac{\\max\{v_i\}}{\\min\{v_i\}}$ &Best(\\textit{Efficiency}/Sequence) &Worst(\\textit{Efficiency}/Sequence) & Rate(Best/Worst) &Ave(\\textit{Efficiency}) \\\\\n'
     info += '\t\t\t\t\\midrule\n'
 
     for workerNum in dataList:
         info += '\t\t\t%d' % workerNum
         for r in dataList[workerNum]:
-            info += '\t\t\t&%.1f&%.2f/%s&%.2f/%s&%.2f\\\\\n' % (
+            info += '\t\t\t&%.1f&%.2f/%s&%.2f/%s&%.2f&%.2f\\\\\n' % (
                 1. / r, dataList[workerNum][r][0].efficiency,
                 dataList[workerNum][r][0].order,
                 dataList[workerNum][r][1].efficiency,
-                dataList[workerNum][r][1].order, dataList[workerNum][r][2])
+                dataList[workerNum][r][1].order,
+                dataList[workerNum][r][0].efficiency /
+                dataList[workerNum][r][1].efficiency,
+                dataList[workerNum][r][2])
         info += '\t\t\t&&&&\\\\\n'
     info = info[:len(info) - len('\t\t\t&&&&\\\\\n')]
     info += '\t\t\t\\bottomrule\n'
