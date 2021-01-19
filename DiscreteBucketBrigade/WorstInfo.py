@@ -166,7 +166,7 @@ if __name__ == "__main__":
                                  min=_min,
                                  max=_max))
                     pos += insNum
-                    best = sorted(best, key=lambda x: x.mean, reverse=True)
+                    best = sorted(best, key=lambda x: x.mean)
                     average = sum([x.mean for x in best]) / len(best)
                     bestInfo = BestInfo(order=best[0].order,
                                         workerNum=workerNum,

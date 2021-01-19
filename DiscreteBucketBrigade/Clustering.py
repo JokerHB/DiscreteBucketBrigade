@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 
+from math import pow
+from math import sqrt
 from math import factorial
 from collections import namedtuple
+import numpy as np
+import pandas as pd
+import matplotlib.pylab as plt
+import scipy.cluster.hierarchy as sch
 
 Info = namedtuple('Info', ['order', 'mean', 'stdev', 'min', 'max'])
 Data = namedtuple('Data', ['workerNum', 'order', 'efficiency'])
@@ -20,6 +26,13 @@ def ProcessRow(data):
     _max = float(data[4].strip())
 
     return (speedList, mean, stdev, _min, _max)
+
+
+def CalDistance(pointA, pointB):
+    distance = 0.0
+    for a, b in zip(pointA, pointB):
+        distance += pow(a - b, 2)
+    return sqrt(distance)
 
 
 def IsSF(info):
@@ -100,20 +113,6 @@ def IsFT(info):
     return False
 
 
-def IsSH(info):
-    _min = min(info.order)
-    if info.order.index(_min) == 0:
-        return True
-    return False
-
-
-def IsST(info):
-    _min = min(info.order)
-    if info.order.index(_min) == len(info.order) - 1:
-        return True
-    return False
-
-
 def DisplayBestInfo(bestList):
     for best in bestList:
         print(best.order, best.workerNum, best.stationNum, best.cf, best.r)
@@ -129,8 +128,6 @@ if __name__ == "__main__":
     Other = []
     FH = []
     FT = []
-    SH = []
-    ST = []
 
     for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
         if r not in dataList:
@@ -139,6 +136,8 @@ if __name__ == "__main__":
         for cf in [0.0, 0.1, 0.5, 0.9]:
             if cf not in dataList[r]:
                 dataList[r][cf] = {}
+
+            bestList = []
 
             resultPath = './ExperResult-20210117/result-r-%.1f-wc-cf-%.1f.csv' % (
                 r, cf)
@@ -166,64 +165,76 @@ if __name__ == "__main__":
                                  min=_min,
                                  max=_max))
                     pos += insNum
+                    cnt += 1
                     best = sorted(best, key=lambda x: x.mean, reverse=True)
                     average = sum([x.mean for x in best]) / len(best)
-                    bestInfo = BestInfo(order=best[0].order,
-                                        workerNum=workerNum,
-                                        stationNum=stationNum,
-                                        cf=cf,
-                                        r=r)
 
-                    if IsFH(best[0]):
-                        FH.append(bestInfo)
-                    elif IsFT(best[0]):
-                        FT.append(bestInfo)
+                    if workerNum not in dataList[r][cf][stationNum]:
+                        dataList[r][cf][stationNum][workerNum] = best[0]
+                    else:
+                        print('Error %d %d %.1f %.1f' %
+                              (stationNum, workerNum, r, cf))
+                        exit(-1)
 
-                    if IsSH(best[0]):
-                        SH.append(bestInfo)
-                    elif IsST(best[0]):
-                        ST.append(bestInfo)
+    for workerNum in range(2, 9):
+        for stationNum in range(3, 11, 2):
+            if workerNum >= stationNum:
+                continue
+            for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
+                orderSet = set()
 
-                    if IsSF(best[0]):
-                        SF.append(bestInfo)
-                    elif IsFS(best[0]):
-                        FS.append(bestInfo)
-                    elif IsFSF(best[0]):
-                        FSF.append(bestInfo)
-                    elif IsSFS(best[0]):
-                        SFS.append(bestInfo)
-                    elif IsSF(best[0]) is False and IsFS(
-                            best[0]) is False and IsFSF(
-                                best[0]) is False and IsSFS(best[0]) is False:
-                        Other.append(bestInfo)
+                for cf in [0.0, 0.1, 0.5, 0.9]:
+                    orderSet.add(
+                        tuple(dataList[r][cf][stationNum][workerNum].order))
 
-                    cnt += 1
+                if len(orderSet) <= 1:
+                    print('---------- One best %d ----------' % workerNum)
+                    print(orderSet, workerNum, stationNum, r, cf)
+                    continue
 
-    print('---------- FH %d----------' % (len(FH)))
-    print(DisplayBestInfo(FH))
+                variables = []
+                for i in range(workerNum):
+                    variables.append('v%d' % i)
 
-    print('---------- FT %d----------' % (len(FT)))
-    print(DisplayBestInfo(FT))
+                labels = []
+                for e in orderSet:
+                    labels.append('%s' % str(e))
 
-    print('---------- SH %d----------' % (len(SH)))
-    print(DisplayBestInfo(SH))
+                matrix = []
+                for e in orderSet:
+                    matrix.append(e)
 
-    print('---------- ST %d----------' % (len(ST)))
-    print(DisplayBestInfo(ST))
+                df = pd.DataFrame(matrix, columns=variables, index=labels)
 
-    print('---------- SF %d----------' % (len(SF)))
-    print(DisplayBestInfo(SF))
+                disMat = sch.distance.pdist(df, 'euclidean')
+                disMat = sch.distance.squareform(disMat)
+                Z = sch.linkage(disMat, method='centroid')
 
-    print('---------- FS %d----------' % (len(FS)))
-    print(DisplayBestInfo(FS))
+                fig = plt.gcf()
+                fig.set_size_inches(30, 30 * 0.7518796992481203)
+                ax = fig.add_subplot(111)
+                P = sch.dendrogram(Z)
+                xLabel = ax.get_xticklabels()
+                orderSet = list(orderSet)
+                print('---------- %d ----------' % workerNum)
+                newXLabel = []
 
-    print('---------- FSF %d----------' % (len(FSF)))
-    print(DisplayBestInfo(FSF))
+                # try:
+                for x in xLabel:
+                    tmp = x.get_text()
+                    print(int(tmp), type(tmp))
+                    print(orderSet[int(tmp)])
+                    _label = ''
+                    for _ in orderSet[int(tmp)]:
+                        _label += '%.2f, ' % _
+                    newXLabel.append(_label[:-2])
+                # except Exception as e:
+                #     print(stationNum, workerNum, cf, r, orderSet)
 
-    print('---------- SFS %d----------' % (len(SFS)))
-    print(DisplayBestInfo(SFS))
-
-    print('---------- Other %d----------' % (len(Other)))
-    print(DisplayBestInfo(Other))
-
-    print(cnt)
+                ax.set_xticklabels(newXLabel,
+                                   rotation=45,
+                                   horizontalalignment='right')
+                plt.savefig('./plot_dendrogram-%d-%.1f-%.1f.png' %
+                            (workerNum, r, cf))
+                cluster = sch.fcluster(Z, 1, criterion='maxclust')
+                plt.close()
