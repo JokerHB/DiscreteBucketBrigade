@@ -79,38 +79,39 @@ def Highlight(order):
 def TexTableGenerate(bestDic, worstDic, workerNum):
     title = 'Best and worst cases of different orders, %d workers' % (
         workerNum)
-    info = '\\begin{table}[!htbp]\n'
+    # info = '\\begin{table}[!htbp]\n'
     # info += '\t\\centering\n'
+    info = '\\begin{center}\n'
     info += '\t\\small\n'
-    info += '\t\\caption{%s}\n' % title
-    info += '\t\\setlength{\\tabcolsep}{1mm}\n'
-    info += '\t\\renewcommand\\baselinestretch{0.5}\\selectfont\n'
-    info += '\t\\begin{center}\n'
-    info += '\t\t\\resizebox{\\textwidth}{!}{\n'
-    info += '\t\t\\begin{tabular}{clcc}\n'
-    info += '\t\t\t\\toprule\n'
-    info += '\t\t\t$\\frac{\\max\\{v_i\\}}{\\min\\{v_i\\}}$ & Order & Best cases(\\%) & Worst cases(\\%) \\\\\n'
-    info += '\t\t\t\t\\midrule\n'
+    info += '\t\\begin{longtable}{clcc}\n'
+    info += '\t\t\\caption{%s}\\\\\n' % title
+    info += '\t\t\\toprule\n'
+    info += '\t\t\\setlength{\\tabcolsep}{1mm}\n'
+    info += '\t\t\\renewcommand\\baselinestretch{0.5}\\selectfont\n'
+    # info += '\t\t\\resizebox{\\textwidth}{!}{\n'
+    info += '\t\t$\\frac{\\max\\{v_i\\}}{\\min\\{v_i\\}}$ & Order & Best cases(\\%) & Worst cases(\\%) \\\\\n'
+    info += '\t\t\t\\midrule\n'
 
-    for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
-        info += '\t\t\t%.1f' % (1.0 / r)
+    for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0][::-1]:
+        info += '\t\t%.1f' % (1.0 / r)
         flag = True
         for key in bestDic[r]:
             if bestDic[r][key] == 0 and worstDic[r][key] == 0:
                 continue
-            info += '\t\t\t\t&%s&%.2f&%.2f\\\\\n' % (
+            info += '\t\t\t&%s&%.2f&%.2f\\\\\n' % (
                 Highlight(key), bestDic[r][key], worstDic[r][key])
             flag = False
         if flag:
             info = info[:len(info) - len('\t\t\t%.1f' % r)]
         else:
-            info += '\t\t\t&&&\\\\\n'
+            info += '\t\t&&&\\\\\n'
 
-    info = info[:len(info) - len('\t\t\t&&&\\\\\n')]
-    info += '\t\t\t\\bottomrule\n'
-    info += '\t\t\\end{tabular}}\n'
-    info += '\t\\end{center}\n'
-    info += '\\end{table}\n'
+    info = info[:len(info) - len('\t\t&&&\\\\\n')]
+    info += '\t\t\\bottomrule\n'
+    info += '\t\\end{longtable}\n'
+    info += '\\end{center}\n'
+    # info += '\\end{table}\n'
+    info += '\\newpage'
 
     return info
 
@@ -211,7 +212,7 @@ if __name__ == "__main__":
     for workerNum in range(2, 9):
         bestPerDic = {}
         worstPerDic = {}
-        for r in [i / 10.0 for i in range(3, 11)]:
+        for r in [i / 10.0 for i in range(3, 11)][::]:
             if r not in bestPerDic:
                 bestPerDic[r] = {}
             if r not in worstPerDic:
