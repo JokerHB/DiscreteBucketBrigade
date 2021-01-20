@@ -89,7 +89,7 @@ void Simulation::GenerateStations(double cf)
     }
     else
     {
-        RandomGenerator workContent = RandomGenerator(1.0, cf, 0.6, 6);
+        RandomGenerator workContent = RandomGenerator(0.5, cf, 0.1, 1);
         for (int i = 0; i < this->stationNum; i++)
         {
             this->stations.push_back(Station(i, Idle, workContent()));
