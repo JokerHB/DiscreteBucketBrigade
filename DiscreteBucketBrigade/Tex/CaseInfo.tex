@@ -1,0 +1,60 @@
+\documentclass[10pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{diagbox}
+\usepackage{rotating}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{lscape}
+\usepackage{longtable}
+\usepackage{supertabular}
+\usepackage[maxfloats=1024]{morefloats}
+\maxdeadcycles=1000
+
+\begin{document}
+
+\begin{center}
+	\begin{supertabular}{clcc}
+		\small \\
+		\caption{Best and worst cases of different orders, 2 workers} \\
+		\setlength{\tabcolsep}{1mm} \\
+		\renewcommand\baselinestretch{0.5}\selectfont \\
+		\toprule
+		$\frac{\max\{v_i\}}{\min\{v_i\}}$ & Order & Best cases(\%) & Worst cases(\%) \\
+		\midrule
+		3.3				&(\textcolor{black}{0.23}, \textcolor{red}{0.77})&56.25&43.75\\
+		&(\textcolor{red}{0.77}, \textcolor{black}{0.23})&43.75&56.25\\
+		&&&\\
+		2.5				&(\textcolor{black}{0.29}, \textcolor{red}{0.71})&56.25&43.75\\
+		&(\textcolor{red}{0.71}, \textcolor{black}{0.29})&43.75&56.25\\
+		&&&\\
+		2.0				&(\textcolor{black}{0.33}, \textcolor{red}{0.67})&62.50&37.50\\
+		&(\textcolor{red}{0.67}, \textcolor{black}{0.33})&37.50&62.50\\
+		&&&\\
+		1.7				&(\textcolor{black}{0.38}, \textcolor{red}{0.62})&62.50&37.50\\
+		&(\textcolor{red}{0.62}, \textcolor{black}{0.38})&37.50&62.50\\
+		&&&\\
+		1.4				&(\textcolor{black}{0.41}, \textcolor{red}{0.59})&50.00&50.00\\
+		&(\textcolor{red}{0.59}, \textcolor{black}{0.41})&50.00&50.00\\
+		&&&\\
+		1.2				&(\textcolor{black}{0.44}, \textcolor{red}{0.56})&37.50&62.50\\
+		&(\textcolor{red}{0.56}, \textcolor{black}{0.44})&62.50&37.50\\
+		&&&\\
+		1.1				&(\textcolor{black}{0.47}, \textcolor{red}{0.53})&43.75&56.25\\
+		&(\textcolor{red}{0.53}, \textcolor{black}{0.47})&56.25&43.75\\
+		\bottomrule
+	\end{supertabular}
+\end{center}
+
+\end{document}
+
