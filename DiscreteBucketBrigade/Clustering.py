@@ -35,84 +35,6 @@ def CalDistance(pointA, pointB):
     return sqrt(distance)
 
 
-def IsSF(info):
-    sortedOrder = sorted(info.order)
-    for i in range(len(sortedOrder)):
-        if sortedOrder[i] != info.order[i]:
-            return False
-    return True
-
-
-def IsFS(info):
-    sortedOrder = sorted(info.order, reverse=True)
-    for i in range(len(sortedOrder)):
-        if sortedOrder[i] != info.order[i]:
-            return False
-    return True
-
-
-def IsFSF(info):
-    slow = min(info.order)
-    index = info.order.index(slow)
-    _len = len(info.order)
-    if _len % 2 != 0 and index == int(_len / 2):
-        for i in range(1, index):
-            if info.order[i - 1] < info.order[i]:
-                return False
-        for i in range(index + 1, len(info.order)):
-            if info.order[i - 1] > info.order[i]:
-                return False
-        return True
-    elif _len % 2 == 0 and (index == int(_len / 2) or index == int(
-        (_len - 1) / 2)):
-        for i in range(1, index):
-            if info.order[i - 1] < info.order[i]:
-                return False
-        for i in range(index + 1, len(info.order)):
-            if info.order[i - 1] > info.order[i]:
-                return False
-        return True
-    return False
-
-
-def IsSFS(info):
-    fast = max(info.order)
-    index = info.order.index(fast)
-    _len = len(info.order)
-    if _len % 2 != 0 and index == int(_len / 2):
-        for i in range(1, index):
-            if info.order[i - 1] > info.order[i]:
-                return False
-        for i in range(index + 1, len(info.order)):
-            if info.order[i - 1] < info.order[i]:
-                return False
-        return True
-    elif _len % 2 == 0 and (index == int(_len / 2) or index == int(
-        (_len - 1) / 2)):
-        for i in range(1, index):
-            if info.order[i - 1] > info.order[i]:
-                return False
-        for i in range(index + 1, len(info.order)):
-            if info.order[i - 1] < info.order[i]:
-                return False
-        return True
-    return False
-
-
-def IsFH(info):
-    _max = max(info.order)
-    if info.order.index(_max) == 0:
-        return True
-    return False
-
-
-def IsFT(info):
-    _max = max(info.order)
-    if info.order.index(_max) == len(info.order) - 1:
-        return True
-    return False
-
-
 def DisplayBestInfo(bestList):
     for best in bestList:
         print(best.order, best.workerNum, best.stationNum, best.cf, best.r)
@@ -121,13 +43,6 @@ def DisplayBestInfo(bestList):
 if __name__ == "__main__":
     dataList = {}
     cnt = 0
-    SF = []
-    FS = []
-    SFS = []
-    FSF = []
-    Other = []
-    FH = []
-    FT = []
 
     for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
         if r not in dataList:
