@@ -154,7 +154,8 @@ if __name__ == "__main__":
             fontsize = 20
             plt.xticks(fontsize=fontsize)
             plt.yticks(fontsize=fontsize)
-            plt.title('Clustering of %d workers, r = %.1f' % (workerNum, r),
+            plt.title('Clustering of %d workers, r = %.1f' %
+                      (workerNum, 1.0 / r),
                       fontsize=fontsize)
             if workerNum >= 4:
                 ax.set_xticklabels(newXLabel,
@@ -164,6 +165,6 @@ if __name__ == "__main__":
                 ax.set_xticklabels(newXLabel,
                                    rotation=0,
                                    horizontalalignment='right')
-            plt.savefig('./plot_dendrogram-%d-%.1f.png' % (workerNum, 1.0/r))
+            plt.savefig('./plot_dendrogram-%d-%.1f.png' % (workerNum, 1.0 / r))
             cluster = sch.fcluster(Z, 1, criterion='maxclust')
             plt.close()
