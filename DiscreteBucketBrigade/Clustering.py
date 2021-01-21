@@ -54,7 +54,7 @@ if __name__ == "__main__":
 
             bestList = []
 
-            resultPath = './ExperResult-20210117/result-r-%.1f-wc-cf-%.1f.csv' % (
+            resultPath = './ExperResult-20210120/result-r-%.1f-wc-cf-%.1f.csv' % (
                 r, cf)
             with open(resultPath, 'r') as f:
                 data = f.readlines()
@@ -92,64 +92,78 @@ if __name__ == "__main__":
                         exit(-1)
 
     for workerNum in range(2, 9):
-        for stationNum in range(3, 11, 2):
-            if workerNum >= stationNum:
-                continue
-            for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
-                orderSet = set()
+        for r in [0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]:
+            orderSet = set()
+            for stationNum in range(3, 11, 2):
+                if workerNum >= stationNum:
+                    continue
 
                 for cf in [0.0, 0.1, 0.5, 0.9]:
                     orderSet.add(
                         tuple(dataList[r][cf][stationNum][workerNum].order))
 
-                if len(orderSet) <= 1:
-                    print('---------- One best %d ----------' % workerNum)
-                    print(orderSet, workerNum, stationNum, r, cf)
-                    continue
+            variables = []
+            for i in range(workerNum):
+                variables.append('v%d' % i)
 
-                variables = []
-                for i in range(workerNum):
-                    variables.append('v%d' % i)
+            labels = []
+            for e in orderSet:
+                labels.append('%s' % str(e))
 
-                labels = []
-                for e in orderSet:
-                    labels.append('%s' % str(e))
+            matrix = []
+            for e in orderSet:
+                matrix.append(e)
 
-                matrix = []
-                for e in orderSet:
-                    matrix.append(e)
+            if len(matrix) <= 1:
+                continue
 
-                df = pd.DataFrame(matrix, columns=variables, index=labels)
+            _flag = False
+            for m in matrix:
+                if len(m) <= 1:
+                    _flag = True
+                    break
+            if _flag:
+                continue
 
-                disMat = sch.distance.pdist(df, 'euclidean')
-                disMat = sch.distance.squareform(disMat)
-                Z = sch.linkage(disMat, method='centroid')
+            print(matrix)
 
-                fig = plt.gcf()
-                fig.set_size_inches(30, 30 * 0.7518796992481203)
-                ax = fig.add_subplot(111)
-                P = sch.dendrogram(Z)
-                xLabel = ax.get_xticklabels()
-                orderSet = list(orderSet)
-                print('---------- %d ----------' % workerNum)
-                newXLabel = []
+            df = pd.DataFrame(matrix, columns=variables, index=labels)
 
-                # try:
-                for x in xLabel:
-                    tmp = x.get_text()
-                    print(int(tmp), type(tmp))
-                    print(orderSet[int(tmp)])
-                    _label = ''
-                    for _ in orderSet[int(tmp)]:
-                        _label += '%.2f, ' % _
-                    newXLabel.append(_label[:-2])
-                # except Exception as e:
-                #     print(stationNum, workerNum, cf, r, orderSet)
+            disMat = sch.distance.pdist(df, 'euclidean')
+            disMat = sch.distance.squareform(disMat)
+            Z = sch.linkage(disMat, method='average')
 
+            fig = plt.gcf()
+            fig.set_size_inches(30, 30 * 0.7518796992481203)
+            ax = fig.add_subplot(111)
+            P = sch.dendrogram(Z)
+            xLabel = ax.get_xticklabels()
+            _orderSet = list(orderSet)
+            print('---------- %d ----------' % workerNum)
+            newXLabel = []
+
+            for x in xLabel:
+                tmp = x.get_text()
+                print(int(tmp), type(tmp))
+                print(_orderSet[int(tmp)])
+                _label = ''
+                for _ in _orderSet[int(tmp)]:
+                    _label += '%.2f, ' % _
+                newXLabel.append(_label[:-2])
+
+            fontsize = 20
+            plt.xticks(fontsize=fontsize)
+            plt.yticks(fontsize=fontsize)
+            plt.title('Clustering of %d workers, r = %.1f' % (workerNum, r),
+                      fontsize=fontsize)
+            if workerNum >= 4:
                 ax.set_xticklabels(newXLabel,
-                                   rotation=45,
+                                   rotation=15,
                                    horizontalalignment='right')
-                plt.savefig('./plot_dendrogram-%d-%.1f-%.1f.png' %
-                            (workerNum, r, cf))
-                cluster = sch.fcluster(Z, 1, criterion='maxclust')
-                plt.close()
+            else:
+                ax.set_xticklabels(newXLabel,
+                                   rotation=0,
+                                   horizontalalignment='right')
+            plt.savefig('./plot_dendrogram-%d-%.1f.png' % (workerNum, 1.0/r))
+            cluster = sch.fcluster(Z, 1, criterion='maxclust')
+            plt.close()
