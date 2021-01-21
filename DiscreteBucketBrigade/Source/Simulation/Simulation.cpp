@@ -78,6 +78,14 @@ bool Simulation::GetFullorPartial()
     return this->isFullCross;
 }
 
+void Simulation::GenerateStations(std::vector<double> workcontent)
+{
+    for (int i = 0; i < this->stationNum; i++)
+    {
+        this->stations.push_back(Station(i, Idle, workcontent[i]));
+    }
+}
+
 void Simulation::GenerateStations(double cf)
 {
     if (cf == 0.0)
@@ -94,6 +102,19 @@ void Simulation::GenerateStations(double cf)
         {
             this->stations.push_back(Station(i, Idle, workContent()));
         }
+    }
+}
+
+void Simulation::GenerateWorkers(std::vector<double> speedList)
+{
+    for (int i = 0; i < this->workerNum; i++)
+    {
+        std::vector<int> operatingZone;
+        for (int j = 0; j < this->stationNum; j++)
+        {
+            operatingZone.push_back(j);
+        }
+        this->workers.push_back(Worker(i, Idle, speedList[i], i, operatingZone));
     }
 }
 

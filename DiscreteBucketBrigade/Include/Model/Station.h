@@ -101,6 +101,8 @@ public:
     void ArrangeWorker();
 
     std::string ToString();
+
+    void ReSetStation();
 };
 
 #endif /* Station_h */

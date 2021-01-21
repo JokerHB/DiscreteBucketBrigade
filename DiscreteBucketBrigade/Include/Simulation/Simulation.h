@@ -52,7 +52,11 @@ public:
 
     void GenerateStations(double cf);
 
+    void GenerateStations(std::vector<double> workcontent);
+
     void GenerateWorkers(double speedRatio);
+
+    void GenerateWorkers(std::vector<double> speedList);
 
     std::vector<double> GenerateSpeed(double ratio);
 

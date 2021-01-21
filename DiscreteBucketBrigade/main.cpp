@@ -45,6 +45,14 @@ void SetNewSpeed(vector<Worker> &workers, vector<double> &speedList)
     }
 }
 
+void SetNewWorkContent(vector<Station> &stations, vector<double> &workcontent)
+{
+    for (int i = 0; i < stations.size(); i++)
+    {
+        stations[i].SetWorkContent(workcontent[i]);
+    }
+}
+
 double CalStdev(vector<double> resultSet)
 {
     double sum = std::accumulate(std::begin(resultSet), std::end(resultSet), 0.0);

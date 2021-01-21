@@ -417,4 +417,13 @@ std::string Station::ToString()
     return fmt.str();
 }
 
+void Station::ReSetStation()
+{
+    this->SetState(Idle);
+    this->worker = NULL;
+    this->waiting.clear();
+    this->handoff.clear();
+    this->finish.clear();
+}
+
 #endif /* Station_cpp */
