@@ -1,0 +1,826 @@
+\documentclass[10pt,a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{diagbox}
+\usepackage{rotating}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{lscape}
+\usepackage{longtable}
+\usepackage[maxfloats=1024]{morefloats}
+\maxdeadcycles=1000
+
+\begin{document}
+
+    \begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 3 stations, cf=0.0}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&1.00/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&0.79/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&1.20&0.87\\
+			&1.2&0.89/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&0.83/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&1.07&0.86\\
+			&1.4&0.88/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&0.82/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&1.07&0.85\\
+			&1.7&0.94/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&0.75/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&1.25&0.84\\
+			&2.0&1.00/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&1.00/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&1.00&1.00\\
+			&2.5&0.86/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&0.86/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&1.00&0.86\\
+			&3.3&0.69/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&0.69/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&1.00&0.69\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 5 stations, cf=0.0}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&1.00/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&0.88/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&1.08&0.91\\
+			&1.2&0.93/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&0.89/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&1.04&0.91\\
+			&1.4&0.94/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&0.82/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&1.14&0.88\\
+			&1.7&0.94/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&0.89/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&1.05&0.91\\
+			&2.0&0.83/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&0.83/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&1.00&0.83\\
+			&2.5&0.89/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&0.71/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&1.25&0.80\\
+			&3.3&0.96/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&0.77/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&1.25&0.86\\
+			&&&&\\
+			3			&1.0&1.00/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.32}, 0.33, \textcolor{red}{0.35})&0.75/(\textcolor{red}{0.35}, \textcolor{black}{0.32}, 0.33)&1.26&0.86\\
+			&1.2&0.89/(\textcolor{black}{0.30}, 0.33, \textcolor{red}{0.37})&0.79/(\textcolor{red}{0.37}, \textcolor{black}{0.30}, 0.33)&1.12&0.84\\
+			&1.4&0.84/(\textcolor{red}{0.39}, \textcolor{black}{0.27}, 0.33)&0.72/(\textcolor{black}{0.27}, \textcolor{red}{0.39}, 0.33)&1.16&0.81\\
+			&1.7&0.89/(\textcolor{red}{0.42}, 0.33, \textcolor{black}{0.25})&0.78/(\textcolor{black}{0.25}, \textcolor{red}{0.42}, 0.33)&1.14&0.84\\
+			&2.0&0.89/(\textcolor{red}{0.44}, 0.33, \textcolor{black}{0.22})&0.83/(0.33, \textcolor{red}{0.44}, \textcolor{black}{0.22})&1.07&0.84\\
+			&2.5&0.89/(\textcolor{red}{0.48}, 0.33, \textcolor{black}{0.19})&0.71/(\textcolor{black}{0.19}, \textcolor{red}{0.48}, 0.33)&1.25&0.80\\
+			&3.3&0.77/(\textcolor{black}{0.15}, 0.33, \textcolor{red}{0.51})&0.77/(\textcolor{red}{0.51}, 0.33, \textcolor{black}{0.15})&1.00&0.77\\
+			&&&&\\
+			4			&1.0&1.00/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.24}, 0.25, 0.25, \textcolor{red}{0.26})&0.64/(0.25, \textcolor{black}{0.24}, \textcolor{red}{0.26}, 0.25)&1.49&0.78\\
+			&1.2&0.89/(\textcolor{black}{0.22}, 0.24, 0.26, \textcolor{red}{0.28})&0.65/(0.26, \textcolor{black}{0.22}, \textcolor{red}{0.28}, 0.24)&1.37&0.77\\
+			&1.4&0.88/(0.24, 0.26, \textcolor{red}{0.29}, \textcolor{black}{0.21})&0.66/(0.26, \textcolor{black}{0.21}, \textcolor{red}{0.29}, 0.24)&1.33&0.77\\
+			&1.7&0.90/(0.27, \textcolor{red}{0.31}, 0.23, \textcolor{black}{0.19})&0.68/(0.27, 0.23, \textcolor{red}{0.31}, \textcolor{black}{0.19})&1.33&0.77\\
+			&2.0&0.83/(0.22, 0.28, \textcolor{black}{0.17}, \textcolor{red}{0.33})&0.69/(0.28, 0.22, \textcolor{red}{0.33}, \textcolor{black}{0.17})&1.20&0.81\\
+			&2.5&0.71/(0.21, \textcolor{black}{0.14}, 0.29, \textcolor{red}{0.36})&0.65/(\textcolor{black}{0.14}, \textcolor{red}{0.36}, 0.29, 0.21)&1.10&0.71\\
+			&3.3&0.74/(\textcolor{black}{0.12}, 0.21, 0.29, \textcolor{red}{0.38})&0.58/(\textcolor{red}{0.38}, 0.29, 0.21, \textcolor{black}{0.12})&1.28&0.61\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 7 stations, cf=0.0}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&1.00/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&0.92/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&1.03&0.93\\
+			&1.2&0.94/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&0.89/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&1.06&0.92\\
+			&1.4&0.96/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&0.90/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&1.07&0.93\\
+			&1.7&0.88/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&0.85/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&1.03&0.86\\
+			&2.0&0.93/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&0.78/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&1.20&0.86\\
+			&2.5&1.00/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&0.77/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&1.30&0.88\\
+			&3.3&0.81/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&0.77/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&1.05&0.79\\
+			&&&&\\
+			3			&1.0&1.00/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.32}, 0.33, \textcolor{red}{0.35})&0.82/(\textcolor{red}{0.35}, \textcolor{black}{0.32}, 0.33)&1.16&0.88\\
+			&1.2&0.89/(\textcolor{black}{0.30}, 0.33, \textcolor{red}{0.37})&0.84/(\textcolor{red}{0.37}, 0.33, \textcolor{black}{0.30})&1.05&0.87\\
+			&1.4&0.89/(\textcolor{red}{0.39}, \textcolor{black}{0.27}, 0.33)&0.82/(\textcolor{red}{0.39}, 0.33, \textcolor{black}{0.27})&1.08&0.84\\
+			&1.7&0.87/(0.33, \textcolor{black}{0.25}, \textcolor{red}{0.42})&0.81/(0.33, \textcolor{red}{0.42}, \textcolor{black}{0.25})&1.08&0.86\\
+			&2.0&0.93/(\textcolor{black}{0.22}, \textcolor{red}{0.44}, 0.33)&0.78/(0.33, \textcolor{red}{0.44}, \textcolor{black}{0.22})&1.20&0.85\\
+			&2.5&0.91/(\textcolor{red}{0.48}, 0.33, \textcolor{black}{0.19})&0.80/(\textcolor{black}{0.19}, 0.33, \textcolor{red}{0.48})&1.13&0.85\\
+			&3.3&0.93/(0.33, \textcolor{red}{0.51}, \textcolor{black}{0.15})&0.61/(\textcolor{black}{0.15}, \textcolor{red}{0.51}, 0.33)&1.53&0.82\\
+			&&&&\\
+			4			&1.0&1.00/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.24}, 0.25, 0.25, \textcolor{red}{0.26})&0.74/(\textcolor{red}{0.26}, \textcolor{black}{0.24}, 0.25, 0.25)&1.28&0.83\\
+			&1.2&0.90/(0.26, \textcolor{red}{0.28}, 0.24, \textcolor{black}{0.22})&0.75/(\textcolor{black}{0.22}, \textcolor{red}{0.28}, 0.26, 0.24)&1.21&0.83\\
+			&1.4&0.84/(\textcolor{black}{0.21}, 0.24, \textcolor{red}{0.29}, 0.26)&0.75/(\textcolor{black}{0.21}, \textcolor{red}{0.29}, 0.26, 0.24)&1.12&0.82\\
+			&1.7&0.87/(\textcolor{red}{0.31}, 0.23, 0.27, \textcolor{black}{0.19})&0.73/(\textcolor{black}{0.19}, 0.27, 0.23, \textcolor{red}{0.31})&1.19&0.80\\
+			&2.0&0.89/(0.22, 0.28, \textcolor{black}{0.17}, \textcolor{red}{0.33})&0.72/(\textcolor{black}{0.17}, 0.22, \textcolor{red}{0.33}, 0.28)&1.24&0.81\\
+			&2.5&0.90/(\textcolor{red}{0.36}, 0.21, \textcolor{black}{0.14}, 0.29)&0.73/(\textcolor{black}{0.14}, \textcolor{red}{0.36}, 0.29, 0.21)&1.23&0.80\\
+			&3.3&0.81/(0.29, \textcolor{black}{0.12}, 0.21, \textcolor{red}{0.38})&0.57/(\textcolor{black}{0.12}, 0.29, \textcolor{red}{0.38}, 0.21)&1.42&0.75\\
+			&&&&\\
+			5			&1.0&1.00/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&1.00/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.19}, 0.19, 0.20, 0.21, \textcolor{red}{0.21})&0.67/(\textcolor{red}{0.21}, \textcolor{black}{0.19}, 0.21, 0.19, 0.20)&1.41&0.79\\
+			&1.2&0.89/(\textcolor{black}{0.18}, 0.19, 0.20, 0.21, \textcolor{red}{0.22})&0.68/(0.20, 0.19, 0.21, \textcolor{black}{0.18}, \textcolor{red}{0.22})&1.31&0.78\\
+			&1.4&0.87/(0.20, 0.22, \textcolor{red}{0.24}, \textcolor{black}{0.16}, 0.18)&0.67/(\textcolor{black}{0.16}, 0.22, \textcolor{red}{0.24}, 0.18, 0.20)&1.30&0.78\\
+			&1.7&0.87/(0.23, \textcolor{red}{0.25}, 0.17, 0.20, \textcolor{black}{0.15})&0.69/(0.17, \textcolor{red}{0.25}, \textcolor{black}{0.15}, 0.20, 0.23)&1.26&0.77\\
+			&2.0&0.93/(0.20, 0.23, 0.17, \textcolor{black}{0.13}, \textcolor{red}{0.27})&0.67/(0.23, \textcolor{black}{0.13}, 0.17, \textcolor{red}{0.27}, 0.20)&1.40&0.77\\
+			&2.5&0.80/(\textcolor{black}{0.11}, 0.20, 0.16, 0.24, \textcolor{red}{0.29})&0.61/(\textcolor{black}{0.11}, 0.20, \textcolor{red}{0.29}, 0.24, 0.16)&1.31&0.76\\
+			&3.3&0.79/(\textcolor{black}{0.09}, 0.20, 0.25, 0.15, \textcolor{red}{0.31})&0.53/(\textcolor{black}{0.09}, \textcolor{red}{0.31}, 0.20, 0.25, 0.15)&1.49&0.65\\
+			&&&&\\
+			6			&1.0&1.00/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&1.00/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.16}, 0.16, \textcolor{red}{0.18}, 0.16, 0.17, 0.17)&0.59/(0.17, \textcolor{black}{0.16}, \textcolor{red}{0.18}, 0.16, 0.17, 0.16)&1.60&0.78\\
+			&1.2&0.91/(0.16, 0.16, 0.17, 0.18, \textcolor{red}{0.19}, \textcolor{black}{0.15})&0.60/(0.17, \textcolor{black}{0.15}, \textcolor{red}{0.19}, 0.16, 0.18, 0.16)&1.52&0.77\\
+			&1.4&0.87/(0.15, 0.16, 0.17, 0.18, \textcolor{red}{0.20}, \textcolor{black}{0.14})&0.61/(0.17, \textcolor{black}{0.14}, \textcolor{red}{0.20}, 0.15, 0.18, 0.16)&1.44&0.75\\
+			&1.7&0.86/(0.17, 0.19, \textcolor{red}{0.21}, 0.16, \textcolor{black}{0.12}, 0.14)&0.61/(0.17, 0.14, 0.19, 0.16, \textcolor{black}{0.12}, \textcolor{red}{0.21})&1.40&0.73\\
+			&2.0&0.78/(\textcolor{black}{0.11}, 0.13, 0.18, 0.16, \textcolor{red}{0.22}, 0.20)&0.60/(\textcolor{black}{0.11}, \textcolor{red}{0.22}, 0.16, 0.20, 0.18, 0.13)&1.29&0.74\\
+			&2.5&0.79/(\textcolor{black}{0.10}, 0.18, 0.21, \textcolor{red}{0.24}, 0.12, 0.15)&0.58/(\textcolor{black}{0.10}, 0.18, \textcolor{red}{0.24}, 0.21, 0.15, 0.12)&1.37&0.67\\
+			&3.3&0.76/(\textcolor{black}{0.08}, 0.18, 0.22, 0.15, 0.11, \textcolor{red}{0.26})&0.52/(0.18, 0.22, 0.15, \textcolor{black}{0.08}, \textcolor{red}{0.26}, 0.11)&1.45&0.58\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 9 stations, cf=0.0}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&1.00/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&0.95/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&1.00&0.95\\
+			&1.2&1.00/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&0.93/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&1.07&0.96\\
+			&1.4&0.93/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&0.88/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&1.05&0.90\\
+			&1.7&0.96/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&0.82/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&1.17&0.89\\
+			&2.0&1.00/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&0.75/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&1.33&0.87\\
+			&2.5&0.86/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&0.71/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&1.20&0.79\\
+			&3.3&0.83/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&0.67/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&1.24&0.75\\
+			&&&&\\
+			3			&1.0&1.00/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.32}, 0.33, \textcolor{red}{0.35})&0.86/(\textcolor{red}{0.35}, \textcolor{black}{0.32}, 0.33)&1.10&0.90\\
+			&1.2&0.91/(\textcolor{red}{0.37}, \textcolor{black}{0.30}, 0.33)&0.85/(\textcolor{red}{0.37}, 0.33, \textcolor{black}{0.30})&1.07&0.88\\
+			&1.4&0.93/(\textcolor{black}{0.27}, 0.33, \textcolor{red}{0.39})&0.82/(\textcolor{red}{0.39}, 0.33, \textcolor{black}{0.27})&1.13&0.86\\
+			&1.7&0.94/(\textcolor{red}{0.42}, \textcolor{black}{0.25}, 0.33)&0.81/(\textcolor{red}{0.42}, 0.33, \textcolor{black}{0.25})&1.15&0.87\\
+			&2.0&1.00/(\textcolor{black}{0.22}, 0.33, \textcolor{red}{0.44})&0.75/(0.33, \textcolor{red}{0.44}, \textcolor{black}{0.22})&1.33&0.91\\
+			&2.5&0.89/(0.33, \textcolor{black}{0.19}, \textcolor{red}{0.48})&0.75/(0.33, \textcolor{red}{0.48}, \textcolor{black}{0.19})&1.19&0.83\\
+			&3.3&0.92/(\textcolor{black}{0.15}, \textcolor{red}{0.51}, 0.33)&0.73/(0.33, \textcolor{red}{0.51}, \textcolor{black}{0.15})&1.26&0.82\\
+			&&&&\\
+			4			&1.0&1.00/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.24}, 0.25, 0.25, \textcolor{red}{0.26})&0.76/(0.25, 0.25, \textcolor{black}{0.24}, \textcolor{red}{0.26})&1.24&0.85\\
+			&1.2&0.89/(0.24, \textcolor{black}{0.22}, 0.26, \textcolor{red}{0.28})&0.78/(0.26, 0.24, \textcolor{black}{0.22}, \textcolor{red}{0.28})&1.14&0.85\\
+			&1.4&0.88/(\textcolor{red}{0.29}, 0.24, \textcolor{black}{0.21}, 0.26)&0.65/(0.26, \textcolor{red}{0.29}, 0.24, \textcolor{black}{0.21})&1.35&0.84\\
+			&1.7&0.89/(0.27, \textcolor{red}{0.31}, \textcolor{black}{0.19}, 0.23)&0.78/(\textcolor{black}{0.19}, 0.27, \textcolor{red}{0.31}, 0.23)&1.14&0.83\\
+			&2.0&0.88/(0.28, 0.22, \textcolor{black}{0.17}, \textcolor{red}{0.33})&0.80/(0.22, \textcolor{red}{0.33}, 0.28, \textcolor{black}{0.17})&1.10&0.83\\
+			&2.5&0.89/(\textcolor{red}{0.36}, 0.21, 0.29, \textcolor{black}{0.14})&0.64/(0.29, \textcolor{black}{0.14}, \textcolor{red}{0.36}, 0.21)&1.39&0.82\\
+			&3.3&0.92/(\textcolor{red}{0.38}, 0.29, 0.21, \textcolor{black}{0.12})&0.59/(\textcolor{red}{0.38}, \textcolor{black}{0.12}, 0.29, 0.21)&1.55&0.80\\
+			&&&&\\
+			5			&1.0&1.00/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&1.00/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.19}, 0.19, 0.20, 0.21, \textcolor{red}{0.21})&0.64/(0.21, 0.19, \textcolor{red}{0.21}, 0.20, \textcolor{black}{0.19})&1.49&0.82\\
+			&1.2&0.89/(\textcolor{black}{0.18}, 0.19, 0.20, 0.21, \textcolor{red}{0.22})&0.66/(0.20, \textcolor{red}{0.22}, 0.19, \textcolor{black}{0.18}, 0.21)&1.34&0.81\\
+			&1.4&0.85/(0.18, \textcolor{black}{0.16}, 0.22, \textcolor{red}{0.24}, 0.20)&0.72/(0.18, \textcolor{red}{0.24}, 0.20, \textcolor{black}{0.16}, 0.22)&1.18&0.81\\
+			&1.7&0.87/(0.23, \textcolor{black}{0.15}, \textcolor{red}{0.25}, 0.20, 0.17)&0.68/(0.23, \textcolor{black}{0.15}, 0.17, \textcolor{red}{0.25}, 0.20)&1.28&0.80\\
+			&2.0&0.86/(0.23, \textcolor{red}{0.27}, 0.17, 0.20, \textcolor{black}{0.13})&0.70/(\textcolor{black}{0.13}, \textcolor{red}{0.27}, 0.23, 0.20, 0.17)&1.22&0.79\\
+			&2.5&0.87/(0.24, 0.20, \textcolor{black}{0.11}, \textcolor{red}{0.29}, 0.16)&0.69/(\textcolor{black}{0.11}, \textcolor{red}{0.29}, 0.24, 0.16, 0.20)&1.27&0.78\\
+			&3.3&0.83/(\textcolor{black}{0.09}, 0.15, 0.20, 0.25, \textcolor{red}{0.31})&0.55/(\textcolor{red}{0.31}, 0.15, \textcolor{black}{0.09}, 0.25, 0.20)&1.51&0.77\\
+			&&&&\\
+			6			&1.0&1.00/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&1.00/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.16}, 0.16, 0.17, 0.16, 0.17, \textcolor{red}{0.18})&0.63/(\textcolor{black}{0.16}, 0.17, 0.17, \textcolor{red}{0.18}, 0.16, 0.16)&1.50&0.81\\
+			&1.2&0.89/(\textcolor{black}{0.15}, 0.16, 0.17, 0.16, \textcolor{red}{0.19}, 0.18)&0.60/(\textcolor{black}{0.15}, 0.18, 0.17, \textcolor{red}{0.19}, 0.16, 0.16)&1.48&0.79\\
+			&1.4&0.87/(0.16, 0.18, \textcolor{red}{0.20}, \textcolor{black}{0.14}, 0.15, 0.17)&0.60/(0.16, 0.17, 0.18, \textcolor{red}{0.20}, \textcolor{black}{0.14}, 0.15)&1.45&0.78\\
+			&1.7&0.86/(0.19, \textcolor{red}{0.21}, 0.16, 0.14, 0.17, \textcolor{black}{0.12})&0.65/(0.19, 0.17, \textcolor{black}{0.12}, \textcolor{red}{0.21}, 0.16, 0.14)&1.32&0.77\\
+			&2.0&0.84/(0.16, 0.18, 0.20, \textcolor{black}{0.11}, 0.13, \textcolor{red}{0.22})&0.64/(\textcolor{black}{0.11}, 0.13, 0.20, \textcolor{red}{0.22}, 0.18, 0.16)&1.32&0.77\\
+			&2.5&0.86/(0.15, 0.18, 0.12, \textcolor{black}{0.10}, 0.21, \textcolor{red}{0.24})&0.56/(\textcolor{black}{0.10}, 0.12, 0.18, 0.21, \textcolor{red}{0.24}, 0.15)&1.52&0.75\\
+			&3.3&0.82/(\textcolor{black}{0.08}, 0.11, \textcolor{red}{0.26}, 0.22, 0.18, 0.15)&0.48/(\textcolor{black}{0.08}, 0.15, \textcolor{red}{0.26}, 0.22, 0.18, 0.11)&1.70&0.68\\
+			&&&&\\
+			7			&1.0&1.00/(\textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14})&1.00/(\textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.14}, 0.14, 0.14, 0.14, 0.15, 0.15, \textcolor{red}{0.15})&0.63/(0.14, 0.14, 0.15, 0.14, 0.15, \textcolor{black}{0.14}, \textcolor{red}{0.15})&1.51&0.78\\
+			&1.2&0.90/(0.13, 0.14, 0.14, 0.15, 0.15, \textcolor{red}{0.16}, \textcolor{black}{0.13})&0.61/(0.13, 0.14, 0.15, 0.14, 0.15, \textcolor{black}{0.13}, \textcolor{red}{0.16})&1.48&0.76\\
+			&1.4&0.87/(0.15, 0.16, \textcolor{red}{0.17}, 0.13, 0.14, \textcolor{black}{0.12}, 0.13)&0.59/(0.13, \textcolor{red}{0.17}, 0.16, 0.14, 0.13, \textcolor{black}{0.12}, 0.15)&1.46&0.75\\
+			&1.7&0.86/(0.14, 0.17, 0.15, \textcolor{red}{0.18}, 0.13, \textcolor{black}{0.11}, 0.12)&0.58/(0.12, \textcolor{red}{0.18}, 0.15, 0.14, 0.17, \textcolor{black}{0.11}, 0.13)&1.48&0.74\\
+			&2.0&0.86/(0.14, 0.16, 0.13, \textcolor{black}{0.10}, 0.11, 0.17, \textcolor{red}{0.19})&0.58/(\textcolor{red}{0.19}, 0.14, 0.11, \textcolor{black}{0.10}, 0.17, 0.16, 0.13)&1.48&0.74\\
+			&2.5&0.81/(\textcolor{black}{0.08}, 0.10, 0.14, 0.18, \textcolor{red}{0.20}, 0.16, 0.12)&0.58/(0.16, 0.18, 0.10, 0.12, 0.14, \textcolor{red}{0.20}, \textcolor{black}{0.08})&1.41&0.72\\
+			&3.3&0.81/(\textcolor{black}{0.07}, 0.14, 0.17, 0.12, 0.09, 0.19, \textcolor{red}{0.22})&0.48/(0.19, 0.17, \textcolor{black}{0.07}, 0.09, \textcolor{red}{0.22}, 0.14, 0.12)&1.70&0.62\\
+			&&&&\\
+			8			&1.0&1.00/(\textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12})&1.00/(\textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12})&1.00&1.00\\
+			&1.1&0.95/(\textcolor{black}{0.12}, 0.12, 0.12, 0.12, 0.13, 0.13, 0.13, \textcolor{red}{0.13})&0.57/(0.13, 0.12, \textcolor{black}{0.12}, \textcolor{red}{0.13}, 0.12, 0.13, 0.12, 0.13)&1.66&0.77\\
+			&1.2&0.91/(0.12, 0.12, 0.13, 0.12, 0.13, 0.13, \textcolor{red}{0.14}, \textcolor{black}{0.11})&0.57/(0.13, \textcolor{black}{0.11}, \textcolor{red}{0.14}, 0.12, 0.13, 0.12, 0.13, 0.12)&1.58&0.75\\
+			&1.4&0.87/(0.12, 0.13, 0.12, 0.13, \textcolor{red}{0.15}, 0.14, \textcolor{black}{0.10}, 0.11)&0.58/(0.13, 0.11, 0.14, 0.12, 0.13, 0.12, \textcolor{black}{0.10}, \textcolor{red}{0.15})&1.50&0.74\\
+			&1.7&0.84/(0.12, 0.13, 0.14, \textcolor{red}{0.16}, 0.10, 0.15, \textcolor{black}{0.09}, 0.11)&0.57/(0.11, 0.13, \textcolor{red}{0.16}, 0.14, 0.15, 0.12, 0.10, \textcolor{black}{0.09})&1.47&0.72\\
+			&2.0&0.80/(\textcolor{black}{0.08}, 0.10, 0.12, 0.11, 0.13, 0.15, \textcolor{red}{0.17}, 0.14)&0.56/(0.12, 0.13, \textcolor{red}{0.17}, 0.14, \textcolor{black}{0.08}, 0.15, 0.11, 0.10)&1.44&0.72\\
+			&2.5&0.78/(0.12, 0.13, 0.15, \textcolor{black}{0.07}, 0.09, 0.10, 0.16, \textcolor{red}{0.18})&0.51/(0.15, 0.16, \textcolor{red}{0.18}, \textcolor{black}{0.07}, 0.13, 0.12, 0.10, 0.09)&1.52&0.65\\
+			&3.3&0.77/(\textcolor{black}{0.06}, 0.08, 0.10, 0.15, 0.13, 0.12, \textcolor{red}{0.19}, 0.17)&0.46/(0.15, 0.10, \textcolor{red}{0.19}, \textcolor{black}{0.06}, 0.12, 0.08, 0.13, 0.17)&1.66&0.58\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 3 stations, cf=0.1}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&0.87/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&0.87/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&0.87\\
+			&1.1&0.87/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&0.83/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&1.04&0.85\\
+			&1.2&0.89/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&0.85/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&1.05&0.87\\
+			&1.4&0.89/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&0.79/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&1.13&0.84\\
+			&1.7&0.91/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&0.80/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&1.15&0.85\\
+			&2.0&0.92/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&0.78/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&1.18&0.85\\
+			&2.5&0.86/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&0.77/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&1.11&0.82\\
+			&3.3&0.70/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&0.70/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&1.00&0.70\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 5 stations, cf=0.1}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&0.90/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&0.90/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&0.90\\
+			&1.1&0.92/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&0.91/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&1.02&0.91\\
+			&1.2&0.93/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&0.88/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&1.06&0.90\\
+			&1.4&0.93/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&0.90/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&1.03&0.91\\
+			&1.7&0.90/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&0.89/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&1.01&0.90\\
+			&2.0&0.89/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&0.83/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&1.08&0.86\\
+			&2.5&0.88/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&0.76/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&1.16&0.82\\
+			&3.3&0.93/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&0.74/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&1.25&0.84\\
+			&&&&\\
+			3			&1.0&0.84/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&0.84/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00&0.84\\
+			&1.1&0.85/(\textcolor{red}{0.35}, 0.33, \textcolor{black}{0.32})&0.82/(\textcolor{black}{0.32}, 0.33, \textcolor{red}{0.35})&1.04&0.84\\
+			&1.2&0.85/(0.33, \textcolor{red}{0.37}, \textcolor{black}{0.30})&0.83/(0.33, \textcolor{black}{0.30}, \textcolor{red}{0.37})&1.02&0.84\\
+			&1.4&0.85/(\textcolor{red}{0.39}, 0.33, \textcolor{black}{0.27})&0.77/(\textcolor{black}{0.27}, \textcolor{red}{0.39}, 0.33)&1.11&0.82\\
+			&1.7&0.86/(\textcolor{red}{0.42}, 0.33, \textcolor{black}{0.25})&0.77/(\textcolor{black}{0.25}, \textcolor{red}{0.42}, 0.33)&1.11&0.82\\
+			&2.0&0.83/(\textcolor{red}{0.44}, 0.33, \textcolor{black}{0.22})&0.76/(\textcolor{black}{0.22}, \textcolor{red}{0.44}, 0.33)&1.09&0.80\\
+			&2.5&0.85/(\textcolor{red}{0.48}, 0.33, \textcolor{black}{0.19})&0.71/(\textcolor{black}{0.19}, \textcolor{red}{0.48}, 0.33)&1.18&0.78\\
+			&3.3&0.76/(\textcolor{red}{0.51}, 0.33, \textcolor{black}{0.15})&0.69/(0.33, \textcolor{black}{0.15}, \textcolor{red}{0.51})&1.10&0.72\\
+			&&&&\\
+			4			&1.0&0.81/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&0.81/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00&0.81\\
+			&1.1&0.80/(\textcolor{black}{0.24}, 0.25, \textcolor{red}{0.26}, 0.25)&0.75/(\textcolor{red}{0.26}, \textcolor{black}{0.24}, 0.25, 0.25)&1.07&0.78\\
+			&1.2&0.81/(0.24, 0.26, \textcolor{red}{0.28}, \textcolor{black}{0.22})&0.74/(\textcolor{red}{0.28}, \textcolor{black}{0.22}, 0.24, 0.26)&1.09&0.78\\
+			&1.4&0.80/(\textcolor{black}{0.21}, 0.24, \textcolor{red}{0.29}, 0.26)&0.75/(0.26, 0.24, \textcolor{black}{0.21}, \textcolor{red}{0.29})&1.07&0.77\\
+			&1.7&0.80/(\textcolor{red}{0.31}, 0.27, 0.23, \textcolor{black}{0.19})&0.73/(0.27, \textcolor{black}{0.19}, \textcolor{red}{0.31}, 0.23)&1.10&0.76\\
+			&2.0&0.79/(\textcolor{red}{0.33}, 0.28, \textcolor{black}{0.17}, 0.22)&0.71/(\textcolor{black}{0.17}, 0.28, \textcolor{red}{0.33}, 0.22)&1.13&0.74\\
+			&2.5&0.75/(\textcolor{black}{0.14}, 0.21, \textcolor{red}{0.36}, 0.29)&0.63/(0.21, \textcolor{red}{0.36}, \textcolor{black}{0.14}, 0.29)&1.19&0.69\\
+			&3.3&0.74/(\textcolor{black}{0.12}, 0.21, \textcolor{red}{0.38}, 0.29)&0.54/(\textcolor{red}{0.38}, 0.21, \textcolor{black}{0.12}, 0.29)&1.37&0.60\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 7 stations, cf=0.1}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&0.95/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&0.95/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&0.95\\
+			&1.1&0.95/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&0.92/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&1.03&0.93\\
+			&1.2&0.93/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&0.92/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&1.01&0.92\\
+			&1.4&0.90/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&0.89/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&1.01&0.90\\
+			&1.7&0.89/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&0.85/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&1.05&0.87\\
+			&2.0&0.86/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&0.82/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&1.05&0.84\\
+			&2.5&0.86/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&0.77/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&1.11&0.82\\
+			&3.3&0.84/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&0.76/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&1.10&0.80\\
+			&&&&\\
+			3			&1.0&0.87/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&0.87/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00&0.87\\
+			&1.1&0.89/(0.33, \textcolor{black}{0.32}, \textcolor{red}{0.35})&0.87/(\textcolor{red}{0.35}, 0.33, \textcolor{black}{0.32})&1.02&0.88\\
+			&1.2&0.88/(\textcolor{red}{0.37}, \textcolor{black}{0.30}, 0.33)&0.86/(0.33, \textcolor{black}{0.30}, \textcolor{red}{0.37})&1.03&0.87\\
+			&1.4&0.87/(\textcolor{red}{0.39}, \textcolor{black}{0.27}, 0.33)&0.84/(0.33, \textcolor{red}{0.39}, \textcolor{black}{0.27})&1.04&0.86\\
+			&1.7&0.86/(\textcolor{red}{0.42}, \textcolor{black}{0.25}, 0.33)&0.82/(0.33, \textcolor{red}{0.42}, \textcolor{black}{0.25})&1.05&0.84\\
+			&2.0&0.85/(\textcolor{red}{0.44}, \textcolor{black}{0.22}, 0.33)&0.81/(0.33, \textcolor{red}{0.44}, \textcolor{black}{0.22})&1.05&0.83\\
+			&2.5&0.83/(\textcolor{red}{0.48}, \textcolor{black}{0.19}, 0.33)&0.77/(\textcolor{black}{0.19}, \textcolor{red}{0.48}, 0.33)&1.07&0.80\\
+			&3.3&0.85/(\textcolor{red}{0.51}, 0.33, \textcolor{black}{0.15})&0.74/(\textcolor{black}{0.15}, \textcolor{red}{0.51}, 0.33)&1.15&0.81\\
+			&&&&\\
+			4			&1.0&0.85/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&0.85/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00&0.85\\
+			&1.1&0.84/(\textcolor{red}{0.26}, 0.25, 0.25, \textcolor{black}{0.24})&0.81/(0.25, 0.25, \textcolor{black}{0.24}, \textcolor{red}{0.26})&1.04&0.83\\
+			&1.2&0.84/(\textcolor{red}{0.28}, 0.26, 0.24, \textcolor{black}{0.22})&0.80/(\textcolor{black}{0.22}, 0.24, 0.26, \textcolor{red}{0.28})&1.05&0.82\\
+			&1.4&0.84/(\textcolor{red}{0.29}, 0.26, 0.24, \textcolor{black}{0.21})&0.79/(\textcolor{black}{0.21}, 0.26, \textcolor{red}{0.29}, 0.24)&1.06&0.81\\
+			&1.7&0.84/(\textcolor{red}{0.31}, 0.27, 0.23, \textcolor{black}{0.19})&0.78/(\textcolor{black}{0.19}, \textcolor{red}{0.31}, 0.27, 0.23)&1.07&0.80\\
+			&2.0&0.83/(\textcolor{red}{0.33}, 0.28, \textcolor{black}{0.17}, 0.22)&0.77/(\textcolor{black}{0.17}, 0.22, \textcolor{red}{0.33}, 0.28)&1.07&0.80\\
+			&2.5&0.82/(0.29, \textcolor{red}{0.36}, 0.21, \textcolor{black}{0.14})&0.73/(\textcolor{black}{0.14}, \textcolor{red}{0.36}, 0.21, 0.29)&1.11&0.77\\
+			&3.3&0.77/(\textcolor{red}{0.38}, 0.29, 0.21, \textcolor{black}{0.12})&0.67/(0.29, \textcolor{black}{0.12}, \textcolor{red}{0.38}, 0.21)&1.15&0.72\\
+			&&&&\\
+			5			&1.0&0.79/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&0.79/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&1.00&0.79\\
+			&1.1&0.80/(\textcolor{black}{0.19}, 0.19, \textcolor{red}{0.21}, 0.20, 0.21)&0.77/(\textcolor{black}{0.19}, \textcolor{red}{0.21}, 0.19, 0.20, 0.21)&1.05&0.79\\
+			&1.2&0.82/(0.20, \textcolor{red}{0.22}, 0.19, 0.21, \textcolor{black}{0.18})&0.75/(0.20, 0.19, \textcolor{black}{0.18}, \textcolor{red}{0.22}, 0.21)&1.09&0.78\\
+			&1.4&0.81/(0.22, \textcolor{red}{0.24}, 0.20, 0.18, \textcolor{black}{0.16})&0.74/(0.18, \textcolor{red}{0.24}, \textcolor{black}{0.16}, 0.20, 0.22)&1.08&0.77\\
+			&1.7&0.81/(\textcolor{red}{0.25}, 0.23, 0.20, 0.17, \textcolor{black}{0.15})&0.73/(\textcolor{black}{0.15}, 0.20, \textcolor{red}{0.25}, 0.17, 0.23)&1.12&0.76\\
+			&2.0&0.80/(\textcolor{red}{0.27}, 0.23, 0.20, 0.17, \textcolor{black}{0.13})&0.71/(\textcolor{black}{0.13}, \textcolor{red}{0.27}, 0.23, 0.17, 0.20)&1.13&0.75\\
+			&2.5&0.76/(\textcolor{red}{0.29}, 0.20, 0.24, \textcolor{black}{0.11}, 0.16)&0.67/(0.16, \textcolor{red}{0.29}, \textcolor{black}{0.11}, 0.20, 0.24)&1.13&0.71\\
+			&3.3&0.74/(\textcolor{black}{0.09}, 0.15, \textcolor{red}{0.31}, 0.25, 0.20)&0.57/(\textcolor{red}{0.31}, 0.20, 0.15, \textcolor{black}{0.09}, 0.25)&1.31&0.63\\
+			&&&&\\
+			6			&1.0&0.76/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&0.76/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&1.00&0.76\\
+			&1.1&0.79/(\textcolor{black}{0.16}, 0.16, 0.17, \textcolor{red}{0.18}, 0.17, 0.16)&0.72/(\textcolor{red}{0.18}, \textcolor{black}{0.16}, 0.16, 0.16, 0.17, 0.17)&1.09&0.76\\
+			&1.2&0.79/(0.16, 0.18, 0.17, \textcolor{red}{0.19}, 0.16, \textcolor{black}{0.15})&0.72/(0.18, \textcolor{black}{0.15}, 0.17, 0.16, 0.16, \textcolor{red}{0.19})&1.09&0.75\\
+			&1.4&0.77/(0.16, 0.17, \textcolor{red}{0.20}, 0.18, 0.15, \textcolor{black}{0.14})&0.71/(0.16, 0.15, \textcolor{red}{0.20}, \textcolor{black}{0.14}, 0.18, 0.17)&1.09&0.74\\
+			&1.7&0.76/(0.19, \textcolor{red}{0.21}, 0.16, \textcolor{black}{0.12}, 0.17, 0.14)&0.69/(0.17, \textcolor{black}{0.12}, 0.16, 0.19, 0.14, \textcolor{red}{0.21})&1.10&0.72\\
+			&2.0&0.75/(\textcolor{black}{0.11}, 0.13, \textcolor{red}{0.22}, 0.18, 0.20, 0.16)&0.65/(0.20, 0.13, 0.18, \textcolor{red}{0.22}, \textcolor{black}{0.11}, 0.16)&1.15&0.70\\
+			&2.5&0.73/(\textcolor{black}{0.10}, 0.12, 0.21, \textcolor{red}{0.24}, 0.18, 0.15)&0.58/(\textcolor{red}{0.24}, 0.12, 0.21, 0.15, \textcolor{black}{0.10}, 0.18)&1.25&0.65\\
+			&3.3&0.72/(\textcolor{black}{0.08}, 0.11, \textcolor{red}{0.26}, 0.22, 0.18, 0.15)&0.47/(0.22, \textcolor{red}{0.26}, 0.18, 0.11, \textcolor{black}{0.08}, 0.15)&1.53&0.58\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 9 stations, cf=0.1}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&0.95/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&0.95/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&0.95\\
+			&1.1&0.95/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&0.93/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&1.01&0.94\\
+			&1.2&0.95/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&0.92/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&1.03&0.93\\
+			&1.4&0.92/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&0.88/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&1.05&0.90\\
+			&1.7&0.90/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&0.83/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&1.08&0.86\\
+			&2.0&0.91/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&0.78/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&1.17&0.84\\
+			&2.5&0.86/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&0.72/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&1.20&0.79\\
+			&3.3&0.84/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&0.65/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&1.29&0.75\\
+			&&&&\\
+			3			&1.0&0.89/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&0.89/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00&0.89\\
+			&1.1&0.90/(\textcolor{black}{0.32}, \textcolor{red}{0.35}, 0.33)&0.89/(0.33, \textcolor{black}{0.32}, \textcolor{red}{0.35})&1.01&0.90\\
+			&1.2&0.90/(\textcolor{red}{0.37}, \textcolor{black}{0.30}, 0.33)&0.89/(0.33, \textcolor{red}{0.37}, \textcolor{black}{0.30})&1.01&0.89\\
+			&1.4&0.90/(\textcolor{red}{0.39}, \textcolor{black}{0.27}, 0.33)&0.83/(0.33, \textcolor{red}{0.39}, \textcolor{black}{0.27})&1.08&0.87\\
+			&1.7&0.88/(0.33, \textcolor{black}{0.25}, \textcolor{red}{0.42})&0.79/(0.33, \textcolor{red}{0.42}, \textcolor{black}{0.25})&1.11&0.86\\
+			&2.0&0.87/(\textcolor{black}{0.22}, 0.33, \textcolor{red}{0.44})&0.76/(0.33, \textcolor{red}{0.44}, \textcolor{black}{0.22})&1.15&0.83\\
+			&2.5&0.85/(\textcolor{black}{0.19}, 0.33, \textcolor{red}{0.48})&0.73/(0.33, \textcolor{red}{0.48}, \textcolor{black}{0.19})&1.16&0.81\\
+			&3.3&0.84/(0.33, \textcolor{black}{0.15}, \textcolor{red}{0.51})&0.71/(0.33, \textcolor{red}{0.51}, \textcolor{black}{0.15})&1.18&0.79\\
+			&&&&\\
+			4			&1.0&0.87/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&0.87/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00&0.87\\
+			&1.1&0.87/(0.25, 0.25, \textcolor{red}{0.26}, \textcolor{black}{0.24})&0.84/(\textcolor{black}{0.24}, \textcolor{red}{0.26}, 0.25, 0.25)&1.04&0.86\\
+			&1.2&0.87/(\textcolor{red}{0.28}, 0.24, 0.26, \textcolor{black}{0.22})&0.82/(0.24, \textcolor{red}{0.28}, 0.26, \textcolor{black}{0.22})&1.06&0.85\\
+			&1.4&0.86/(\textcolor{red}{0.29}, \textcolor{black}{0.21}, 0.26, 0.24)&0.82/(0.24, \textcolor{red}{0.29}, 0.26, \textcolor{black}{0.21})&1.06&0.84\\
+			&1.7&0.84/(\textcolor{red}{0.31}, 0.27, \textcolor{black}{0.19}, 0.23)&0.78/(0.23, 0.27, \textcolor{red}{0.31}, \textcolor{black}{0.19})&1.08&0.83\\
+			&2.0&0.84/(0.28, \textcolor{black}{0.17}, 0.22, \textcolor{red}{0.33})&0.78/(0.22, 0.28, \textcolor{red}{0.33}, \textcolor{black}{0.17})&1.08&0.81\\
+			&2.5&0.83/(\textcolor{red}{0.36}, 0.29, \textcolor{black}{0.14}, 0.21)&0.75/(0.29, \textcolor{black}{0.14}, \textcolor{red}{0.36}, 0.21)&1.10&0.80\\
+			&3.3&0.82/(\textcolor{red}{0.38}, 0.21, \textcolor{black}{0.12}, 0.29)&0.68/(0.29, \textcolor{black}{0.12}, \textcolor{red}{0.38}, 0.21)&1.20&0.78\\
+			&&&&\\
+			5			&1.0&0.83/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&0.83/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&1.00&0.83\\
+			&1.1&0.84/(0.20, \textcolor{red}{0.21}, 0.21, \textcolor{black}{0.19}, 0.19)&0.80/(0.19, 0.20, 0.21, \textcolor{black}{0.19}, \textcolor{red}{0.21})&1.06&0.82\\
+			&1.2&0.84/(\textcolor{red}{0.22}, 0.20, 0.21, \textcolor{black}{0.18}, 0.19)&0.78/(0.19, \textcolor{red}{0.22}, 0.21, \textcolor{black}{0.18}, 0.20)&1.07&0.81\\
+			&1.4&0.83/(\textcolor{red}{0.24}, 0.20, 0.22, 0.18, \textcolor{black}{0.16})&0.78/(0.18, 0.22, \textcolor{red}{0.24}, \textcolor{black}{0.16}, 0.20)&1.07&0.80\\
+			&1.7&0.82/(\textcolor{red}{0.25}, 0.23, 0.17, \textcolor{black}{0.15}, 0.20)&0.76/(\textcolor{black}{0.15}, 0.23, \textcolor{red}{0.25}, 0.17, 0.20)&1.08&0.79\\
+			&2.0&0.82/(\textcolor{red}{0.27}, 0.20, 0.23, 0.17, \textcolor{black}{0.13})&0.75/(\textcolor{red}{0.27}, \textcolor{black}{0.13}, 0.17, 0.23, 0.20)&1.10&0.78\\
+			&2.5&0.81/(\textcolor{red}{0.29}, 0.24, 0.20, 0.16, \textcolor{black}{0.11})&0.71/(\textcolor{black}{0.11}, 0.24, \textcolor{red}{0.29}, 0.20, 0.16)&1.13&0.77\\
+			&3.3&0.78/(\textcolor{black}{0.09}, 0.15, 0.20, \textcolor{red}{0.31}, 0.25)&0.65/(0.25, \textcolor{black}{0.09}, \textcolor{red}{0.31}, 0.20, 0.15)&1.21&0.72\\
+			&&&&\\
+			6			&1.0&0.79/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&0.79/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&1.00&0.79\\
+			&1.1&0.81/(\textcolor{red}{0.18}, 0.16, 0.17, 0.16, 0.17, \textcolor{black}{0.16})&0.76/(0.17, \textcolor{red}{0.18}, 0.16, \textcolor{black}{0.16}, 0.16, 0.17)&1.07&0.79\\
+			&1.2&0.81/(0.17, \textcolor{red}{0.19}, 0.16, 0.18, 0.16, \textcolor{black}{0.15})&0.76/(0.18, 0.17, \textcolor{black}{0.15}, \textcolor{red}{0.19}, 0.16, 0.16)&1.07&0.78\\
+			&1.4&0.81/(\textcolor{red}{0.20}, 0.17, 0.18, 0.15, 0.16, \textcolor{black}{0.14})&0.74/(\textcolor{black}{0.14}, 0.18, \textcolor{red}{0.20}, 0.15, 0.16, 0.17)&1.09&0.77\\
+			&1.7&0.82/(\textcolor{red}{0.21}, 0.19, 0.17, 0.16, 0.14, \textcolor{black}{0.12})&0.73/(0.14, \textcolor{red}{0.21}, \textcolor{black}{0.12}, 0.16, 0.17, 0.19)&1.12&0.77\\
+			&2.0&0.80/(\textcolor{red}{0.22}, 0.18, 0.16, 0.20, 0.13, \textcolor{black}{0.11})&0.71/(0.13, \textcolor{red}{0.22}, \textcolor{black}{0.11}, 0.20, 0.18, 0.16)&1.13&0.75\\
+			&2.5&0.79/(\textcolor{red}{0.24}, 0.21, 0.18, 0.15, 0.12, \textcolor{black}{0.10})&0.66/(0.21, \textcolor{black}{0.10}, \textcolor{red}{0.24}, 0.12, 0.18, 0.15)&1.19&0.72\\
+			&3.3&0.75/(\textcolor{black}{0.08}, 0.11, 0.18, 0.15, 0.22, \textcolor{red}{0.26})&0.58/(0.18, 0.11, 0.15, 0.22, \textcolor{black}{0.08}, \textcolor{red}{0.26})&1.29&0.66\\
+			&&&&\\
+			7			&1.0&0.77/(\textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14})&0.77/(\textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14})&1.00&0.77\\
+			&1.1&0.80/(0.15, \textcolor{red}{0.15}, 0.15, 0.14, 0.14, 0.14, \textcolor{black}{0.14})&0.73/(0.15, 0.14, 0.14, \textcolor{black}{0.14}, 0.14, 0.15, \textcolor{red}{0.15})&1.09&0.76\\
+			&1.2&0.79/(\textcolor{red}{0.16}, 0.15, 0.14, 0.15, 0.14, 0.13, \textcolor{black}{0.13})&0.73/(0.15, \textcolor{red}{0.16}, 0.13, 0.15, 0.14, \textcolor{black}{0.13}, 0.14)&1.09&0.76\\
+			&1.4&0.78/(\textcolor{red}{0.17}, 0.15, 0.16, 0.14, \textcolor{black}{0.12}, 0.13, 0.13)&0.72/(0.13, \textcolor{red}{0.17}, 0.13, 0.14, \textcolor{black}{0.12}, 0.15, 0.16)&1.09&0.75\\
+			&1.7&0.78/(\textcolor{red}{0.18}, 0.15, 0.17, 0.13, 0.14, 0.12, \textcolor{black}{0.11})&0.70/(0.13, \textcolor{red}{0.18}, 0.12, 0.14, \textcolor{black}{0.11}, 0.15, 0.17)&1.12&0.74\\
+			&2.0&0.77/(0.16, 0.17, \textcolor{red}{0.19}, 0.14, 0.11, 0.13, \textcolor{black}{0.10})&0.67/(0.11, \textcolor{red}{0.19}, \textcolor{black}{0.10}, 0.14, 0.13, 0.17, 0.16)&1.14&0.72\\
+			&2.5&0.75/(\textcolor{black}{0.08}, 0.10, 0.18, 0.16, \textcolor{red}{0.20}, 0.14, 0.12)&0.61/(0.10, \textcolor{red}{0.20}, 0.12, 0.18, \textcolor{black}{0.08}, 0.14, 0.16)&1.23&0.68\\
+			&3.3&0.73/(\textcolor{black}{0.07}, 0.09, 0.12, 0.19, \textcolor{red}{0.22}, 0.17, 0.14)&0.50/(0.17, 0.12, 0.09, 0.19, \textcolor{red}{0.22}, \textcolor{black}{0.07}, 0.14)&1.45&0.60\\
+			&&&&\\
+			8			&1.0&0.74/(\textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12})&0.74/(\textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12})&1.00&0.74\\
+			&1.1&0.78/(\textcolor{black}{0.12}, 0.13, 0.12, 0.12, 0.13, 0.13, 0.12, \textcolor{red}{0.13})&0.71/(0.13, \textcolor{red}{0.13}, \textcolor{black}{0.12}, 0.12, 0.12, 0.13, 0.12, 0.13)&1.10&0.75\\
+			&1.2&0.78/(\textcolor{black}{0.11}, 0.12, 0.12, 0.13, \textcolor{red}{0.14}, 0.13, 0.13, 0.12)&0.70/(0.13, \textcolor{black}{0.11}, 0.13, 0.12, 0.12, 0.13, 0.12, \textcolor{red}{0.14})&1.11&0.74\\
+			&1.4&0.77/(0.14, \textcolor{red}{0.15}, 0.13, 0.12, 0.13, 0.12, 0.11, \textcolor{black}{0.10})&0.69/(0.13, 0.14, 0.12, 0.12, \textcolor{black}{0.10}, 0.13, 0.11, \textcolor{red}{0.15})&1.11&0.73\\
+			&1.7&0.75/(\textcolor{red}{0.16}, 0.14, 0.11, 0.15, 0.12, 0.13, 0.10, \textcolor{black}{0.09})&0.66/(0.11, 0.12, 0.10, 0.13, \textcolor{red}{0.16}, \textcolor{black}{0.09}, 0.15, 0.14)&1.14&0.71\\
+			&2.0&0.73/(\textcolor{black}{0.08}, 0.10, 0.15, 0.14, \textcolor{red}{0.17}, 0.12, 0.13, 0.11)&0.61/(0.11, \textcolor{red}{0.17}, 0.10, 0.13, 0.12, 0.14, \textcolor{black}{0.08}, 0.15)&1.20&0.67\\
+			&2.5&0.72/(\textcolor{black}{0.07}, 0.09, 0.12, 0.10, \textcolor{red}{0.18}, 0.16, 0.15, 0.13)&0.54/(\textcolor{red}{0.18}, 0.09, 0.16, 0.10, 0.13, 0.12, \textcolor{black}{0.07}, 0.15)&1.33&0.63\\
+			&3.3&0.71/(\textcolor{black}{0.06}, 0.08, 0.10, 0.13, 0.15, 0.17, \textcolor{red}{0.19}, 0.12)&0.44/(\textcolor{red}{0.19}, 0.10, 0.15, 0.13, 0.08, 0.17, \textcolor{black}{0.06}, 0.12)&1.61&0.56\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 3 stations, cf=0.5}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&0.85/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&0.85/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&0.85\\
+			&1.1&0.86/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&0.83/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&1.04&0.85\\
+			&1.2&0.89/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&0.86/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&1.04&0.87\\
+			&1.4&0.85/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&0.80/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&1.06&0.83\\
+			&1.7&0.82/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&0.77/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&1.07&0.79\\
+			&2.0&0.83/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&0.71/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&1.17&0.77\\
+			&2.5&0.77/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&0.71/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&1.08&0.74\\
+			&3.3&0.69/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&0.64/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&1.08&0.67\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 5 stations, cf=0.5}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&0.91/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&0.91/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&0.91\\
+			&1.1&0.92/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&0.88/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&1.05&0.90\\
+			&1.2&0.89/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&0.87/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&1.03&0.88\\
+			&1.4&0.89/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&0.86/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&1.03&0.88\\
+			&1.7&0.90/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&0.84/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&1.07&0.87\\
+			&2.0&0.87/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&0.82/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&1.07&0.84\\
+			&2.5&0.85/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&0.78/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&1.09&0.82\\
+			&3.3&0.82/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&0.74/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&1.10&0.78\\
+			&&&&\\
+			3			&1.0&0.80/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&0.80/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00&0.80\\
+			&1.1&0.81/(\textcolor{black}{0.32}, 0.33, \textcolor{red}{0.35})&0.79/(0.33, \textcolor{black}{0.32}, \textcolor{red}{0.35})&1.02&0.80\\
+			&1.2&0.83/(\textcolor{red}{0.37}, 0.33, \textcolor{black}{0.30})&0.80/(0.33, \textcolor{black}{0.30}, \textcolor{red}{0.37})&1.03&0.82\\
+			&1.4&0.82/(0.33, \textcolor{red}{0.39}, \textcolor{black}{0.27})&0.77/(\textcolor{black}{0.27}, 0.33, \textcolor{red}{0.39})&1.06&0.80\\
+			&1.7&0.80/(0.33, \textcolor{red}{0.42}, \textcolor{black}{0.25})&0.75/(0.33, \textcolor{black}{0.25}, \textcolor{red}{0.42})&1.07&0.79\\
+			&2.0&0.81/(\textcolor{red}{0.44}, 0.33, \textcolor{black}{0.22})&0.74/(\textcolor{black}{0.22}, \textcolor{red}{0.44}, 0.33)&1.10&0.77\\
+			&2.5&0.76/(\textcolor{red}{0.48}, 0.33, \textcolor{black}{0.19})&0.68/(0.33, \textcolor{black}{0.19}, \textcolor{red}{0.48})&1.12&0.71\\
+			&3.3&0.71/(\textcolor{black}{0.15}, 0.33, \textcolor{red}{0.51})&0.59/(\textcolor{red}{0.51}, \textcolor{black}{0.15}, 0.33)&1.20&0.66\\
+			&&&&\\
+			4			&1.0&0.75/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&0.75/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00&0.75\\
+			&1.1&0.78/(\textcolor{black}{0.24}, 0.25, \textcolor{red}{0.26}, 0.25)&0.71/(0.25, \textcolor{black}{0.24}, 0.25, \textcolor{red}{0.26})&1.09&0.74\\
+			&1.2&0.77/(0.26, 0.24, \textcolor{black}{0.22}, \textcolor{red}{0.28})&0.71/(0.24, \textcolor{red}{0.28}, \textcolor{black}{0.22}, 0.26)&1.09&0.74\\
+			&1.4&0.75/(\textcolor{black}{0.21}, 0.24, \textcolor{red}{0.29}, 0.26)&0.67/(0.24, \textcolor{red}{0.29}, \textcolor{black}{0.21}, 0.26)&1.12&0.72\\
+			&1.7&0.73/(\textcolor{red}{0.31}, 0.23, \textcolor{black}{0.19}, 0.27)&0.66/(0.23, 0.27, \textcolor{black}{0.19}, \textcolor{red}{0.31})&1.11&0.70\\
+			&2.0&0.72/(\textcolor{black}{0.17}, 0.22, \textcolor{red}{0.33}, 0.28)&0.60/(0.22, \textcolor{red}{0.33}, \textcolor{black}{0.17}, 0.28)&1.19&0.67\\
+			&2.5&0.72/(\textcolor{black}{0.14}, 0.21, \textcolor{red}{0.36}, 0.29)&0.55/(0.21, \textcolor{red}{0.36}, \textcolor{black}{0.14}, 0.29)&1.31&0.61\\
+			&3.3&0.71/(\textcolor{black}{0.12}, 0.21, \textcolor{red}{0.38}, 0.29)&0.46/(0.21, 0.29, \textcolor{black}{0.12}, \textcolor{red}{0.38})&1.52&0.56\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 7 stations, cf=0.5}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&0.93/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&0.93/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&0.93\\
+			&1.1&0.92/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&0.92/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&1.00&0.92\\
+			&1.2&0.91/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&0.90/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&1.01&0.91\\
+			&1.4&0.90/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&0.87/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&1.02&0.88\\
+			&1.7&0.88/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&0.83/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&1.05&0.85\\
+			&2.0&0.84/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&0.83/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&1.01&0.83\\
+			&2.5&0.82/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&0.77/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&1.06&0.80\\
+			&3.3&0.79/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&0.77/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&1.02&0.78\\
+			&&&&\\
+			3			&1.0&0.86/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&0.86/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00&0.86\\
+			&1.1&0.87/(\textcolor{red}{0.35}, \textcolor{black}{0.32}, 0.33)&0.85/(0.33, \textcolor{red}{0.35}, \textcolor{black}{0.32})&1.03&0.85\\
+			&1.2&0.87/(\textcolor{red}{0.37}, \textcolor{black}{0.30}, 0.33)&0.84/(0.33, \textcolor{black}{0.30}, \textcolor{red}{0.37})&1.03&0.85\\
+			&1.4&0.85/(\textcolor{red}{0.39}, \textcolor{black}{0.27}, 0.33)&0.81/(\textcolor{black}{0.27}, 0.33, \textcolor{red}{0.39})&1.06&0.84\\
+			&1.7&0.85/(\textcolor{red}{0.42}, \textcolor{black}{0.25}, 0.33)&0.81/(0.33, \textcolor{red}{0.42}, \textcolor{black}{0.25})&1.05&0.83\\
+			&2.0&0.82/(\textcolor{red}{0.44}, 0.33, \textcolor{black}{0.22})&0.76/(\textcolor{black}{0.22}, \textcolor{red}{0.44}, 0.33)&1.08&0.80\\
+			&2.5&0.81/(0.33, \textcolor{black}{0.19}, \textcolor{red}{0.48})&0.75/(\textcolor{black}{0.19}, 0.33, \textcolor{red}{0.48})&1.08&0.78\\
+			&3.3&0.75/(\textcolor{black}{0.15}, 0.33, \textcolor{red}{0.51})&0.69/(\textcolor{black}{0.15}, \textcolor{red}{0.51}, 0.33)&1.08&0.73\\
+			&&&&\\
+			4			&1.0&0.80/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&0.80/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00&0.80\\
+			&1.1&0.82/(\textcolor{red}{0.26}, 0.25, 0.25, \textcolor{black}{0.24})&0.78/(0.25, \textcolor{red}{0.26}, 0.25, \textcolor{black}{0.24})&1.06&0.80\\
+			&1.2&0.82/(0.26, \textcolor{red}{0.28}, \textcolor{black}{0.22}, 0.24)&0.77/(\textcolor{black}{0.22}, 0.26, 0.24, \textcolor{red}{0.28})&1.07&0.79\\
+			&1.4&0.82/(\textcolor{red}{0.29}, \textcolor{black}{0.21}, 0.24, 0.26)&0.77/(\textcolor{black}{0.21}, 0.26, \textcolor{red}{0.29}, 0.24)&1.07&0.79\\
+			&1.7&0.81/(\textcolor{red}{0.31}, 0.23, \textcolor{black}{0.19}, 0.27)&0.75/(0.23, \textcolor{red}{0.31}, \textcolor{black}{0.19}, 0.27)&1.09&0.78\\
+			&2.0&0.81/(\textcolor{red}{0.33}, 0.28, 0.22, \textcolor{black}{0.17})&0.71/(0.28, 0.22, \textcolor{red}{0.33}, \textcolor{black}{0.17})&1.13&0.75\\
+			&2.5&0.77/(\textcolor{black}{0.14}, 0.21, \textcolor{red}{0.36}, 0.29)&0.67/(\textcolor{red}{0.36}, 0.29, \textcolor{black}{0.14}, 0.21)&1.14&0.71\\
+			&3.3&0.74/(\textcolor{black}{0.12}, 0.21, 0.29, \textcolor{red}{0.38})&0.57/(\textcolor{red}{0.38}, 0.21, \textcolor{black}{0.12}, 0.29)&1.30&0.65\\
+			&&&&\\
+			5			&1.0&0.76/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&0.76/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&1.00&0.76\\
+			&1.1&0.78/(\textcolor{red}{0.21}, 0.20, 0.21, 0.19, \textcolor{black}{0.19})&0.72/(0.19, \textcolor{red}{0.21}, 0.21, \textcolor{black}{0.19}, 0.20)&1.08&0.75\\
+			&1.2&0.78/(\textcolor{black}{0.18}, 0.19, \textcolor{red}{0.22}, 0.21, 0.20)&0.71/(0.19, 0.20, \textcolor{red}{0.22}, \textcolor{black}{0.18}, 0.21)&1.09&0.75\\
+			&1.4&0.77/(\textcolor{red}{0.24}, 0.22, 0.20, 0.18, \textcolor{black}{0.16})&0.71/(0.18, 0.20, \textcolor{red}{0.24}, \textcolor{black}{0.16}, 0.22)&1.09&0.74\\
+			&1.7&0.75/(0.23, 0.20, 0.17, \textcolor{black}{0.15}, \textcolor{red}{0.25})&0.68/(\textcolor{red}{0.25}, 0.20, 0.23, \textcolor{black}{0.15}, 0.17)&1.11&0.72\\
+			&2.0&0.74/(\textcolor{black}{0.13}, 0.17, \textcolor{red}{0.27}, 0.23, 0.20)&0.62/(0.17, 0.23, 0.20, \textcolor{black}{0.13}, \textcolor{red}{0.27})&1.18&0.69\\
+			&2.5&0.72/(\textcolor{black}{0.11}, 0.16, \textcolor{red}{0.29}, 0.24, 0.20)&0.55/(0.16, \textcolor{red}{0.29}, 0.20, \textcolor{black}{0.11}, 0.24)&1.30&0.64\\
+			&3.3&0.71/(\textcolor{black}{0.09}, 0.15, 0.25, \textcolor{red}{0.31}, 0.20)&0.47/(0.20, 0.25, \textcolor{red}{0.31}, \textcolor{black}{0.09}, 0.15)&1.52&0.58\\
+			&&&&\\
+			6			&1.0&0.69/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&0.69/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&1.00&0.69\\
+			&1.1&0.73/(0.16, 0.17, 0.16, \textcolor{black}{0.16}, \textcolor{red}{0.18}, 0.17)&0.65/(\textcolor{red}{0.18}, 0.16, 0.16, 0.17, \textcolor{black}{0.16}, 0.17)&1.12&0.70\\
+			&1.2&0.74/(0.16, 0.16, 0.17, 0.18, \textcolor{red}{0.19}, \textcolor{black}{0.15})&0.63/(0.18, \textcolor{red}{0.19}, 0.17, 0.16, 0.16, \textcolor{black}{0.15})&1.16&0.69\\
+			&1.4&0.72/(\textcolor{black}{0.14}, \textcolor{red}{0.20}, 0.17, 0.16, 0.15, 0.18)&0.61/(0.18, 0.15, 0.16, 0.17, \textcolor{black}{0.14}, \textcolor{red}{0.20})&1.17&0.67\\
+			&1.7&0.71/(\textcolor{black}{0.12}, 0.14, 0.19, \textcolor{red}{0.21}, 0.17, 0.16)&0.58/(0.16, 0.19, 0.14, \textcolor{black}{0.12}, 0.17, \textcolor{red}{0.21})&1.23&0.65\\
+			&2.0&0.70/(\textcolor{black}{0.11}, 0.16, 0.20, \textcolor{red}{0.22}, 0.18, 0.13)&0.54/(\textcolor{red}{0.22}, 0.18, 0.13, 0.20, \textcolor{black}{0.11}, 0.16)&1.30&0.62\\
+			&2.5&0.70/(\textcolor{black}{0.10}, 0.12, 0.15, 0.21, \textcolor{red}{0.24}, 0.18)&0.48/(0.18, 0.15, 0.12, 0.21, \textcolor{black}{0.10}, \textcolor{red}{0.24})&1.45&0.58\\
+			&3.3&0.69/(\textcolor{black}{0.08}, 0.11, 0.18, \textcolor{red}{0.26}, 0.22, 0.15)&0.39/(\textcolor{red}{0.26}, 0.11, 0.15, 0.18, \textcolor{black}{0.08}, 0.22)&1.76&0.53\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 9 stations, cf=0.5}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&0.93/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&0.93/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&0.93\\
+			&1.1&0.93/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&0.93/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&1.01&0.93\\
+			&1.2&0.92/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&0.91/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&1.02&0.91\\
+			&1.4&0.92/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&0.86/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&1.06&0.89\\
+			&1.7&0.89/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&0.82/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&1.09&0.86\\
+			&2.0&0.87/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&0.79/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&1.11&0.83\\
+			&2.5&0.85/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&0.72/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&1.18&0.78\\
+			&3.3&0.83/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&0.66/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&1.25&0.75\\
+			&&&&\\
+			3			&1.0&0.89/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&0.89/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00&0.89\\
+			&1.1&0.89/(\textcolor{red}{0.35}, 0.33, \textcolor{black}{0.32})&0.87/(\textcolor{black}{0.32}, 0.33, \textcolor{red}{0.35})&1.02&0.88\\
+			&1.2&0.88/(\textcolor{red}{0.37}, \textcolor{black}{0.30}, 0.33)&0.86/(\textcolor{black}{0.30}, 0.33, \textcolor{red}{0.37})&1.02&0.87\\
+			&1.4&0.87/(0.33, \textcolor{black}{0.27}, \textcolor{red}{0.39})&0.85/(\textcolor{red}{0.39}, 0.33, \textcolor{black}{0.27})&1.02&0.86\\
+			&1.7&0.86/(0.33, \textcolor{black}{0.25}, \textcolor{red}{0.42})&0.82/(\textcolor{red}{0.42}, 0.33, \textcolor{black}{0.25})&1.05&0.84\\
+			&2.0&0.86/(\textcolor{red}{0.44}, \textcolor{black}{0.22}, 0.33)&0.76/(0.33, \textcolor{red}{0.44}, \textcolor{black}{0.22})&1.13&0.82\\
+			&2.5&0.84/(\textcolor{red}{0.48}, \textcolor{black}{0.19}, 0.33)&0.74/(0.33, \textcolor{red}{0.48}, \textcolor{black}{0.19})&1.13&0.81\\
+			&3.3&0.82/(\textcolor{black}{0.15}, 0.33, \textcolor{red}{0.51})&0.70/(0.33, \textcolor{red}{0.51}, \textcolor{black}{0.15})&1.17&0.78\\
+			&&&&\\
+			4			&1.0&0.84/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&0.84/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00&0.84\\
+			&1.1&0.85/(0.25, \textcolor{black}{0.24}, 0.25, \textcolor{red}{0.26})&0.82/(0.25, \textcolor{red}{0.26}, \textcolor{black}{0.24}, 0.25)&1.04&0.83\\
+			&1.2&0.85/(0.24, 0.26, \textcolor{red}{0.28}, \textcolor{black}{0.22})&0.81/(0.24, \textcolor{black}{0.22}, 0.26, \textcolor{red}{0.28})&1.05&0.83\\
+			&1.4&0.84/(\textcolor{red}{0.29}, 0.24, \textcolor{black}{0.21}, 0.26)&0.80/(\textcolor{black}{0.21}, 0.26, 0.24, \textcolor{red}{0.29})&1.06&0.82\\
+			&1.7&0.83/(\textcolor{red}{0.31}, 0.23, \textcolor{black}{0.19}, 0.27)&0.78/(0.27, \textcolor{black}{0.19}, \textcolor{red}{0.31}, 0.23)&1.07&0.81\\
+			&2.0&0.83/(\textcolor{red}{0.33}, 0.22, \textcolor{black}{0.17}, 0.28)&0.76/(\textcolor{red}{0.33}, \textcolor{black}{0.17}, 0.28, 0.22)&1.09&0.79\\
+			&2.5&0.81/(\textcolor{red}{0.36}, 0.21, \textcolor{black}{0.14}, 0.29)&0.69/(\textcolor{red}{0.36}, \textcolor{black}{0.14}, 0.29, 0.21)&1.18&0.76\\
+			&3.3&0.77/(\textcolor{red}{0.38}, 0.29, 0.21, \textcolor{black}{0.12})&0.64/(\textcolor{red}{0.38}, \textcolor{black}{0.12}, 0.29, 0.21)&1.20&0.71\\
+			&&&&\\
+			5			&1.0&0.80/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&0.80/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&1.00&0.80\\
+			&1.1&0.82/(\textcolor{red}{0.21}, 0.21, 0.19, 0.20, \textcolor{black}{0.19})&0.77/(\textcolor{black}{0.19}, 0.21, 0.20, 0.19, \textcolor{red}{0.21})&1.06&0.79\\
+			&1.2&0.81/(\textcolor{red}{0.22}, 0.20, 0.21, 0.19, \textcolor{black}{0.18})&0.76/(0.19, \textcolor{black}{0.18}, 0.20, \textcolor{red}{0.22}, 0.21)&1.06&0.79\\
+			&1.4&0.81/(\textcolor{red}{0.24}, 0.20, 0.22, 0.18, \textcolor{black}{0.16})&0.76/(\textcolor{black}{0.16}, 0.22, 0.18, \textcolor{red}{0.24}, 0.20)&1.07&0.78\\
+			&1.7&0.81/(\textcolor{red}{0.25}, 0.20, 0.23, 0.17, \textcolor{black}{0.15})&0.74/(0.17, \textcolor{red}{0.25}, \textcolor{black}{0.15}, 0.20, 0.23)&1.10&0.77\\
+			&2.0&0.78/(\textcolor{red}{0.27}, 0.23, 0.17, \textcolor{black}{0.13}, 0.20)&0.70/(0.20, 0.17, 0.23, \textcolor{black}{0.13}, \textcolor{red}{0.27})&1.12&0.75\\
+			&2.5&0.76/(\textcolor{black}{0.11}, 0.16, 0.20, \textcolor{red}{0.29}, 0.24)&0.63/(0.24, 0.16, \textcolor{red}{0.29}, \textcolor{black}{0.11}, 0.20)&1.20&0.71\\
+			&3.3&0.74/(\textcolor{black}{0.09}, 0.15, 0.25, \textcolor{red}{0.31}, 0.20)&0.54/(0.25, 0.15, 0.20, \textcolor{black}{0.09}, \textcolor{red}{0.31})&1.37&0.65\\
+			&&&&\\
+			6			&1.0&0.77/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&0.77/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&1.00&0.77\\
+			&1.1&0.79/(0.16, 0.16, 0.17, \textcolor{red}{0.18}, 0.17, \textcolor{black}{0.16})&0.73/(0.16, 0.17, 0.17, 0.16, \textcolor{black}{0.16}, \textcolor{red}{0.18})&1.07&0.76\\
+			&1.2&0.78/(0.18, 0.16, \textcolor{red}{0.19}, \textcolor{black}{0.15}, 0.16, 0.17)&0.73/(\textcolor{red}{0.19}, \textcolor{black}{0.15}, 0.16, 0.16, 0.17, 0.18)&1.08&0.75\\
+			&1.4&0.77/(0.18, 0.17, 0.16, \textcolor{red}{0.20}, \textcolor{black}{0.14}, 0.15)&0.70/(\textcolor{red}{0.20}, 0.16, 0.15, 0.18, \textcolor{black}{0.14}, 0.17)&1.10&0.74\\
+			&1.7&0.77/(0.17, 0.19, \textcolor{red}{0.21}, 0.16, 0.14, \textcolor{black}{0.12})&0.68/(0.14, 0.19, 0.16, \textcolor{red}{0.21}, \textcolor{black}{0.12}, 0.17)&1.12&0.73\\
+			&2.0&0.75/(\textcolor{red}{0.22}, 0.18, 0.16, 0.20, 0.13, \textcolor{black}{0.11})&0.61/(0.16, 0.18, 0.13, 0.20, \textcolor{black}{0.11}, \textcolor{red}{0.22})&1.24&0.70\\
+			&2.5&0.73/(\textcolor{black}{0.10}, 0.12, 0.15, 0.21, \textcolor{red}{0.24}, 0.18)&0.56/(0.15, \textcolor{red}{0.24}, 0.12, 0.18, \textcolor{black}{0.10}, 0.21)&1.30&0.65\\
+			&3.3&0.73/(\textcolor{black}{0.08}, 0.11, 0.15, 0.18, \textcolor{red}{0.26}, 0.22)&0.46/(0.15, 0.11, 0.22, \textcolor{red}{0.26}, \textcolor{black}{0.08}, 0.18)&1.58&0.59\\
+			&&&&\\
+			7			&1.0&0.75/(\textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14})&0.75/(\textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14})&1.00&0.75\\
+			&1.1&0.76/(0.14, 0.14, 0.15, \textcolor{red}{0.15}, 0.15, 0.14, \textcolor{black}{0.14})&0.68/(0.14, 0.15, 0.14, \textcolor{red}{0.15}, \textcolor{black}{0.14}, 0.14, 0.15)&1.12&0.72\\
+			&1.2&0.75/(0.13, \textcolor{red}{0.16}, 0.14, 0.15, 0.14, 0.15, \textcolor{black}{0.13})&0.67/(\textcolor{red}{0.16}, 0.15, 0.14, 0.14, 0.13, 0.15, \textcolor{black}{0.13})&1.12&0.71\\
+			&1.4&0.74/(\textcolor{black}{0.12}, 0.15, 0.13, 0.16, 0.14, 0.13, \textcolor{red}{0.17})&0.65/(0.13, 0.14, 0.13, \textcolor{red}{0.17}, 0.15, \textcolor{black}{0.12}, 0.16)&1.14&0.70\\
+			&1.7&0.73/(\textcolor{black}{0.11}, 0.12, 0.15, 0.13, 0.14, 0.17, \textcolor{red}{0.18})&0.61/(0.13, 0.15, 0.12, 0.17, 0.14, \textcolor{black}{0.11}, \textcolor{red}{0.18})&1.19&0.67\\
+			&2.0&0.72/(\textcolor{black}{0.10}, 0.11, 0.16, 0.17, \textcolor{red}{0.19}, 0.14, 0.13)&0.56/(0.17, 0.13, \textcolor{red}{0.19}, 0.11, 0.14, \textcolor{black}{0.10}, 0.16)&1.28&0.64\\
+			&2.5&0.72/(\textcolor{black}{0.08}, 0.10, 0.18, \textcolor{red}{0.20}, 0.14, 0.16, 0.12)&0.49/(0.18, 0.14, 0.12, 0.10, 0.16, \textcolor{black}{0.08}, \textcolor{red}{0.20})&1.49&0.60\\
+			&3.3&0.70/(\textcolor{black}{0.07}, 0.09, 0.12, 0.14, 0.19, 0.17, \textcolor{red}{0.22})&0.41/(0.12, 0.19, \textcolor{red}{0.22}, 0.09, 0.14, \textcolor{black}{0.07}, 0.17)&1.72&0.54\\
+			&&&&\\
+			8			&1.0&0.66/(\textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12})&0.66/(\textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12})&1.00&0.66\\
+			&1.1&0.72/(0.13, 0.12, \textcolor{black}{0.12}, 0.13, 0.12, 0.13, \textcolor{red}{0.13}, 0.12)&0.60/(0.13, 0.12, 0.13, \textcolor{red}{0.13}, \textcolor{black}{0.12}, 0.12, 0.13, 0.12)&1.19&0.67\\
+			&1.2&0.71/(0.12, \textcolor{black}{0.11}, 0.13, 0.13, 0.12, 0.13, \textcolor{red}{0.14}, 0.12)&0.60/(0.12, \textcolor{red}{0.14}, 0.12, 0.12, 0.13, 0.13, \textcolor{black}{0.11}, 0.13)&1.17&0.66\\
+			&1.4&0.70/(0.11, \textcolor{black}{0.10}, 0.13, 0.12, \textcolor{red}{0.15}, 0.14, 0.12, 0.13)&0.58/(0.14, 0.12, \textcolor{red}{0.15}, 0.13, 0.11, 0.13, \textcolor{black}{0.10}, 0.12)&1.21&0.64\\
+			&1.7&0.70/(\textcolor{black}{0.09}, 0.10, 0.15, 0.13, 0.14, 0.12, 0.11, \textcolor{red}{0.16})&0.54/(0.13, \textcolor{red}{0.16}, 0.11, 0.12, 0.10, 0.14, \textcolor{black}{0.09}, 0.15)&1.29&0.62\\
+			&2.0&0.68/(\textcolor{black}{0.08}, 0.10, 0.12, 0.13, \textcolor{red}{0.17}, 0.14, 0.15, 0.11)&0.49/(\textcolor{red}{0.17}, 0.13, 0.12, 0.14, 0.11, 0.10, \textcolor{black}{0.08}, 0.15)&1.39&0.59\\
+			&2.5&0.68/(\textcolor{black}{0.07}, 0.09, 0.10, 0.12, 0.15, \textcolor{red}{0.18}, 0.16, 0.13)&0.42/(0.16, 0.10, \textcolor{red}{0.18}, 0.13, 0.09, 0.12, \textcolor{black}{0.07}, 0.15)&1.59&0.55\\
+			&3.3&0.67/(\textcolor{black}{0.06}, 0.08, 0.10, 0.12, 0.13, 0.15, \textcolor{red}{0.19}, 0.17)&0.36/(0.15, 0.13, \textcolor{red}{0.19}, 0.10, 0.08, 0.17, \textcolor{black}{0.06}, 0.12)&1.86&0.50\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 3 stations, cf=0.9}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&0.85/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&0.85/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&0.85\\
+			&1.1&0.86/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&0.83/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&1.03&0.84\\
+			&1.2&0.86/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&0.81/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&1.07&0.84\\
+			&1.4&0.87/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&0.80/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&1.08&0.83\\
+			&1.7&0.85/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&0.75/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&1.14&0.80\\
+			&2.0&0.84/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&0.75/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&1.12&0.80\\
+			&2.5&0.81/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&0.70/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&1.16&0.75\\
+			&3.3&0.64/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&0.60/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&1.06&0.62\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 5 stations, cf=0.9}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&0.90/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&0.90/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&0.90\\
+			&1.1&0.90/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&0.87/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&1.03&0.89\\
+			&1.2&0.91/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&0.87/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&1.05&0.89\\
+			&1.4&0.89/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&0.86/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&1.03&0.88\\
+			&1.7&0.89/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&0.84/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&1.06&0.86\\
+			&2.0&0.86/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&0.80/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&1.08&0.83\\
+			&2.5&0.86/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&0.80/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&1.08&0.83\\
+			&3.3&0.86/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&0.77/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&1.12&0.81\\
+			&&&&\\
+			3			&1.0&0.81/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&0.81/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00&0.81\\
+			&1.1&0.83/(\textcolor{red}{0.35}, 0.33, \textcolor{black}{0.32})&0.80/(\textcolor{red}{0.35}, \textcolor{black}{0.32}, 0.33)&1.04&0.81\\
+			&1.2&0.84/(0.33, \textcolor{red}{0.37}, \textcolor{black}{0.30})&0.77/(\textcolor{black}{0.30}, \textcolor{red}{0.37}, 0.33)&1.09&0.80\\
+			&1.4&0.82/(\textcolor{red}{0.39}, 0.33, \textcolor{black}{0.27})&0.76/(\textcolor{black}{0.27}, 0.33, \textcolor{red}{0.39})&1.07&0.80\\
+			&1.7&0.82/(\textcolor{red}{0.42}, 0.33, \textcolor{black}{0.25})&0.72/(\textcolor{black}{0.25}, \textcolor{red}{0.42}, 0.33)&1.14&0.78\\
+			&2.0&0.80/(\textcolor{red}{0.44}, 0.33, \textcolor{black}{0.22})&0.72/(0.33, \textcolor{black}{0.22}, \textcolor{red}{0.44})&1.12&0.76\\
+			&2.5&0.75/(\textcolor{red}{0.48}, 0.33, \textcolor{black}{0.19})&0.71/(\textcolor{red}{0.48}, \textcolor{black}{0.19}, 0.33)&1.07&0.72\\
+			&3.3&0.71/(\textcolor{black}{0.15}, 0.33, \textcolor{red}{0.51})&0.60/(\textcolor{red}{0.51}, \textcolor{black}{0.15}, 0.33)&1.18&0.66\\
+			&&&&\\
+			4			&1.0&0.75/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&0.75/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00&0.75\\
+			&1.1&0.77/(0.25, \textcolor{red}{0.26}, 0.25, \textcolor{black}{0.24})&0.73/(\textcolor{black}{0.24}, 0.25, 0.25, \textcolor{red}{0.26})&1.05&0.74\\
+			&1.2&0.77/(0.24, \textcolor{black}{0.22}, \textcolor{red}{0.28}, 0.26)&0.71/(0.26, \textcolor{black}{0.22}, 0.24, \textcolor{red}{0.28})&1.08&0.74\\
+			&1.4&0.75/(\textcolor{red}{0.29}, 0.26, 0.24, \textcolor{black}{0.21})&0.67/(0.24, 0.26, \textcolor{black}{0.21}, \textcolor{red}{0.29})&1.12&0.72\\
+			&1.7&0.73/(0.27, \textcolor{red}{0.31}, 0.23, \textcolor{black}{0.19})&0.64/(0.23, \textcolor{red}{0.31}, \textcolor{black}{0.19}, 0.27)&1.13&0.70\\
+			&2.0&0.71/(\textcolor{black}{0.17}, 0.22, 0.28, \textcolor{red}{0.33})&0.60/(0.22, 0.28, \textcolor{black}{0.17}, \textcolor{red}{0.33})&1.19&0.66\\
+			&2.5&0.70/(\textcolor{black}{0.14}, 0.21, 0.29, \textcolor{red}{0.36})&0.56/(0.29, 0.21, \textcolor{black}{0.14}, \textcolor{red}{0.36})&1.26&0.62\\
+			&3.3&0.70/(\textcolor{black}{0.12}, 0.21, \textcolor{red}{0.38}, 0.29)&0.45/(0.29, 0.21, \textcolor{black}{0.12}, \textcolor{red}{0.38})&1.55&0.55\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 7 stations, cf=0.9}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&0.90/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&0.90/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&0.90\\
+			&1.1&0.92/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&0.92/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&1.00&0.92\\
+			&1.2&0.90/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&0.89/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&1.01&0.90\\
+			&1.4&0.89/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&0.89/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&1.00&0.89\\
+			&1.7&0.91/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&0.86/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&1.06&0.89\\
+			&2.0&0.84/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&0.82/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&1.03&0.83\\
+			&2.5&0.82/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&0.79/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&1.05&0.81\\
+			&3.3&0.79/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&0.75/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&1.05&0.77\\
+			&&&&\\
+			3			&1.0&0.85/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&0.85/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00&0.85\\
+			&1.1&0.86/(\textcolor{red}{0.35}, \textcolor{black}{0.32}, 0.33)&0.84/(0.33, \textcolor{black}{0.32}, \textcolor{red}{0.35})&1.03&0.85\\
+			&1.2&0.87/(0.33, \textcolor{black}{0.30}, \textcolor{red}{0.37})&0.83/(\textcolor{black}{0.30}, \textcolor{red}{0.37}, 0.33)&1.04&0.85\\
+			&1.4&0.86/(\textcolor{red}{0.39}, 0.33, \textcolor{black}{0.27})&0.82/(\textcolor{black}{0.27}, \textcolor{red}{0.39}, 0.33)&1.05&0.84\\
+			&1.7&0.86/(\textcolor{red}{0.42}, \textcolor{black}{0.25}, 0.33)&0.81/(0.33, \textcolor{red}{0.42}, \textcolor{black}{0.25})&1.06&0.83\\
+			&2.0&0.84/(\textcolor{red}{0.44}, \textcolor{black}{0.22}, 0.33)&0.78/(\textcolor{black}{0.22}, \textcolor{red}{0.44}, 0.33)&1.08&0.81\\
+			&2.5&0.79/(\textcolor{red}{0.48}, 0.33, \textcolor{black}{0.19})&0.74/(0.33, \textcolor{red}{0.48}, \textcolor{black}{0.19})&1.07&0.77\\
+			&3.3&0.77/(\textcolor{red}{0.51}, 0.33, \textcolor{black}{0.15})&0.69/(0.33, \textcolor{red}{0.51}, \textcolor{black}{0.15})&1.12&0.73\\
+			&&&&\\
+			4			&1.0&0.81/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&0.81/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00&0.81\\
+			&1.1&0.82/(\textcolor{red}{0.26}, \textcolor{black}{0.24}, 0.25, 0.25)&0.78/(\textcolor{black}{0.24}, 0.25, 0.25, \textcolor{red}{0.26})&1.05&0.80\\
+			&1.2&0.81/(\textcolor{red}{0.28}, 0.26, \textcolor{black}{0.22}, 0.24)&0.77/(0.24, 0.26, \textcolor{black}{0.22}, \textcolor{red}{0.28})&1.06&0.79\\
+			&1.4&0.82/(\textcolor{red}{0.29}, 0.26, 0.24, \textcolor{black}{0.21})&0.76/(\textcolor{black}{0.21}, 0.26, \textcolor{red}{0.29}, 0.24)&1.08&0.79\\
+			&1.7&0.81/(\textcolor{red}{0.31}, 0.23, \textcolor{black}{0.19}, 0.27)&0.74/(\textcolor{black}{0.19}, \textcolor{red}{0.31}, 0.23, 0.27)&1.09&0.77\\
+			&2.0&0.78/(\textcolor{red}{0.33}, 0.22, 0.28, \textcolor{black}{0.17})&0.71/(0.28, \textcolor{black}{0.17}, \textcolor{red}{0.33}, 0.22)&1.10&0.75\\
+			&2.5&0.78/(\textcolor{red}{0.36}, 0.29, 0.21, \textcolor{black}{0.14})&0.65/(0.21, 0.29, \textcolor{black}{0.14}, \textcolor{red}{0.36})&1.19&0.71\\
+			&3.3&0.74/(\textcolor{black}{0.12}, 0.21, \textcolor{red}{0.38}, 0.29)&0.56/(\textcolor{red}{0.38}, \textcolor{black}{0.12}, 0.29, 0.21)&1.31&0.64\\
+			&&&&\\
+			5			&1.0&0.77/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&0.77/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&1.00&0.77\\
+			&1.1&0.78/(0.21, 0.19, 0.20, \textcolor{black}{0.19}, \textcolor{red}{0.21})&0.72/(\textcolor{black}{0.19}, 0.21, 0.19, \textcolor{red}{0.21}, 0.20)&1.09&0.75\\
+			&1.2&0.77/(\textcolor{red}{0.22}, 0.20, \textcolor{black}{0.18}, 0.19, 0.21)&0.72/(\textcolor{red}{0.22}, 0.19, 0.21, \textcolor{black}{0.18}, 0.20)&1.08&0.75\\
+			&1.4&0.79/(\textcolor{red}{0.24}, 0.20, 0.22, 0.18, \textcolor{black}{0.16})&0.70/(0.18, \textcolor{red}{0.24}, \textcolor{black}{0.16}, 0.22, 0.20)&1.12&0.74\\
+			&1.7&0.75/(\textcolor{red}{0.25}, 0.23, 0.17, \textcolor{black}{0.15}, 0.20)&0.67/(0.17, \textcolor{red}{0.25}, \textcolor{black}{0.15}, 0.20, 0.23)&1.12&0.71\\
+			&2.0&0.74/(\textcolor{black}{0.13}, 0.17, \textcolor{red}{0.27}, 0.23, 0.20)&0.61/(0.17, 0.23, 0.20, \textcolor{black}{0.13}, \textcolor{red}{0.27})&1.21&0.68\\
+			&2.5&0.72/(\textcolor{black}{0.11}, 0.16, 0.24, \textcolor{red}{0.29}, 0.20)&0.56/(\textcolor{red}{0.29}, 0.16, 0.20, \textcolor{black}{0.11}, 0.24)&1.28&0.64\\
+			&3.3&0.71/(\textcolor{black}{0.09}, 0.15, \textcolor{red}{0.31}, 0.20, 0.25)&0.46/(0.15, \textcolor{red}{0.31}, 0.25, \textcolor{black}{0.09}, 0.20)&1.55&0.58\\
+			&&&&\\
+			6			&1.0&0.67/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&0.67/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&1.00&0.67\\
+			&1.1&0.73/(0.17, 0.16, 0.16, 0.17, \textcolor{red}{0.18}, \textcolor{black}{0.16})&0.64/(0.17, \textcolor{black}{0.16}, 0.17, 0.16, 0.16, \textcolor{red}{0.18})&1.15&0.69\\
+			&1.2&0.73/(0.17, 0.16, \textcolor{black}{0.15}, \textcolor{red}{0.19}, 0.18, 0.16)&0.63/(\textcolor{red}{0.19}, 0.16, 0.16, 0.17, \textcolor{black}{0.15}, 0.18)&1.15&0.68\\
+			&1.4&0.72/(0.16, \textcolor{black}{0.14}, 0.15, 0.17, 0.18, \textcolor{red}{0.20})&0.60/(0.16, 0.18, 0.15, 0.17, \textcolor{black}{0.14}, \textcolor{red}{0.20})&1.19&0.67\\
+			&1.7&0.71/(\textcolor{black}{0.12}, 0.14, 0.19, 0.16, \textcolor{red}{0.21}, 0.17)&0.55/(\textcolor{red}{0.21}, 0.14, 0.16, 0.17, \textcolor{black}{0.12}, 0.19)&1.28&0.65\\
+			&2.0&0.70/(\textcolor{black}{0.11}, 0.16, \textcolor{red}{0.22}, 0.20, 0.18, 0.13)&0.52/(0.18, 0.13, 0.20, 0.16, \textcolor{black}{0.11}, \textcolor{red}{0.22})&1.35&0.61\\
+			&2.5&0.70/(\textcolor{black}{0.10}, 0.12, \textcolor{red}{0.24}, 0.21, 0.18, 0.15)&0.47/(0.21, 0.15, \textcolor{red}{0.24}, 0.12, \textcolor{black}{0.10}, 0.18)&1.47&0.57\\
+			&3.3&0.70/(\textcolor{black}{0.08}, 0.11, 0.15, 0.18, \textcolor{red}{0.26}, 0.22)&0.40/(0.18, 0.15, 0.11, \textcolor{red}{0.26}, \textcolor{black}{0.08}, 0.22)&1.77&0.52\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\begin{table}[!htbp]
+	\small
+	\caption{Throughput of different worker orders, 9 stations, cf=0.9}
+	\setlength{\tabcolsep}{1mm}
+	\renewcommand\baselinestretch{0.5}\selectfont
+	\begin{center}
+		\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccllccccc}
+			\toprule
+			N &$\frac{\max\{v_i\}}{\min\{v_i\}}$ &Best(\textit{Throughput}/Sequence) &Worst(\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\textit{Throughput}) \\
+				\midrule
+			2			&1.0&0.93/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&0.93/(\textcolor{red}{0.50}, \textcolor{red}{0.50})&1.00&0.93\\
+			&1.1&0.93/(\textcolor{black}{0.47}, \textcolor{red}{0.53})&0.93/(\textcolor{red}{0.53}, \textcolor{black}{0.47})&1.01&0.93\\
+			&1.2&0.92/(\textcolor{black}{0.44}, \textcolor{red}{0.56})&0.92/(\textcolor{red}{0.56}, \textcolor{black}{0.44})&1.01&0.92\\
+			&1.4&0.91/(\textcolor{black}{0.41}, \textcolor{red}{0.59})&0.86/(\textcolor{red}{0.59}, \textcolor{black}{0.41})&1.05&0.89\\
+			&1.7&0.91/(\textcolor{black}{0.38}, \textcolor{red}{0.62})&0.82/(\textcolor{red}{0.62}, \textcolor{black}{0.38})&1.12&0.86\\
+			&2.0&0.88/(\textcolor{black}{0.33}, \textcolor{red}{0.67})&0.78/(\textcolor{red}{0.67}, \textcolor{black}{0.33})&1.13&0.83\\
+			&2.5&0.85/(\textcolor{black}{0.29}, \textcolor{red}{0.71})&0.74/(\textcolor{red}{0.71}, \textcolor{black}{0.29})&1.14&0.79\\
+			&3.3&0.83/(\textcolor{black}{0.23}, \textcolor{red}{0.77})&0.70/(\textcolor{red}{0.77}, \textcolor{black}{0.23})&1.18&0.76\\
+			&&&&\\
+			3			&1.0&0.89/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&0.89/(\textcolor{red}{0.33}, \textcolor{red}{0.33}, \textcolor{red}{0.33})&1.00&0.89\\
+			&1.1&0.89/(\textcolor{red}{0.35}, \textcolor{black}{0.32}, 0.33)&0.87/(\textcolor{black}{0.32}, \textcolor{red}{0.35}, 0.33)&1.02&0.88\\
+			&1.2&0.88/(\textcolor{red}{0.37}, \textcolor{black}{0.30}, 0.33)&0.86/(0.33, \textcolor{red}{0.37}, \textcolor{black}{0.30})&1.03&0.87\\
+			&1.4&0.87/(\textcolor{red}{0.39}, \textcolor{black}{0.27}, 0.33)&0.84/(0.33, \textcolor{red}{0.39}, \textcolor{black}{0.27})&1.04&0.86\\
+			&1.7&0.87/(\textcolor{red}{0.42}, \textcolor{black}{0.25}, 0.33)&0.81/(0.33, \textcolor{red}{0.42}, \textcolor{black}{0.25})&1.07&0.84\\
+			&2.0&0.85/(0.33, \textcolor{black}{0.22}, \textcolor{red}{0.44})&0.77/(0.33, \textcolor{red}{0.44}, \textcolor{black}{0.22})&1.11&0.82\\
+			&2.5&0.83/(\textcolor{black}{0.19}, \textcolor{red}{0.48}, 0.33)&0.74/(0.33, \textcolor{red}{0.48}, \textcolor{black}{0.19})&1.13&0.80\\
+			&3.3&0.83/(0.33, \textcolor{black}{0.15}, \textcolor{red}{0.51})&0.72/(0.33, \textcolor{red}{0.51}, \textcolor{black}{0.15})&1.17&0.77\\
+			&&&&\\
+			4			&1.0&0.83/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&0.83/(\textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25}, \textcolor{red}{0.25})&1.00&0.83\\
+			&1.1&0.85/(0.25, \textcolor{red}{0.26}, \textcolor{black}{0.24}, 0.25)&0.82/(0.25, \textcolor{red}{0.26}, 0.25, \textcolor{black}{0.24})&1.03&0.83\\
+			&1.2&0.85/(\textcolor{red}{0.28}, 0.26, \textcolor{black}{0.22}, 0.24)&0.81/(\textcolor{black}{0.22}, \textcolor{red}{0.28}, 0.24, 0.26)&1.05&0.83\\
+			&1.4&0.84/(\textcolor{red}{0.29}, 0.24, \textcolor{black}{0.21}, 0.26)&0.80/(\textcolor{black}{0.21}, \textcolor{red}{0.29}, 0.26, 0.24)&1.05&0.82\\
+			&1.7&0.83/(\textcolor{red}{0.31}, 0.27, 0.23, \textcolor{black}{0.19})&0.78/(\textcolor{black}{0.19}, 0.27, \textcolor{red}{0.31}, 0.23)&1.06&0.81\\
+			&2.0&0.82/(\textcolor{red}{0.33}, 0.22, 0.28, \textcolor{black}{0.17})&0.75/(0.28, 0.22, \textcolor{red}{0.33}, \textcolor{black}{0.17})&1.10&0.79\\
+			&2.5&0.81/(\textcolor{red}{0.36}, 0.29, \textcolor{black}{0.14}, 0.21)&0.71/(\textcolor{black}{0.14}, \textcolor{red}{0.36}, 0.29, 0.21)&1.14&0.76\\
+			&3.3&0.77/(\textcolor{black}{0.12}, 0.21, \textcolor{red}{0.38}, 0.29)&0.64/(\textcolor{red}{0.38}, \textcolor{black}{0.12}, 0.29, 0.21)&1.20&0.71\\
+			&&&&\\
+			5			&1.0&0.79/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&0.79/(\textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20}, \textcolor{red}{0.20})&1.00&0.79\\
+			&1.1&0.81/(\textcolor{red}{0.21}, 0.21, \textcolor{black}{0.19}, 0.19, 0.20)&0.77/(0.20, 0.21, 0.19, \textcolor{red}{0.21}, \textcolor{black}{0.19})&1.05&0.79\\
+			&1.2&0.81/(\textcolor{red}{0.22}, 0.20, 0.21, \textcolor{black}{0.18}, 0.19)&0.76/(\textcolor{black}{0.18}, 0.20, 0.21, \textcolor{red}{0.22}, 0.19)&1.07&0.79\\
+			&1.4&0.81/(0.22, \textcolor{red}{0.24}, 0.18, 0.20, \textcolor{black}{0.16})&0.76/(\textcolor{black}{0.16}, \textcolor{red}{0.24}, 0.18, 0.22, 0.20)&1.07&0.78\\
+			&1.7&0.81/(\textcolor{red}{0.25}, 0.23, 0.20, 0.17, \textcolor{black}{0.15})&0.73/(0.17, \textcolor{red}{0.25}, \textcolor{black}{0.15}, 0.23, 0.20)&1.11&0.77\\
+			&2.0&0.79/(\textcolor{red}{0.27}, 0.23, 0.20, 0.17, \textcolor{black}{0.13})&0.69/(0.17, \textcolor{red}{0.27}, \textcolor{black}{0.13}, 0.20, 0.23)&1.15&0.75\\
+			&2.5&0.76/(\textcolor{black}{0.11}, 0.16, 0.20, 0.24, \textcolor{red}{0.29})&0.66/(0.16, 0.20, 0.24, \textcolor{black}{0.11}, \textcolor{red}{0.29})&1.16&0.71\\
+			&3.3&0.75/(\textcolor{black}{0.09}, 0.15, 0.20, 0.25, \textcolor{red}{0.31})&0.55/(0.20, 0.15, \textcolor{red}{0.31}, \textcolor{black}{0.09}, 0.25)&1.37&0.64\\
+			&&&&\\
+			6			&1.0&0.77/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&0.77/(\textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17}, \textcolor{red}{0.17})&1.00&0.77\\
+			&1.1&0.79/(0.17, \textcolor{red}{0.18}, 0.16, 0.17, 0.16, \textcolor{black}{0.16})&0.73/(0.17, 0.17, 0.16, \textcolor{black}{0.16}, 0.16, \textcolor{red}{0.18})&1.08&0.76\\
+			&1.2&0.79/(\textcolor{red}{0.19}, 0.17, 0.16, 0.18, \textcolor{black}{0.15}, 0.16)&0.72/(0.16, \textcolor{black}{0.15}, 0.17, 0.16, \textcolor{red}{0.19}, 0.18)&1.09&0.75\\
+			&1.4&0.78/(\textcolor{red}{0.20}, \textcolor{black}{0.14}, 0.17, 0.18, 0.15, 0.16)&0.71/(0.17, 0.18, 0.15, 0.16, \textcolor{black}{0.14}, \textcolor{red}{0.20})&1.10&0.74\\
+			&1.7&0.77/(\textcolor{red}{0.21}, 0.19, 0.17, 0.16, \textcolor{black}{0.12}, 0.14)&0.68/(0.16, \textcolor{red}{0.21}, 0.14, 0.19, \textcolor{black}{0.12}, 0.17)&1.14&0.72\\
+			&2.0&0.75/(\textcolor{red}{0.22}, 0.20, 0.18, 0.16, 0.13, \textcolor{black}{0.11})&0.63/(0.20, 0.18, 0.16, 0.13, \textcolor{black}{0.11}, \textcolor{red}{0.22})&1.20&0.69\\
+			&2.5&0.74/(\textcolor{black}{0.10}, 0.12, 0.21, \textcolor{red}{0.24}, 0.18, 0.15)&0.55/(0.12, 0.18, 0.21, 0.15, \textcolor{black}{0.10}, \textcolor{red}{0.24})&1.35&0.65\\
+			&3.3&0.72/(\textcolor{black}{0.08}, 0.11, 0.15, 0.18, \textcolor{red}{0.26}, 0.22)&0.45/(0.22, 0.11, \textcolor{red}{0.26}, 0.15, \textcolor{black}{0.08}, 0.18)&1.59&0.59\\
+			&&&&\\
+			7			&1.0&0.71/(\textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14})&0.71/(\textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14}, \textcolor{red}{0.14})&1.00&0.71\\
+			&1.1&0.75/(0.14, \textcolor{black}{0.14}, 0.15, 0.15, 0.14, 0.14, \textcolor{red}{0.15})&0.68/(0.14, 0.15, 0.15, \textcolor{black}{0.14}, \textcolor{red}{0.15}, 0.14, 0.14)&1.12&0.72\\
+			&1.2&0.75/(0.13, 0.14, 0.15, 0.14, 0.15, \textcolor{red}{0.16}, \textcolor{black}{0.13})&0.66/(0.13, 0.15, \textcolor{black}{0.13}, 0.14, 0.14, \textcolor{red}{0.16}, 0.15)&1.14&0.71\\
+			&1.4&0.74/(0.13, \textcolor{black}{0.12}, 0.14, \textcolor{red}{0.17}, 0.16, 0.15, 0.13)&0.63/(0.16, 0.13, 0.14, 0.13, \textcolor{red}{0.17}, 0.15, \textcolor{black}{0.12})&1.17&0.69\\
+			&1.7&0.72/(\textcolor{black}{0.11}, 0.12, 0.14, 0.13, 0.15, \textcolor{red}{0.18}, 0.17)&0.61/(0.14, \textcolor{red}{0.18}, 0.12, 0.15, 0.13, \textcolor{black}{0.11}, 0.17)&1.18&0.67\\
+			&2.0&0.72/(0.11, \textcolor{black}{0.10}, 0.13, 0.17, \textcolor{red}{0.19}, 0.14, 0.16)&0.56/(\textcolor{red}{0.19}, 0.13, 0.16, 0.11, 0.17, \textcolor{black}{0.10}, 0.14)&1.28&0.64\\
+			&2.5&0.71/(\textcolor{black}{0.08}, 0.10, 0.12, 0.16, \textcolor{red}{0.20}, 0.18, 0.14)&0.49/(0.10, \textcolor{red}{0.20}, 0.12, 0.18, 0.16, \textcolor{black}{0.08}, 0.14)&1.46&0.60\\
+			&3.3&0.69/(\textcolor{black}{0.07}, 0.09, 0.12, 0.14, \textcolor{red}{0.22}, 0.19, 0.17)&0.40/(0.09, 0.12, 0.14, 0.19, 0.17, \textcolor{black}{0.07}, \textcolor{red}{0.22})&1.71&0.54\\
+			&&&&\\
+			8			&1.0&0.66/(\textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12})&0.66/(\textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12}, \textcolor{red}{0.12})&1.00&0.66\\
+			&1.1&0.72/(0.12, \textcolor{black}{0.12}, 0.12, 0.13, 0.13, \textcolor{red}{0.13}, 0.13, 0.12)&0.60/(0.13, 0.12, 0.13, 0.12, 0.13, \textcolor{red}{0.13}, 0.12, \textcolor{black}{0.12})&1.20&0.66\\
+			&1.2&0.71/(0.12, 0.12, \textcolor{red}{0.14}, 0.13, \textcolor{black}{0.11}, 0.12, 0.13, 0.13)&0.59/(\textcolor{red}{0.14}, 0.13, 0.12, 0.13, \textcolor{black}{0.11}, 0.12, 0.12, 0.13)&1.20&0.65\\
+			&1.4&0.70/(\textcolor{black}{0.10}, 0.11, \textcolor{red}{0.15}, 0.12, 0.13, 0.14, 0.13, 0.12)&0.57/(\textcolor{red}{0.15}, 0.13, 0.13, 0.11, \textcolor{black}{0.10}, 0.12, 0.12, 0.14)&1.22&0.64\\
+			&1.7&0.69/(0.10, \textcolor{black}{0.09}, 0.11, 0.15, 0.14, 0.13, \textcolor{red}{0.16}, 0.12)&0.54/(0.14, 0.15, 0.13, \textcolor{red}{0.16}, 0.10, 0.12, \textcolor{black}{0.09}, 0.11)&1.28&0.62\\
+			&2.0&0.68/(\textcolor{black}{0.08}, 0.10, 0.11, 0.12, 0.13, \textcolor{red}{0.17}, 0.14, 0.15)&0.48/(\textcolor{red}{0.17}, 0.14, 0.12, 0.13, 0.10, 0.11, \textcolor{black}{0.08}, 0.15)&1.42&0.59\\
+			&2.5&0.69/(\textcolor{black}{0.07}, 0.09, 0.10, 0.12, 0.15, 0.16, \textcolor{red}{0.18}, 0.13)&0.43/(0.16, 0.09, 0.15, 0.13, 0.12, 0.10, \textcolor{black}{0.07}, \textcolor{red}{0.18})&1.60&0.55\\
+			&3.3&0.67/(\textcolor{black}{0.06}, 0.08, 0.10, 0.13, 0.17, 0.15, \textcolor{red}{0.19}, 0.12)&0.36/(0.15, 0.10, 0.08, \textcolor{red}{0.19}, 0.13, 0.12, \textcolor{black}{0.06}, 0.17)&1.88&0.50\\
+			\bottomrule
+		\end{tabular}}
+	\end{center}
+\end{table}
+\end{document}
+

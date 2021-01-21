@@ -37,7 +37,7 @@ def Highlight(order):
 
 
 def GetLatexTableAvg(stationNum, dataList, cf):
-    title = 'Efficiency of different worker orders, %d stations, cf=%.1f' % (
+    title = 'Throughput of different worker orders, %d stations, cf=%.1f' % (
         stationNum, cf)
     info = '\\begin{table}[!htbp]\n'
     # info += '\t\\centering\n'
@@ -49,7 +49,7 @@ def GetLatexTableAvg(stationNum, dataList, cf):
     info += '\t\t\\resizebox{\\textwidth}{!}{\n'
     info += '\t\t\\begin{tabular}{ccllccccc}\n'
     info += '\t\t\t\\toprule\n'
-    info += '\t\t\tN &$\\frac{\\max\{v_i\}}{\\min\{v_i\}}$ &Best(\\textit{Efficiency}/Sequence) &Worst(\\textit{Efficiency}/Sequence) & Rate(Best/Worst) &Ave(\\textit{Efficiency}) \\\\\n'
+    info += '\t\t\tN &$\\frac{\\max\{v_i\}}{\\min\{v_i\}}$ &Best(\\textit{Throughput}/Sequence) &Worst(\\textit{Throughput}/Sequence) & Rate(Best/Worst) &Ave(\\textit{Throughput}) \\\\\n'
     info += '\t\t\t\t\\midrule\n'
 
     for workerNum in dataList:

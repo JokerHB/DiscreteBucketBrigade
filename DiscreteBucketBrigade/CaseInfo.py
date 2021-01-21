@@ -160,7 +160,7 @@ if __name__ == "__main__":
 
             bestList = []
 
-            resultPath = './ExperResult-20210117/result-r-%.1f-wc-cf-%.1f.csv' % (
+            resultPath = './ExperResult-20210120/result-r-%.1f-wc-cf-%.1f.csv' % (
                 r, cf)
             with open(resultPath, 'r') as f:
                 data = f.readlines()
