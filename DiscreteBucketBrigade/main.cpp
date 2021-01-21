@@ -155,7 +155,7 @@ int main(int argc, const char *argv[])
             }
             else
             {
-                iterNum = 30;
+                iterNum = 100;
             }
 
             vector<double> throughputs;
