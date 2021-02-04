@@ -56,3 +56,10 @@ DiscreteBucketBrigade.xcodeproj/
 
 # pycharm files
 .idea/
+
+# icloud
+*.icloud
+
+# tar.gz
+*.gz
+
